@@ -1,1 +1,1 @@
-# new_project
+# bright_lights_page

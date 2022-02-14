@@ -27,5 +27,11 @@
 }
 
 .wrapper {
+    max-width: 1920px;
     font-family: Poppins, sans-serif;
+    font-weight: normal;
+    background-color: #1c1b21;
+    background-image: url('../img/background_picture.png');
+    background-repeat: no-repeat;
+    background-position: top;
 }

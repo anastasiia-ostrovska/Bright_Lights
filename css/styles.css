@@ -84,9 +84,7 @@ body {
 
 .header_navigation > li {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    /*padding-top: 12px;*/
     list-style: none;
 }
 
@@ -94,6 +92,7 @@ body {
 .main_container {
     padding: 0 405px;
 }
+
 
 .section_one {
     display: flex;

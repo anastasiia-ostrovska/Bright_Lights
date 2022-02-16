@@ -289,6 +289,24 @@ div.sec_3_p_container > p:nth-child(2) {
     right: 80px;
 }
 
+.sec_4_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.sec_4_main_img {
+    border-radius: 100%;
+    padding: 18px;
+    background-color: rgba(122, 102, 204, 0.6);
+    /*box-shadow: ;*/
+}
+
+
+
+
+
+
 
 .footer_container {
     padding: 0 693px;

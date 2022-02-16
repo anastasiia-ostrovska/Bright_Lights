@@ -205,15 +205,15 @@ article.section_2_aside > p {
     flex-direction: column;
 }
 
-.section_2_theses_block:first-child {
+.sec_2_block_top {
     margin-right: 40px;
+    margin-bottom: 30px;
 }
 
 div.section_2_theses_block > div {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 30px;
 }
 
 div.section_2_theses_block > div > p {
@@ -231,6 +231,19 @@ div.section_2_theses_block > div > p {
     margin-right: 20px;
 }
 
+.section_2_photos {
+    position: relative;
+}
+
+.sec_2_foreground_img {
+    position: absolute;
+    right: 95px;
+    bottom: 66px;
+}
+
+.sec_2_background_img {
+    padding-top: 127px;
+}
 
 
 .footer_container {

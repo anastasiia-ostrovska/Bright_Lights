@@ -26,6 +26,10 @@
     font-style: normal;
 }
 
+a {
+    text-decoration: none;
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -51,19 +55,11 @@
     margin-bottom: 322px;
 }
 
-.header_labels {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin-right: 65px;
-}
-
-.header_main_label {
+.header_logo {
     display: flex;
     align-items: center;
     padding-top: 0;
-    margin-right: 20px;
+    margin-right: 65px;
 }
 
 .header_text_label {
@@ -182,10 +178,7 @@ h2 {
     font-weight: 700;
     font-size: 48px;
     line-height: 72px;
-}
-
-div.section_2_heading div img {
-    margin-right: 30px;
+    margin-left: 30px;
 }
 
 article.section_2_aside > p {
@@ -292,20 +285,131 @@ div.sec_3_p_container > p:nth-child(2) {
 .sec_4_container {
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
+    margin-bottom: 180px;
 }
 
 .sec_4_main_img {
+    padding-left: 18px;
+}
+
+.sec_4_main_img > img {
     border-radius: 100%;
     padding: 18px;
     background-color: rgba(122, 102, 204, 0.6);
-    /*box-shadow: ;*/
+    box-shadow: 0 0 0 18px rgba(122, 102, 204, 0.3);
 }
 
+.sec_4_tracks_container {
+    display: flex;
+    flex-direction: column;
+}
 
+.section_4_heading {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 60px;
+}
 
+h3 {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 72px;
+    margin-left: 30px;
+}
 
+.sec_4_player {
+    margin-bottom: 50px;
+}
 
+.sec_4_track_list_container {
+    margin-bottom: 50px;
+}
+
+.sec_4_track_list {
+    counter-reset: item;
+    list-style-type: none;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+}
+
+.sec_4_track_not_active {
+    padding-left: 16px;
+    color: white;
+}
+
+.sec_4_track_active {
+    padding-left: 16px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    color: #7A66CC;
+}
+
+div.sec_4_track_list_container > ol > li {
+    display: block;
+    padding-bottom: 20px;
+    list-style-position: inside;
+}
+
+div.sec_4_track_list_container > ol > li:before {
+    content: counter(item, decimal-leading-zero) " ";
+    counter-increment: item;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+    color: #FFFFFF50;
+}
+
+.sec_4_follow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.sec_4_streamings {
+    display: flex;
+    flex-direction: row;
+}
+
+h4 {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+    margin-right: 40px;
+}
+
+.sec_4_streamings > div > a {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: white;
+}
+
+div.sec_4_streamings > div:first-child {
+    margin-right: 30px;
+}
+
+.sec_4_spotify_block .sec_4_itunes_block {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+}
+
+.sec_4_icons {
+    font-size: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-right: 10px;
+}
+
+/*.fa-brands {*/
+/*    height: 30px;*/
+/*    width: 30px;*/
+/*}*/
 
 
 .footer_container {

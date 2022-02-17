@@ -383,6 +383,8 @@ h4 {
 }
 
 .sec_4_streamings > div > a {
+    display: flex;
+    align-items: center;
     font-weight: 600;
     font-size: 14px;
     line-height: 21px;
@@ -406,10 +408,7 @@ div.sec_4_streamings > div:first-child {
     margin-right: 10px;
 }
 
-/*.fa-brands {*/
-/*    height: 30px;*/
-/*    width: 30px;*/
-/*}*/
+
 
 
 .footer_container {

@@ -84,6 +84,9 @@ a {
     list-style: none;
 }
 
+.header_nav_link {
+    color: white;
+}
 
 .main_container {
     padding: 0 405px;

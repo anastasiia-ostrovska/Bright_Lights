@@ -544,7 +544,7 @@ time {
 
 .sec_6_slider_right {
     position: absolute;
-    /*right: 80px;*/
+    right: -80px;
     top: 207px;
     display: flex;
     align-items: center;

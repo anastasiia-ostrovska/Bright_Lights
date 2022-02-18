@@ -92,7 +92,7 @@ a {
     padding: 0 405px;
 }
 
-.section_one {
+.section_1 {
     display: flex;
     flex-direction: column;
     margin-bottom: 179px;
@@ -118,7 +118,7 @@ h1 > span:last-child {
     -webkit-text-stroke: 1px white;
 }
 
-.section_one_player {
+.section_1_player {
     margin-bottom: 130px;
 }
 
@@ -126,17 +126,17 @@ h1 > span:last-child {
 /*    background-color: transparent;*/
 /*}*/
 
-.section_one_pictures > a {
+.section_1_pictures > a {
     text-decoration: none;
 }
 
-.section_one_pictures > a > figure {
+.section_1_pictures > a > figure {
     height: 300px;
     width: 350px;
     position: relative;
 }
 
-.section_one_figcaption {
+.section_1_figcaption {
     position: absolute;
     bottom: 0;
     display: inline-flex;
@@ -151,11 +151,12 @@ h1 > span:last-child {
     border-radius: 20px 0;
 }
 
-.section_one_pictures {
+.section_1_pictures {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
+
 
 .section_2 {
     display: flex;
@@ -242,6 +243,7 @@ div.section_2_theses_block > div > p {
     padding-top: 127px;
 }
 
+
 .sec_3_container {
     position: relative;
     display: flex;
@@ -284,6 +286,7 @@ div.sec_3_p_container > p:nth-child(2) {
     position: absolute;
     right: 80px;
 }
+
 
 .sec_4_container {
     display: flex;
@@ -410,6 +413,55 @@ div.sec_4_streamings > div:first-child {
     padding-bottom: 5px;
     margin-right: 10px;
 }
+
+
+.sec_5_container
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 180px;
+}
+
+.sec_5_central_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sec_5_central_block_top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.sec_5_central_block_bottom {
+    position: relative;
+}
+
+.sec_5_figcaption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 36px;
+    color: #7A66CC;
+}
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,0 +1,155 @@
+@media screen and (min-width: 320px) and (max-width: 425px) {
+
+    .wrapper {
+        padding: 0 25px;
+    }
+
+    .header_container {
+        flex-direction: column;
+        align-items: center;
+        justify-content: stretch;
+        height: auto;
+        margin-top: 25px;
+        margin-bottom: 110px;
+    }
+
+    .header_logo {
+        margin-right: 0;
+        margin-bottom: 30px;
+        width: 60%;
+    }
+
+
+    .header_navigation {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    .header_nav_link {
+        padding: 15px 25px;
+    }
+
+
+    h1 > span:first-child {
+        font-size: 35px;
+        line-height: 55px;
+    }
+
+    h1 > span:last-child {
+        font-size: 53px;
+        line-height: 80px;
+    }
+
+    h1 {
+        margin-bottom: 35px;
+    }
+
+    .section_1 {
+        margin-bottom: 130px;
+    }
+
+    .section_1_pictures {
+        flex-direction: column;
+    }
+
+    .section_1_pictures > a:not(:last-child) > figure {
+        margin-bottom: 30px;
+    }
+
+    .section_1_figcaption {
+        padding: 18px 20px;
+    }
+
+
+    h2 {
+        font-size: 35px;
+        margin-left: 20px;
+    }
+
+    .section_2 {
+        margin-bottom: 250px;
+    }
+
+    .section_2_heading {
+        margin-bottom: 50px;
+    }
+
+    .sec_2_paragraph {
+        margin-bottom: 65px;
+    }
+
+    .section_2_theses {
+        flex-direction: column;
+    }
+
+    .sec_2_block_top, .section_2_theses_block:first-child {
+        margin-bottom: 20px;
+    }
+
+    .section_2_photos {
+        display: none;
+    }
+
+    .sec_3_container {
+        margin-right: 25px;
+        margin-bottom: 130px;
+    }
+
+    .sec_3_p_container {
+        width: auto;
+        padding: 50px 25px;
+        z-index: 1;
+    }
+
+    .sec_3_foreground_img {
+        z-index: 0;
+        opacity: 0.2;
+        right: -25px;
+        top: -120px;
+        width: 100%;
+    }
+
+    .sec_3_quotes {
+        display: none;
+    }
+
+
+    .sec_4_container {
+        flex-direction: column;
+    }
+
+    .section_4_heading {
+        margin-bottom: 30px;
+    }
+
+    h3 {
+        font-size: 35px;
+    }
+
+    .sec_4_track_list {
+        font-size: 16px;
+    }
+
+    h4 {
+        font-size: 22px;
+    }
+
+    div.sec_4_track_list_containe {
+        display: flex;
+        padding-bottom: 22px;
+    }
+
+    div.sec_4_track_list_container > ol > li {
+        display: flex;
+    }
+
+    div.sec_4_streamings > div:first-child {
+        margin-right: 20px;
+    }
+
+    .sec_4_main_img_container {
+        /*display: none;*/
+    }
+
+}

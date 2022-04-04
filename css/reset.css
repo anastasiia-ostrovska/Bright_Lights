@@ -23,10 +23,12 @@ footer, header, hgroup, menu, nav, section {
     display: block;
 }
 html {
-    height: 100%;
+    height: auto;
+    min-height: 100%;
 }
 body {
     line-height: 1;
+    height: auto;
 }
 ol, ul {
     list-style: none;

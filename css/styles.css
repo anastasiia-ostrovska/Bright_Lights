@@ -47,8 +47,8 @@ a {
 .header_container {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     height: 60px;
-    padding: 0 500px;
     margin-top: 30px;
     margin-bottom: 322px;
 }
@@ -60,16 +60,28 @@ a {
     margin-right: 65px;
 }
 
+.header_logo a {
+    display: flex;
+}
+
+.header_logo_img {
+    width: 100%;
+    height: auto;
+}
+
 .header_text_label {
     display: flex;
     padding-top: 12px;
+}
+
+.header_nav_container {
+    display: flex;
 }
 
 .header_navigation {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 632px;
     height: 60px;
     font-weight: 600;
     font-size: 18px;
@@ -84,10 +96,12 @@ a {
 
 .header_nav_link {
     color: white;
+    padding: 28px;
 }
 
 .main_container {
-    padding: 0 405px;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
 .section_1 {
@@ -120,17 +134,26 @@ h1 > span:last-child {
     margin-bottom: 130px;
 }
 
-/*.section_one_player > audio::-webkit-media-controls-panel {*/
-/*    background-color: transparent;*/
-/*}*/
+.section_1_pictures {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
 .section_1_pictures > a {
     text-decoration: none;
 }
 
+.sec_1_img {
+    width: 100%;
+    height: auto;
+}
+
+.sec_1_img_container {
+    display: flex;
+}
+
 .section_1_pictures > a > figure {
-    height: 300px;
-    width: 350px;
     position: relative;
 }
 
@@ -139,7 +162,7 @@ h1 > span:last-child {
     bottom: 0;
     display: inline-flex;
     align-items: center;
-    width: 310px;
+    width: -webkit-fill-available;
     padding: 21px 20px;
     font-size: 16px;
     font-weight: 500;
@@ -148,13 +171,6 @@ h1 > span:last-child {
     background-color: rgba(122, 102, 204, .5);
     border-radius: 20px 0;
 }
-
-.section_1_pictures {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
 
 .section_2 {
     display: flex;
@@ -285,6 +301,10 @@ div.sec_3_p_container > p:nth-child(2) {
     right: 80px;
 }
 
+.sec_3_foreground_img > img {
+    width: 100%;
+    height: auto;
+}
 
 .sec_4_container {
     display: flex;
@@ -294,11 +314,13 @@ div.sec_3_p_container > p:nth-child(2) {
     margin-bottom: 180px;
 }
 
-.sec_4_main_img {
+.sec_4_main_img_container {
     padding-left: 18px;
 }
 
-.sec_4_main_img > img {
+.sec_4_main_img {
+    width: auto;
+    height: 100%;
     border-radius: 100%;
     padding: 18px;
     background-color: rgba(122, 102, 204, 0.6);

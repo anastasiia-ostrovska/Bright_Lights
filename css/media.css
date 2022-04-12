@@ -49,19 +49,19 @@
         margin-bottom: 35px;
     }
 
-    .section_1 {
+    .sec_1 {
         margin-bottom: 130px;
     }
 
-    .section_1_pictures {
+    .sec_1_pictures {
         flex-direction: column;
     }
 
-    .section_1_pictures > a:not(:last-child) > figure {
+    .sec_1_pictures > a:not(:last-child) > figure {
         margin-bottom: 30px;
     }
 
-    .section_1_figcaption {
+    .sec_1_figcaption {
         padding: 18px 20px;
     }
 
@@ -71,11 +71,11 @@
         margin-left: 20px;
     }
 
-    .section_2 {
+    .sec_2 {
         margin-bottom: 250px;
     }
 
-    .section_2_heading {
+    .sec_2_heading {
         margin-bottom: 50px;
     }
 
@@ -87,15 +87,15 @@
         margin-bottom: 65px;
     }
 
-    .section_2_theses {
+    .sec_2_theses {
         flex-direction: column;
     }
 
-    .sec_2_block_top, .section_2_theses_block:first-child {
+    .sec_2_block_top, .sec_2_theses_block:first-child {
         margin-bottom: 20px;
     }
 
-    .section_2_photos {
+    .sec_2_photos {
         display: none;
     }
 
@@ -127,7 +127,7 @@
         flex-direction: column-reverse;
     }
 
-    .section_4_heading {
+    .sec_4_heading {
         margin-bottom: 30px;
     }
 

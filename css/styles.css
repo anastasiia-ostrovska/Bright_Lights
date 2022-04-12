@@ -157,7 +157,7 @@ h1 > span:last-child {
     position: relative;
 }
 
-.section_1_figcaption {
+.sec_1_figcaption {
     position: absolute;
     bottom: 0;
     display: inline-flex;

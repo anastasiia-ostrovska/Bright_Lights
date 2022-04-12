@@ -640,27 +640,6 @@ time {
     text-align: right;
 }
 
-
-
-
-
-
-/*.footer_contacts_left_block {*/
-/*    font-weight: 600;*/
-/*    font-size: 18px;*/
-/*    line-height: 27px;*/
-/*    text-align: right;*/
-/*    text-transform: uppercase;*/
-/*    margin-right: 30px;*/
-/*}*/
-
-/*.footer_contacts_right_block {*/
-/*    font-weight: 400;*/
-/*    font-size: 18px;*/
-/*    line-height: 27px;*/
-/*    text-transform: uppercase;*/
-/*}*/
-
 .footer_media_icons_container {
     display: flex;
     flex-direction: row;

@@ -246,10 +246,15 @@
         width: 45vw;
     }
 
-    .sec_6_arrow_right, .sec_6_arrow_left{
+    .sec_6_arrow_right, .sec_6_arrow_left {
         display: none;
     }
 
+
+    .footer_container {
+        max-width: 300px;
+        margin: 0 auto 40px;
+    }
 
     .footer_logo {
         width: 60%;
@@ -258,28 +263,40 @@
 
     .footer_contacts {
         width: 100%;
-        justify-content: space-between;
+        font-size: 16px;
         margin-bottom: 45px;
     }
 
-    .footer_contacts_left_block {
+    .footer_contacts_artist {
+        display: flex;
         flex-direction: column;
-        font-size: 12px;
-        margin-right: 15px;
-    }
-    .footer_contacts_left_block > span {
-        margin-left: 0;
+        align-items: center;
+        margin-bottom: 15px;
     }
 
-    .footer_contacts_right_block {
+    .artist {
+        margin-right: 0;
+    }
+
+    .footer_contacts_jake {
+        color: #7A66CC;
+    }
+
+    .footer_contacts_email{
+        display: flex;
         flex-direction: column;
-        font-size: 12px;
+        align-items: center;
     }
 
     .footer_media_icons_container {
         flex-wrap: wrap;
         justify-content: space-between;
         width: 100%;
+    }
+
+    .footer_contacts_email_link {
+        text-transform: lowercase;
+        color: #7A66CC;
     }
 
     .footer_media_icon:not(.facebook) {

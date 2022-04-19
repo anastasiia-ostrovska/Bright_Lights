@@ -182,7 +182,8 @@ h1 > span:last-child {
 .sec_2_aside {
     display: flex;
     flex-direction: column;
-    width: 540px;
+    max-width: 540px;
+    margin-right: 5%;
 }
 
 .sec_2_heading {
@@ -244,17 +245,29 @@ div.sec_2_theses_block > div > p {
 }
 
 .sec_2_photos {
-    position: relative;
+    /*position: relative;*/
+    display: flex;
+    max-width: 445px;
+}
+
+.sec_2_img {
+    width: auto;
+    height: auto;
 }
 
 .sec_2_foreground_img {
-    position: absolute;
-    right: 95px;
-    bottom: 66px;
+    z-index: 1;
+    /*margin-right: 95px;*/
+    /*margin-top: 0;*/
+    /*position: absolute;*/
+    /*right: 95px;*/
+    /*bottom: 66px;*/
 }
 
 .sec_2_background_img {
-    padding-top: 127px;
+    z-index: 0;
+    margin-left: -255px;
+    margin-top: 66px;
 }
 
 

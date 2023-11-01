@@ -129,10 +129,85 @@ h1 > span:last-child {
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1px white;
 }
-
-.sec_1_player {
+ /* --- Player start --- */
+.sec_1_player,
+.sec_4_player{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 130px;
 }
+
+.sec_1_player .play_button,
+.sec_4_player .play_button {
+    padding: 0;
+    border: none;
+    width: 25px;
+    height: 25px;
+    font-size: 25px;
+    background:none;
+    color: white;
+    outline: none;
+    cursor: pointer;
+}
+
+.sec_1_player .play_icon i,
+.sec_4_player .play_icon i {
+    cursor: pointer;
+}
+
+.sec_1_player .player_progress,
+.sec_4_player .player_progress  {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 2px;
+    margin: 0 45px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.sec_1_player .player_progress .player_progress_filled,
+.sec_4_player .player_progress .player_progress_filled {
+    display: flex;
+    width: 20%;
+    height: 3px;
+    border-radius: 2px 0 0 2px;
+}
+
+.sec_1_player .player_progress .player_progress_thumb,
+.sec_4_player .player_progress .player_progress_thumb {
+    height: 20px;
+    width: 3px;
+    border-radius: 2px;
+}
+
+.sec_1_player .player_progress .player_progress_filled,
+.sec_1_player .player_progress .player_progress_thumb,
+.sec_4_player .player_progress .player_progress_filled,
+.sec_4_player .player_progress .player_progress_thumb {
+    background: #7A66CC;
+}
+
+
+.sec_1_player .time_info,
+.sec_4_player .time_info  {
+    display: flex;
+    align-items: center;
+}
+
+.sec_1_player .time_info .time,
+.sec_4_player .time_info .time {
+    display: inline-flex;           
+    align-items: center;
+    height: 25px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal; 
+}
+
+/* --- Player end --- */
 
 .sec_1_pictures {
     display: flex;

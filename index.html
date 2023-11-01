@@ -57,13 +57,32 @@
               <span>War For Love</span>
             </h1>
 
-            <div class="sec_1_player">
-              <audio controls>
+            <div id="sec-1-player" class="sec_1_player">
+              <audio controls hidden preload="metadata">
                 <source
                   src="audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
                   type="audio/mpeg"
                 />
               </audio>
+
+              <button
+                class="play_button"
+                role="button"
+                aria-label="Play"
+                data-playing="false"
+              >
+                <i class="fa-solid fa-play play_icon"></i>
+              </button>
+
+              <div class="player_progress">
+                <div class="player_progress_filled"></div>
+                <div class="player_progress_thumb"></div>
+              </div>
+
+              <div class="time_info">
+                <span class="time current_time">00.00</span>-
+                <span class="time duration">00.00</span>
+              </div>
             </div>
 
             <div class="sec_1_pictures">
@@ -247,12 +266,31 @@
               </div>
 
               <div class="sec_4_player">
-                <audio controls>
+                <audio controls hidden preload="metadata">
                   <source
                     src="audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
                     type="audio/mpeg"
                   />
                 </audio>
+
+                <button
+                  class="play_button"
+                  role="button"
+                  aria-label="Play"
+                  data-playing="false"
+                >
+                  <i class="fa-solid fa-play play_icon"></i>
+                </button>
+
+                <div class="player_progress">
+                  <div class="player_progress_filled"></div>
+                  <div class="player_progress_thumb"></div>
+                </div>
+
+                <div class="time_info">
+                  <span class="time current_time">00.00</span>-
+                  <span class="time duration">00.00</span>
+                </div>
               </div>
 
               <div class="sec_4_track_list_container">
@@ -541,6 +579,11 @@
       </footer>
     </div>
 
-    <script src="./js/main.js"></script>
+    <script
+      src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+      type="module"
+    ></script>
+
+    <script src="./js/player.js"></script>
   </body>
 </html>

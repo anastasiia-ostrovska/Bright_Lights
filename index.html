@@ -7,7 +7,13 @@
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>bright_lights</title>
+    <title>Bright Lights</title>
+
+    <link
+      rel="shortcut icon"
+      href="./img/icons/favicon.svg"
+      type="image/x-icon"
+    />
 
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/styles.css" />
@@ -58,30 +64,36 @@
             </h1>
 
             <div id="sec-1-player" class="sec_1_player">
-              <audio controls hidden preload="metadata">
+              <audio controls hidden preload="metadata" class="audio_element">
                 <source
-                  src="audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
+                  src="./audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
                   type="audio/mpeg"
                 />
               </audio>
+              <div class="play_button_container">
+                <button
+                  class="play_button"
+                  role="button"
+                  aria-label="Play"
+                  data-playing="false"
+                >
+                  <i class="fa-solid fa-play play_icon"></i>
+                </button>
+              </div>
 
-              <button
-                class="play_button"
-                role="button"
-                aria-label="Play"
-                data-playing="false"
-              >
-                <i class="fa-solid fa-play play_icon"></i>
-              </button>
-
-              <div class="player_progress">
-                <div class="player_progress_filled"></div>
-                <div class="player_progress_thumb"></div>
+              <div class="player_progress_container">
+                <div class="player_progress">
+                  <div class="player_progress_filled">
+                    <div class="player_progress_thumb_container">
+                      <div class="player_progress_thumb"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div class="time_info">
-                <span class="time current_time">00.00</span>-
-                <span class="time duration">00.00</span>
+                <span class="time current_time">00:00</span>-
+                <span class="time duration">00:00</span>
               </div>
             </div>
 
@@ -266,9 +278,9 @@
               </div>
 
               <div class="sec_4_player">
-                <audio controls hidden preload="metadata">
+                <audio controls hidden preload="metadata" class="audio_element">
                   <source
-                    src="audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
+                    src="./audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
                     type="audio/mpeg"
                   />
                 </audio>
@@ -282,14 +294,19 @@
                   <i class="fa-solid fa-play play_icon"></i>
                 </button>
 
-                <div class="player_progress">
-                  <div class="player_progress_filled"></div>
-                  <div class="player_progress_thumb"></div>
+                <div class="player_progress_container">
+                  <div class="player_progress">
+                    <div class="player_progress_filled">
+                      <div class="player_progress_thumb_container">
+                        <div class="player_progress_thumb"></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="time_info">
-                  <span class="time current_time">00.00</span>-
-                  <span class="time duration">00.00</span>
+                  <span class="time current_time">00:00</span>-
+                  <span class="time duration">00:00</span>
                 </div>
               </div>
 

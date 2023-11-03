@@ -1,5 +1,6 @@
+const playerId = '#sec-1-player';
 // get sec-1-player container:
-const playerContainer = document.querySelector('#sec-1-player');
+const playerContainer = document.querySelector(playerId);
 // query elements:
 const audioElement = playerContainer.querySelector('.audio_element');
 const playButton = playerContainer.querySelector('.play_button');
@@ -11,7 +12,7 @@ const progressThumb = progressEl.querySelector('.player_progress_thumb');
 const currentTimeEl = playerContainer.querySelector('.current_time');
 const durationEl = playerContainer.querySelector('.duration');
 
-let currentTimeState = 0;
+let currentTimeState;
 
 const calculateTimeMMSS = (secs) => {
     let minutes = Math.floor(secs / 60);
@@ -130,19 +131,29 @@ const trackReset = () => {
     audioElement.currentTime = 0;
 }
 
-// show audio duration + add listener if metadata didn't load:
-if (audioElement.readyState > 0) {
-    showDuration(audioElement.duration);
-} else {
-    audioElement.addEventListener('loadedmetadata', () => {
+const playerInit = () => {
+    // set currentTimeState:
+    currentTimeState = localStorage.getItem(`${playerId}/currentTime`);
+    if (!currentTimeState) currentTimeState = 0;
+    // set currentTime due to currentTimeState;
+    audioElement.currentTime = currentTimeState;
+
+    // show audio duration + add listener if metadata didn't load:
+    if (audioElement.readyState > 0) {
         showDuration(audioElement.duration);
-    });
+    } else {
+        audioElement.addEventListener('loadedmetadata', () => {
+            showDuration(audioElement.duration);
+        });
+    }
 }
+
 // add listener on timeupdate:
 audioElement.addEventListener('timeupdate', handleChangeProgress);
 audioElement.addEventListener('timeupdate', () => {
     // save currentime state:
     currentTimeState = audioElement.currentTime;
+    localStorage.setItem(`${playerId}/currentTime`, currentTimeState);
 });
 
 // add listener on track ended:
@@ -154,6 +165,10 @@ playButton.addEventListener('click', handlePlayBtnClicked);
 progressElContainer.addEventListener('mousedown', activateThumbMoving);
 // prevent default browser behavior on dragstart:
 progressElContainer.ondragstart = () => false;
+
+// show player init state:
+playerInit();
+
 
 
 

@@ -197,7 +197,7 @@ h1 > span:last-child {
 }
 
 .sec_1_player .player_progress .player_progress_thumb,
-.sec_1_player .player_progress .player_progress_thumb {
+.sec_4_player .player_progress .player_progress_thumb {
     position: absolute;
     /* backface-visibility: hidden; */
     height: 21px;

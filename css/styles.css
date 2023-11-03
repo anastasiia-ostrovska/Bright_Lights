@@ -143,7 +143,6 @@ h1 > span:last-child {
 
 .sec_1_player .play_button,
 .sec_4_player .play_button {
-    z-index: 3;
     border: none;
     width: 44px;
     height: 44px;
@@ -172,7 +171,8 @@ h1 > span:last-child {
     align-items: center;
     height: 44px;
     width: 100%;
-    margin: 0 44px 0 32px;
+    margin: 0 34px 0 22px;
+    padding: 0 10px;
     cursor: pointer;
 }
 
@@ -194,30 +194,25 @@ h1 > span:last-child {
     width: 0%;
     height: 3px;
     border-radius: 2px 0 0 2px;
-    transition: width 0.3s;
-}
-
-.sec_1_player .player_progress .player_progress_thumb_container,
-.sec_1_player .player_progress .player_progress_thumb_container {
-    position: absolute;
-    right: -22px;
-    top: -21px ;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 45px;
-    width: 44px;
-    margin-left: -21px;
-    transition: transform 0.3s;
-    backface-visibility: hidden;
 }
 
 .sec_1_player .player_progress .player_progress_thumb,
+.sec_1_player .player_progress .player_progress_thumb {
+    position: absolute;
+    /* backface-visibility: hidden; */
+    height: 21px;
+    width: 3px;
+    border-radius: 2px;
+    right: 0;
+    top: -9px;
+}
+
+/* .sec_1_player .player_progress .player_progress_thumb,
 .sec_4_player .player_progress .player_progress_thumb {
     height: 20px;
     width: 3px;
     border-radius: 2px;
-}
+} */
 
 .sec_1_player .player_progress .player_progress_filled,
 .sec_1_player .player_progress .player_progress_thumb,

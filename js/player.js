@@ -11,8 +11,6 @@ const activatePlayer = (playerId) => {
     const currentTimeEl = playerContainer.querySelector('.current_time');
     const durationEl = playerContainer.querySelector('.duration');
 
-    let currentTimeState;
-
     const calculateTimeMMSS = (secs) => {
         let minutes = Math.floor(secs / 60);
         let seconds = Math.floor(secs % 60);
@@ -27,20 +25,20 @@ const activatePlayer = (playerId) => {
         durationEl.innerHTML = calculateTimeMMSS(duration);
     }
 
-    const progressUpdate = (currentTime, duration) => {
+    const updateProgress = (currentTime, duration) => {
         // update progresFillWidth:
         const percent = ((currentTime * 100) / duration);
         progressFilledEl.style.width = `${percent}%`;
     }
 
-    const setSurrentTimeInfo = (secs) => {
+    const setCurrentTimeInfo = (secs) => {
         // update current Time:
         currentTimeEl.innerHTML = calculateTimeMMSS(secs);
     }
 
     const handleChangeProgress = () => {
-        progressUpdate(audioElement.currentTime, audioElement.duration)
-        setSurrentTimeInfo(audioElement.currentTime)
+        updateProgress(audioElement.currentTime, audioElement.duration)
+        setCurrentTimeInfo(audioElement.currentTime)
     }
 
     const handlePlayBtnClicked = (e) => {
@@ -48,12 +46,9 @@ const activatePlayer = (playerId) => {
         if (e.currentTarget.dataset.playing === 'false') {
             e.currentTarget.dataset.playing = 'true';
             audioElement.play();
-            audioElement.currentTime = currentTimeState;
         } else {
             e.currentTarget.dataset.playing = 'false';
             audioElement.pause();
-            audioElement.currentTime = currentTimeState;
-
         }
         // change icon:
         playIcon.classList.toggle('fa-play');
@@ -63,7 +58,7 @@ const activatePlayer = (playerId) => {
     const activateThumbMoving = (e) => {
         // save changed time after each event:
         let changedCurrentTime;
-        let moveRejected;
+        let isCursorOutOfBounds;
 
         // prevent default ommousedown behavior;
         e.preventDefault();
@@ -71,15 +66,15 @@ const activatePlayer = (playerId) => {
         // disable changing progress elements and time on timeupdate:
         audioElement.removeEventListener('timeupdate', handleChangeProgress);
 
-        const moveThumb = (e) => {
-            // check if move was rejected by user:
+        const startThumbMoving = (e) => {
+            // check if move was rejected by user - out of bounds:
             const cursorY = e.pageY - scrollY;
             const pageBottom = document.documentElement.clientHeight;
-            const rejectionCondition = cursorY < 0 || cursorY > pageBottom;
+            const rejectMovingCondition = cursorY < 0 || cursorY > pageBottom;
 
-            if (rejectionCondition) {
-                moveRejected = true;
-                stopMoving();
+            if (rejectMovingCondition) {
+                isCursorOutOfBounds = true;
+                stopThumbMoving();
             }
 
             // get coordinates of click:
@@ -95,44 +90,44 @@ const activatePlayer = (playerId) => {
             // update progressFilledEl width and currentTimeEl due to percent:
             progressFilledEl.style.width = `${percent}%`
             changedCurrentTime = (percent * audioElement.duration) / 100;
-            setSurrentTimeInfo(changedCurrentTime);
+            setCurrentTimeInfo(changedCurrentTime);
         }
-        moveThumb(e);
+        startThumbMoving(e);
 
         // add listeners on mousemove 
-        document.addEventListener('mousemove', moveThumb);
+        document.addEventListener('mousemove', startThumbMoving);
 
-        const stopMoving = () => {
-            if (moveRejected && playButton.dataset.playing === 'false') {
-                audioElement.currentTime = currentTimeState;
+        const stopThumbMoving = () => {
+            if (isCursorOutOfBounds && playButton.dataset.playing === 'false') {
+                audioElement.currentTime = localStorage.getItem(`${playerId}/currentTime`);
                 handleChangeProgress();
             };
-            if (!moveRejected) {
+            if (!isCursorOutOfBounds) {
                 audioElement.currentTime = changedCurrentTime;
             };
-            moveRejected = null;
+            isCursorOutOfBounds = null;
             // add listener handleChangeProgress;
             audioElement.addEventListener('timeupdate', handleChangeProgress);
 
             // remove listeners on mousemove and mouseup:
-            document.removeEventListener('mousemove', moveThumb);
-            document.removeEventListener('mouseup', stopMoving);
+            document.removeEventListener('mousemove', startThumbMoving);
+            document.removeEventListener('mouseup', stopThumbMoving);
         }
 
         // add listeners on mouseup
-        document.addEventListener('mouseup', stopMoving);
+        document.addEventListener('mouseup', stopThumbMoving);
     }
 
-    const trackReset = () => {
+    const resetTrack = () => {
         playButton.dataset.playing = 'false';
         playIcon.classList.remove('fa-pause');
         playIcon.classList.add('fa-play');
         audioElement.currentTime = 0;
     }
 
-    const playerInit = () => {
+    const initPlayer = () => {
         // set currentTimeState:
-        currentTimeState = localStorage.getItem(`${playerId}/currentTime`);
+        const currentTimeState = localStorage.getItem(`${playerId}/currentTime`);
         if (!currentTimeState) currentTimeState = 0;
         // set currentTime due to currentTimeState;
         audioElement.currentTime = currentTimeState;
@@ -151,12 +146,11 @@ const activatePlayer = (playerId) => {
     audioElement.addEventListener('timeupdate', handleChangeProgress);
     audioElement.addEventListener('timeupdate', () => {
         // save currentime state:
-        currentTimeState = audioElement.currentTime;
-        localStorage.setItem(`${playerId}/currentTime`, currentTimeState);
+        localStorage.setItem(`${playerId}/currentTime`, audioElement.currentTime);
     });
 
     // add listener on track ended:
-    audioElement.addEventListener('ended', trackReset);
+    audioElement.addEventListener('ended', resetTrack);
 
     // add listener on playBtn click: 
     playButton.addEventListener('click', handlePlayBtnClicked);
@@ -166,9 +160,10 @@ const activatePlayer = (playerId) => {
     progressElContainer.ondragstart = () => false;
 
     // show player init state:
-    playerInit();
+    initPlayer();
 }
 
+// activate basic functionality of players:
 activatePlayer('#sec-1-player');
 activatePlayer('#sec-4-player');
 

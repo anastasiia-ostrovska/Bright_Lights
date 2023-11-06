@@ -1,3 +1,4 @@
+// ---- basic player functionality starts ----
 const activatePlayer = (playerId) => {
     // get sec-1-player container:
     const playerContainer = document.querySelector(playerId);
@@ -41,18 +42,24 @@ const activatePlayer = (playerId) => {
         setCurrentTimeInfo(audioElement.currentTime)
     }
 
+    const togglePlayPauseIcon = (isPlaying) => {
+        // change icon:
+        if (isPlaying === 'true') {
+            playIcon.classList.remove('fa-play');
+            playIcon.classList.add('fa-pause');
+        } else {
+            playIcon.classList.add('fa-play');
+            playIcon.classList.remove('fa-pause');
+        }
+    }
+
     const handlePlayBtnClicked = (e) => {
         // change state:
         if (e.currentTarget.dataset.playing === 'false') {
-            e.currentTarget.dataset.playing = 'true';
             audioElement.play();
         } else {
-            e.currentTarget.dataset.playing = 'false';
             audioElement.pause();
         }
-        // change icon:
-        playIcon.classList.toggle('fa-play');
-        playIcon.classList.toggle('fa-pause');
     }
 
     const activateThumbMoving = (e) => {
@@ -127,7 +134,7 @@ const activatePlayer = (playerId) => {
 
     const initPlayer = () => {
         // set currentTimeState:
-        const currentTimeState = localStorage.getItem(`${playerId}/currentTime`);
+        let currentTimeState = localStorage.getItem(`${playerId}/currentTime`);
         if (!currentTimeState) currentTimeState = 0;
         // set currentTime due to currentTimeState;
         audioElement.currentTime = currentTimeState;
@@ -149,6 +156,16 @@ const activatePlayer = (playerId) => {
         localStorage.setItem(`${playerId}/currentTime`, audioElement.currentTime);
     });
 
+    // add listeners on play/pause:
+    audioElement.onplay = function () {
+        playButton.dataset.playing = 'true';
+        togglePlayPauseIcon(playButton.dataset.playing);
+    }
+    audioElement.onpause = function () {
+        playButton.dataset.playing = 'false';
+        togglePlayPauseIcon(playButton.dataset.playing);
+    }
+
     // add listener on track ended:
     audioElement.addEventListener('ended', resetTrack);
 
@@ -162,10 +179,104 @@ const activatePlayer = (playerId) => {
     // show player init state:
     initPlayer();
 }
+// ---- basic player functionality ends ----
 
-// activate basic functionality of players:
-activatePlayer('#sec-1-player');
-activatePlayer('#sec-4-player');
+// ---- playlist functionality starts ----
+const activatePlaylist = (playlistId, playerId) => {
+    // query elements:
+    const playlistContainer = document.querySelector(playlistId);
+    const playerContainer = document.querySelector(playerId);
+    const audioElement = playerContainer.querySelector('.audio_element');
+    const audioSourceEl = audioElement.querySelector('.audiosource');
+    const links = playlistContainer.querySelectorAll('.sec_4_track_list_item a');
 
+    let currentTrack;
 
+    const saveCurrentTrackToLocalStorage = (index, src) => {
+        const currentTrackInfo = {
+            index,
+            src,
+        };
+        localStorage.setItem(`${playerId}/currentTrackInfo`, `${JSON.stringify(currentTrackInfo)}`);
+    }
 
+    const resetActiveClass = (link) => {
+        // remove class active from all links:
+        links.forEach(link => link.classList.remove('active'));
+        // add class active to current track:
+        link.classList.add('active');
+    }
+
+    const switchTrack = (link, index) => {
+        // set href to audioElement src + load:
+        audioSourceEl.src = link.getAttribute('href');
+        audioElement.load();
+
+        // save track info lo localStorage:
+        saveCurrentTrackToLocalStorage(index, audioSourceEl.src);
+        currentTrack = JSON.parse(localStorage.getItem(`${playerId}/currentTrackInfo`));
+
+        // reset 'active' class:
+        resetActiveClass(link);
+    }
+
+    const playTrackFromStart = () => {
+        // start from 0sec and play:
+        audioElement.currentTime = 0;
+        audioElement.play();
+        // set data-playing 
+    }
+
+    const onTrackLinkClick = (e, index) => {
+        e.preventDefault();
+        // check if clicked link is already active:
+        const link = e.currentTarget;
+        if (link.classList.contains('active')) return;
+
+        // switch track and play from start: 
+        switchTrack(link, index);
+        playTrackFromStart();
+    }
+
+    const initPlaylist = () => {
+        // get index and href of current track:
+        currentTrack = JSON.parse(localStorage.getItem(`${playerId}/currentTrackInfo`));
+
+        if (!currentTrack) {
+            currentTrack = {
+                index: 0,
+                src: links[0].getAttribute('href'),
+            };
+        }
+
+        // set href to audioElement src and load:
+        audioSourceEl.src = currentTrack.src;
+        audioElement.load();
+
+        // add class active to current track:
+        links[currentTrack.index].classList.add('active');
+    }
+
+    // add listener on track ended:
+    audioElement.addEventListener('ended', () => {
+        const index = ++currentTrack.index;
+        const link = links[index];
+        // switch track and play from start: 
+        switchTrack(link, index);
+        playTrackFromStart();
+    });
+    // add listener on link click:
+    links.forEach((link, index) => {
+        link.addEventListener('click', (e) => {
+            onTrackLinkClick(e, index);
+        });
+    });
+
+    initPlaylist();
+}
+// ---- playlist functionality ends ----
+
+// activate basic functionality of players and playlist:
+activatePlayer('#sec_1_player');
+activatePlaylist('#sec_4_playlist', '#sec_4_player');
+activatePlayer('#sec_4_player');

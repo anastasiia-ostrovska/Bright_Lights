@@ -140,6 +140,11 @@
         font-size: 30px;
     }
 
+    /* playlist starts */
+    .sec_4_tracks_container {
+        width: 100%;
+    }
+
     .sec_4_track_list {
         font-size: 16px;
     }
@@ -152,9 +157,10 @@
         margin-bottom: 70px;
     }
 
-    div.sec_4_track_list_container > ol > li {
+    .sec_4_container .sec_4_track_list .sec_4_track_list_item {
         display: flex;
     }
+    /* playlist ends */
 
     .sec_4_follow {
         align-items: baseline;

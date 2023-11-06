@@ -63,7 +63,7 @@
               <span>War For Love</span>
             </h1>
 
-            <div id="sec-1-player" class="sec_1_player">
+            <div id="sec_1_player" class="sec_1_player">
               <audio controls hidden preload="metadata" class="audio_element">
                 <source
                   src="./audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
@@ -277,12 +277,9 @@
                 <h3>Last tracks</h3>
               </div>
 
-              <div id="sec-4-player" class="sec_4_player">
+              <div id="sec_4_player" class="sec_4_player">
                 <audio controls hidden preload="metadata" class="audio_element">
-                  <source
-                    src="./audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
-                    type="audio/mpeg"
-                  />
+                  <source class="audiosource" src="" type="audio/mpeg" />
                 </audio>
                 <div class="play_button_container">
                   <button
@@ -311,52 +308,46 @@
                 </div>
               </div>
 
-              <div class="sec_4_track_list_container">
+              <div id="sec_4_playlist" class="sec_4_track_list_container">
                 <ol class="sec_4_track_list">
-                  <li>
+                  <li class="sec_4_track_list_item">
                     <a
-                      class="sec_4_track_active"
                       href="./audio/3LAU feat. Bright Lights - How You Love Me (Radio Edit) [vzvuke.net].mp3"
                       >3LAU, Bright Lights — How You Love Me</a
                     >
                   </li>
 
-                  <li>
+                  <li class="sec_4_track_list_item">
                     <a
-                      class="sec_4_track_not_active"
                       href="./audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
                       >Bright Lights, Kaleena Zanders, Kandy — War For Love</a
                     >
                   </li>
 
-                  <li>
+                  <li class="sec_4_track_list_item">
                     <a
-                      class="sec_4_track_not_active"
                       href="./audio/Benny_Benassi_Pink_Is_Punk_Feat._Bright_Lights_-_Ghost_OST_Call_Of_Duty_Ghosts_(mp3.pm).mp3"
                       >Pink Is Punk, Benny Benassi, Bright Lights — Ghost</a
                     >
                   </li>
 
-                  <li>
+                  <li class="sec_4_track_list_item">
                     <a
-                      class="sec_4_track_not_active"
                       href="./audio/hardwell-dyro-feat-bright-lights-never-say-goodbye-radio-edit-(yagona.net).mp3"
                       >Hardwell, Dyro, Bright Lights — Never Say Goodbye</a
                     >
                   </li>
 
-                  <li>
+                  <li class="sec_4_track_list_item">
                     <a
-                      class="sec_4_track_not_active"
                       href="./audio/zeds_dead_and_dirtyphonics-where_are_you_now_feat_bright_lights.mp3"
                       >Zeds Dead, Dirtyphonics, Bright Lights — Where Are You
                       Now</a
                     >
                   </li>
 
-                  <li>
+                  <li class="sec_4_track_list_item">
                     <a
-                      class="sec_4_track_not_active"
                       href="./audio/Zedd_-_Follow_You_Down_feat._Bright_Lights_(mp3.pm).mp3"
                       >Zedd, Bright Lights — Follow You Down</a
                     >
@@ -608,11 +599,6 @@
         </div>
       </footer>
     </div>
-
-    <script
-      src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
-      type="module"
-    ></script>
 
     <script src="./js/player.js"></script>
   </body>

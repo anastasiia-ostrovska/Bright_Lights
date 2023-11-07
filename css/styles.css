@@ -490,8 +490,9 @@ h3 {
     align-items: baseline;
     padding-bottom: 20px;
     width: inherit;
+    overflow: hidden;
+    /* switch hidden */
 }
-
 .sec_4_container .sec_4_track_list .sec_4_track_list_item:before {
     content: counter(item, decimal-leading-zero) " ";
     counter-increment: item;
@@ -501,13 +502,32 @@ h3 {
     color: #FFFFFF50;
 }
 
+
 .sec_4_container .sec_4_track_list .sec_4_track_list_item a {
     padding-left: 16px;
-    overflow: hidden;
     color: white;
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 100%;
+}
+@keyframes scrollText {
+    0% {
+        transform: translateX(0%);
+        /* Початкове положення тексту */
+    }
+
+    100% {
+        transform: translateX(-100%);
+        /* Кінцеве положення тексту */
+    }
+}
+
+.sec_4_container .sec_4_track_list .sec_4_track_list_item a.animated {
+    overflow:visible;
+    animation: scrollText 10s linear infinite;
+    animation-play-state:paused;
+    /* animation-play-state: running; */
 }
 
 .sec_4_container .sec_4_track_list .sec_4_track_list_item a.active {

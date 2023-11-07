@@ -11,6 +11,21 @@ const activatePlayer = (playerId) => {
     const progressFilledEl = progressEl.querySelector('.player_progress_filled');
     const currentTimeEl = playerContainer.querySelector('.current_time');
     const durationEl = playerContainer.querySelector('.duration');
+    // set key for localStorage savings:
+    const currentTimeKey = `${playerId}/currentTime`
+
+    // ---- 
+
+    const saveCurrentTimeToLocalStorage = () => {
+        localStorage.setItem(currentTimeKey, audioElement.currentTime);
+    }
+
+    const getCurrentTimeFromLocalStorage = () => {
+        let currentTime = localStorage.getItem(currentTimeKey);
+        if (!currentTime) currentTime = 0;
+
+        return currentTime;
+    }
 
     const calculateTimeMMSS = (secs) => {
         let minutes = Math.floor(secs / 60);
@@ -106,7 +121,7 @@ const activatePlayer = (playerId) => {
 
         const stopThumbMoving = () => {
             if (isCursorOutOfBounds && playButton.dataset.playing === 'false') {
-                audioElement.currentTime = localStorage.getItem(`${playerId}/currentTime`);
+                audioElement.currentTime = getCurrentTimeFromLocalStorage();
                 handleChangeProgress();
             };
             if (!isCursorOutOfBounds) {
@@ -133,11 +148,10 @@ const activatePlayer = (playerId) => {
     }
 
     const initPlayer = () => {
-        // set currentTimeState:
-        let currentTimeState = localStorage.getItem(`${playerId}/currentTime`);
-        if (!currentTimeState) currentTimeState = 0;
+        // get currentTime:
+        const currentTime = getCurrentTimeFromLocalStorage();
         // set currentTime due to currentTimeState;
-        audioElement.currentTime = currentTimeState;
+        audioElement.currentTime = currentTime;
 
         // show audio duration + add listener if metadata didn't load:
         if (audioElement.readyState > 0) {
@@ -149,32 +163,59 @@ const activatePlayer = (playerId) => {
         }
     }
 
-    // add listener on timeupdate:
-    audioElement.addEventListener('timeupdate', handleChangeProgress);
-    audioElement.addEventListener('timeupdate', () => {
-        // save currentime state:
-        localStorage.setItem(`${playerId}/currentTime`, audioElement.currentTime);
-    });
+    // ----
 
-    // add listeners on play/pause:
-    audioElement.onplay = function () {
-        playButton.dataset.playing = 'true';
-        togglePlayPauseIcon(playButton.dataset.playing);
-    }
-    audioElement.onpause = function () {
-        playButton.dataset.playing = 'false';
-        togglePlayPauseIcon(playButton.dataset.playing);
+    const subscribeOnTimeupdate = () => {
+        // add listener on timeupdate:
+        audioElement.addEventListener('timeupdate', handleChangeProgress);
+        audioElement.addEventListener('timeupdate', () => {
+            // save currentime state:
+            saveCurrentTimeToLocalStorage();
+        });
     }
 
-    // add listener on track ended:
-    audioElement.addEventListener('ended', resetTrack);
+    const subscribeOnPlay = () => {
+        audioElement.addEventListener('play', () => {
+            playButton.dataset.playing = 'true';
+            togglePlayPauseIcon(playButton.dataset.playing);
+        });
+    }
 
-    // add listener on playBtn click: 
-    playButton.addEventListener('click', handlePlayBtnClicked);
-    // add listeners for progress element:
-    progressElContainer.addEventListener('mousedown', activateThumbMoving);
-    // prevent default browser behavior on dragstart:
-    progressElContainer.ondragstart = () => false;
+    const subscribeOnPause = () => {
+        audioElement.addEventListener('pause', () => {
+            playButton.dataset.playing = 'false';
+            togglePlayPauseIcon(playButton.dataset.playing);
+        });
+    }
+
+    const subscribeOnTrackEnded = () => {
+        // only if single track:
+        if (audioElement.dataset.playlist === 'single-track') {
+            audioElement.addEventListener('ended', resetTrack);
+        }
+    }
+
+    const subscribeOnPlayBtnClick = () => {
+        // add listener on playBtn click: 
+        playButton.addEventListener('click', handlePlayBtnClicked);
+    }
+
+    const subscribeOnProgressElMousedown = () => {
+        // add listeners for progress element:
+        progressElContainer.addEventListener('mousedown', activateThumbMoving);
+        // prevent default browser behavior on dragstart:
+        progressElContainer.ondragstart = () => false;
+    }
+
+    // ----
+
+    // subscribe on events:
+    subscribeOnTimeupdate();
+    subscribeOnPlay();
+    subscribeOnPause();
+    subscribeOnTrackEnded();
+    subscribeOnPlayBtnClick();
+    subscribeOnProgressElMousedown();
 
     // show player init state:
     initPlayer();
@@ -189,15 +230,31 @@ const activatePlaylist = (playlistId, playerId) => {
     const audioElement = playerContainer.querySelector('.audio_element');
     const audioSourceEl = audioElement.querySelector('.audiosource');
     const links = playlistContainer.querySelectorAll('.sec_4_track_list_item a');
+    // set key for localStorage savings:
+    const currentTrackInfoKey = `${playlistId}/currentTrackInfo`;
 
-    let currentTrack;
+    // ----
 
-    const saveCurrentTrackToLocalStorage = (index, src) => {
+    const setCurrentTrackInfoToLocalStorage = (index, src) => {
         const currentTrackInfo = {
             index,
             src,
         };
-        localStorage.setItem(`${playerId}/currentTrackInfo`, `${JSON.stringify(currentTrackInfo)}`);
+        localStorage.setItem(currentTrackInfoKey, `${JSON.stringify(currentTrackInfo)}`);
+    }
+
+    const getCurrentTrackInfoFromLocalStorage = () => {
+        // get index and href of current track:
+        let currentTrack = JSON.parse(localStorage.getItem(currentTrackInfoKey));
+
+        if (!currentTrack) {
+            currentTrack = {
+                index: 0,
+                src: links[0].getAttribute('href'),
+            };
+        }
+
+        return currentTrack;
     }
 
     const resetActiveClass = (link) => {
@@ -207,24 +264,25 @@ const activatePlaylist = (playlistId, playerId) => {
         link.classList.add('active');
     }
 
-    const switchTrack = (link, index) => {
+    const loadAudioSourceElSrc = (src) => {
         // set href to audioElement src + load:
-        audioSourceEl.src = link.getAttribute('href');
+        audioSourceEl.src = src;
         audioElement.load();
+    }
 
-        // save track info lo localStorage:
-        saveCurrentTrackToLocalStorage(index, audioSourceEl.src);
-        currentTrack = JSON.parse(localStorage.getItem(`${playerId}/currentTrackInfo`));
-
-        // reset 'active' class:
+    const switchTrack = (index, src, link) => {
+        // set audioElement src + load:
+        loadAudioSourceElSrc(src);
         resetActiveClass(link);
+        playTrackFromStart();
+        // save track info lo localStorage:
+        setCurrentTrackInfoToLocalStorage(index, audioSourceEl.src);
     }
 
     const playTrackFromStart = () => {
         // start from 0sec and play:
         audioElement.currentTime = 0;
         audioElement.play();
-        // set data-playing 
     }
 
     const onTrackLinkClick = (e, index) => {
@@ -234,44 +292,53 @@ const activatePlaylist = (playlistId, playerId) => {
         if (link.classList.contains('active')) return;
 
         // switch track and play from start: 
-        switchTrack(link, index);
-        playTrackFromStart();
+        const src = link.getAttribute('href');
+        switchTrack(index, src, link);
     }
 
     const initPlaylist = () => {
         // get index and href of current track:
-        currentTrack = JSON.parse(localStorage.getItem(`${playerId}/currentTrackInfo`));
-
-        if (!currentTrack) {
-            currentTrack = {
-                index: 0,
-                src: links[0].getAttribute('href'),
-            };
-        }
-
-        // set href to audioElement src and load:
-        audioSourceEl.src = currentTrack.src;
-        audioElement.load();
-
+        const currentTrack = getCurrentTrackInfoFromLocalStorage();
+        const link = links[currentTrack.index];
+        // set audioElement src and load:
+        loadAudioSourceElSrc(currentTrack.src);
         // add class active to current track:
-        links[currentTrack.index].classList.add('active');
+        resetActiveClass(link);
     }
 
-    // add listener on track ended:
-    audioElement.addEventListener('ended', () => {
-        const index = ++currentTrack.index;
-        const link = links[index];
-        // switch track and play from start: 
-        switchTrack(link, index);
-        playTrackFromStart();
-    });
-    // add listener on link click:
-    links.forEach((link, index) => {
-        link.addEventListener('click', (e) => {
-            onTrackLinkClick(e, index);
-        });
-    });
+    // ----
 
+    const subscribeOnTrackEnded = () => {
+        // only if multiple tracks in playlist:
+        if (audioElement.dataset.playlist === 'multiple-tracks') {
+            audioElement.addEventListener('ended', () => {
+                const currentTrack = getCurrentTrackInfoFromLocalStorage();
+                let index = ++currentTrack.index;
+                if (index > (links.length - 1)) index = 0;
+                const link = links[index];
+                const src = link.getAttribute('href');
+                // switch track and play from start: 
+                switchTrack(index, src, link);
+            });
+        }
+    }
+
+    const subscribeOnLinkClick = () => {
+        // add listener on each link click:
+        links.forEach((link, index) => {
+            link.addEventListener('click', (e) => {
+                onTrackLinkClick(e, index);
+            });
+        });
+    }
+
+    // ----
+
+    // subscribe on events:
+    subscribeOnTrackEnded();
+    subscribeOnLinkClick();
+
+    // show playlist init state:
     initPlaylist();
 }
 // ---- playlist functionality ends ----

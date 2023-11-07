@@ -433,6 +433,8 @@ div.sec_3_p_container > p:nth-child(2) {
 }
 
 .sec_4_main_img {
+    max-height: 100%;
+    width: auto;
     border-radius: 100%;
     padding: 18px;
     background-color: rgba(122, 102, 204, 0.6);
@@ -442,6 +444,7 @@ div.sec_3_p_container > p:nth-child(2) {
 .sec_4_tracks_container {
     display: flex;
     flex-direction: column;
+    width: 540px;
 }
 
 .sec_4_heading {
@@ -470,6 +473,7 @@ h3 {
 /* playlist starts */
 .sec_4_track_list_container {
     margin-bottom: 50px;
+    width: inherit;
 }
 
 .sec_4_track_list {
@@ -478,14 +482,14 @@ h3 {
     font-weight: 400;
     font-size: 18px;
     line-height: 27px;
-    overflow: hidden;
+    width: inherit;
 }
 
 .sec_4_container .sec_4_track_list .sec_4_track_list_item {
-    display: block;
+    display: flex;
+    align-items: baseline;
     padding-bottom: 20px;
-    white-space: nowrap;
-    /* list-style-position: inside; */
+    width: inherit;
 }
 
 .sec_4_container .sec_4_track_list .sec_4_track_list_item:before {
@@ -499,7 +503,11 @@ h3 {
 
 .sec_4_container .sec_4_track_list .sec_4_track_list_item a {
     padding-left: 16px;
+    overflow: hidden;
     color: white;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
 }
 
 .sec_4_container .sec_4_track_list .sec_4_track_list_item a.active {

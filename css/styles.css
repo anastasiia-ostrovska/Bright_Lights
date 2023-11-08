@@ -371,28 +371,17 @@ h3 {
     font-weight: 400;
     font-size: 18px;
     line-height: 27px;
+    width: inherit;
 }
 
-.sec_4_track_not_active {
-    padding-left: 16px;
-    color: white;
-}
-
-.sec_4_track_active {
-    padding-left: 16px;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 27px;
-    color: #7A66CC;
-}
-
-div.sec_4_track_list_container > ol > li {
-    display: block;
+.sec_4_container .sec_4_track_list .sec_4_track_list_item {
+    display: flex;
+    align-items: baseline;
     padding-bottom: 20px;
-    list-style-position: inside;
+    width: inherit;
 }
 
-div.sec_4_track_list_container > ol > li:before {
+.sec_4_container .sec_4_track_list .sec_4_track_list_item:before {
     content: counter(item, decimal-leading-zero) " ";
     counter-increment: item;
     font-weight: 700;
@@ -400,6 +389,23 @@ div.sec_4_track_list_container > ol > li:before {
     line-height: 21px;
     color: #FFFFFF50;
 }
+
+.sec_4_container .sec_4_track_list .sec_4_track_list_item a {
+    padding-left: 16px;
+    overflow: hidden;
+    color: white;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.sec_4_container .sec_4_track_list .sec_4_track_list_item a.active {
+    font-weight: 600;
+    color: #7A66CC;
+}
+/* playlist ends */
+
+
 
 .sec_4_follow {
     display: flex;

@@ -7,7 +7,13 @@
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>bright_lights</title>
+    <title>Bright Lights</title>
+
+    <link
+      rel="shortcut icon"
+      href="./img/icons/favicon.svg"
+      type="image/x-icon"
+    />
 
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/styles.css" />
@@ -57,13 +63,44 @@
               <span>War For Love</span>
             </h1>
 
-            <div class="sec_1_player">
-              <audio controls>
+            <div id="sec_1_player" class="sec_1_player">
+              <audio
+                controls
+                hidden
+                preload="metadata"
+                class="audio_element"
+                data-playlist="single-track"
+              >
                 <source
-                  src="audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
+                  src="./audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
                   type="audio/mpeg"
                 />
               </audio>
+              <div class="play_button_container">
+                <button
+                  class="play_button"
+                  role="button"
+                  aria-label="Play"
+                  data-playing="false"
+                >
+                  <i class="fa-solid fa-play play_icon"></i>
+                </button>
+              </div>
+
+              <div class="player_progress_container">
+                <div class="player_progress">
+                  <div class="player_progress_filled">
+                    <!-- <div class="player_progress_thumb_container"> -->
+                    <div class="player_progress_thumb"></div>
+                    <!-- </div> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="time_info">
+                <span class="time current_time">00:00</span>-
+                <span class="time duration">00:00</span>
+              </div>
             </div>
 
             <div class="sec_1_pictures">
@@ -246,53 +283,98 @@
                 <h3>Last tracks</h3>
               </div>
 
-              <div class="sec_4_player">
-                <audio controls>
-                  <source
-                    src="audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
-                    type="audio/mpeg"
-                  />
+              <div id="sec_4_player" class="sec_4_player">
+                <audio
+                  controls
+                  hidden
+                  preload="metadata"
+                  class="audio_element"
+                  data-playlist="multiple-tracks"
+                >
+                  <source class="audiosource" src="" type="audio/mpeg" />
                 </audio>
+                <div class="play_button_container">
+                  <button
+                    class="play_button"
+                    role="button"
+                    aria-label="Play"
+                    data-playing="false"
+                  >
+                    <i class="fa-solid fa-play play_icon"></i>
+                  </button>
+                </div>
+
+                <div class="player_progress_container">
+                  <div class="player_progress">
+                    <div class="player_progress_filled">
+                      <!-- <div class="player_progress_thumb_container"> -->
+                      <div class="player_progress_thumb"></div>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </div>
+
+                <div class="time_info">
+                  <span class="time current_time">00:00</span>-
+                  <span class="time duration">00:00</span>
+                </div>
               </div>
 
-              <div class="sec_4_track_list_container">
+              <div id="sec_4_playlist" class="sec_4_track_list_container">
                 <ol class="sec_4_track_list">
-                  <li>
-                    <a class="sec_4_track_active" href="#"
-                      >3LAU, Bright Lights — How You Love Me</a
-                    >
-                  </li>
-
-                  <li>
-                    <a class="sec_4_track_not_active" href="#"
-                      >Bright Lights, Kaleena Zanders, Kandy — War For Love</a
-                    >
-                  </li>
-
-                  <li>
-                    <a class="sec_4_track_not_active" href="#"
-                      >Pink Is Punk, Benny Benassi, Bright Lights — Ghost</a
-                    >
-                  </li>
-
-                  <li>
-                    <a class="sec_4_track_not_active" href="#"
-                      >Hardwell, Dyro, Bright Lights — Never Say Goodbye</a
-                    >
+                  <li class="sec_4_track_list_item">
+                    <div class="link-container">
+                      <a
+                        href="./audio/3LAU feat. Bright Lights - How You Love Me (Radio Edit) [vzvuke.net].mp3"
+                        >3LAU, Bright Lights — How You Love Me</a
+                      >
+                    </div>
                   </li>
 
                   <li class="sec_4_track_list_item">
-                    <a
-                      href="./audio/zeds_dead_and_dirtyphonics-where_are_you_now_feat_bright_lights.mp3"
-                      >Zeds Dead, Dirtyphonics, Bright Lights — Where Are You
-                      Now</a
-                    >
+                    <div class="link-container">
+                      <a
+                        href="./audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
+                        >Bright Lights, Kaleena Zanders, Kandy — War For Love</a
+                      >
+                    </div>
                   </li>
 
-                  <li>
-                    <a class="sec_4_track_not_active" href="#"
-                      >Zedd, Bright Lights — Follow You Down</a
-                    >
+                  <li class="sec_4_track_list_item">
+                    <div class="link-container">
+                      <a
+                        href="./audio/Benny_Benassi_Pink_Is_Punk_Feat._Bright_Lights_-_Ghost_OST_Call_Of_Duty_Ghosts_(mp3.pm).mp3"
+                        >Pink Is Punk, Benny Benassi, Bright Lights — Ghost</a
+                      >
+                    </div>
+                  </li>
+
+                  <li class="sec_4_track_list_item">
+                    <div class="link-container">
+                      <a
+                        href="./audio/hardwell-dyro-feat-bright-lights-never-say-goodbye-radio-edit-(yagona.net).mp3"
+                        >Hardwell, Dyro, Bright Lights — Never Say Goodbye</a
+                      >
+                    </div>
+                  </li>
+
+                  <li class="sec_4_track_list_item">
+                    <div class="link-container">
+                      <a
+                        href="./audio/zeds_dead_and_dirtyphonics-where_are_you_now_feat_bright_lights.mp3"
+                        >Zeds Dead, Dirtyphonics, Bright Lights — Where Are You
+                        Now
+                      </a>
+                    </div>
+                  </li>
+
+                  <li class="sec_4_track_list_item">
+                    <div class="link-container">
+                      <a
+                        href="./audio/Zedd_-_Follow_You_Down_feat._Bright_Lights_(mp3.pm).mp3"
+                        >Zedd, Bright Lights — Follow You Down</a
+                      >
+                    </div>
                   </li>
                 </ol>
               </div>
@@ -541,5 +623,7 @@
         </div>
       </footer>
     </div>
+
+    <script src="./js/player.js"></script>
   </body>
 </html>

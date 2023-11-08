@@ -279,7 +279,7 @@ const activatePlaylist = (playlistId, playerId) => {
         });
 
         // add animation if link isn't fully visible:
-        if (link.offsetWidth >= link.parentNode.clientWidth) {
+        if (link.offsetWidth >= link.parentNode.offsetWidth) {
             // add class 'animated' to link:
             link.classList.add('animated');
             // add animation-duration:

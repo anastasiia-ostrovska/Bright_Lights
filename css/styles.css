@@ -130,14 +130,7 @@ h1 > span:last-child {
     -webkit-text-stroke: 1px white;
 }
 
-
- /* --- Player start --- */
-.sec_1_player,
-.sec_4_player{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+.sec_1_player {
     margin-bottom: 130px;
 }
 
@@ -351,6 +344,7 @@ div.sec_2_theses_block > div > p {
 }
 
 .sec_2_photos {
+    /*position: relative;*/
     display: flex;
     max-width: 445px;
 }

@@ -264,13 +264,32 @@ const activatePlaylist = (playlistId, playerId) => {
         link.classList.add('active');
     }
 
-    const addAnimationOnCurrentTrackTitle = (link) => {
-        // add class 'animated' to link:
-        link.classList.add('animated');
-        // dublicate the link:
-        const clonedLink = link.cloneNode(true);
-        // add cloned link after link:
-        link.insertAdjacentElement('afterend', clonedLink);
+    const getAnimationDuration = (link) => {
+        // get element width:
+        const width = link.offsetWidth;
+        const animationDuration = width / 50;
+        return animationDuration;
+    }
+
+    const resetAnimationToCurrentTrack = (link) => {
+        // remove class animated from all links + delete additional link:
+        links.forEach(link => {
+            if (link.classList.contains('animated')) link.nextElementSibling.remove();
+            link.classList.remove('animated')
+        });
+
+        // add animation if link isn't fully visible:
+        if (link.offsetWidth >= link.parentNode.offsetWidth) {
+            // add class 'animated' to link:
+            link.classList.add('animated');
+            // add animation-duration:
+            const duration = getAnimationDuration(link);
+            link.style.animationDuration = `${duration}s`;
+            // dublicate the link:
+            const clonedLink = link.cloneNode(true);
+            // add cloned link after link:
+            link.insertAdjacentElement('afterend', clonedLink);
+        }
     }
 
     const loadAudioSourceElSrc = (src) => {
@@ -283,6 +302,7 @@ const activatePlaylist = (playlistId, playerId) => {
         // set audioElement src + load:
         loadAudioSourceElSrc(src);
         resetActiveClass(link);
+        resetAnimationToCurrentTrack(link);
         playTrackFromStart();
         // save track info lo localStorage:
         setCurrentTrackInfoToLocalStorage(index, audioSourceEl.src);
@@ -314,7 +334,7 @@ const activatePlaylist = (playlistId, playerId) => {
         // add class active to current track:
         resetActiveClass(link);
         // add animation on current track title:
-        addAnimationOnCurrentTrackTitle(link);
+        resetAnimationToCurrentTrack(link);
     }
 
     // ----

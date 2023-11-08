@@ -264,6 +264,15 @@ const activatePlaylist = (playlistId, playerId) => {
         link.classList.add('active');
     }
 
+    const addAnimationOnCurrentTrackTitle = (link) => {
+        // add class 'animated' to link:
+        link.classList.add('animated');
+        // dublicate the link:
+        const clonedLink = link.cloneNode(true);
+        // add cloned link after link:
+        link.insertAdjacentElement('afterend', clonedLink);
+    }
+
     const loadAudioSourceElSrc = (src) => {
         // set href to audioElement src + load:
         audioSourceEl.src = src;
@@ -304,6 +313,8 @@ const activatePlaylist = (playlistId, playerId) => {
         loadAudioSourceElSrc(currentTrack.src);
         // add class active to current track:
         resetActiveClass(link);
+        // add animation on current track title:
+        addAnimationOnCurrentTrackTitle(link);
     }
 
     // ----

@@ -490,27 +490,33 @@ h3 {
     align-items: baseline;
     padding-bottom: 20px;
     width: inherit;
-    overflow: hidden;
-    /* switch hidden */
 }
+
+.sec_4_container .sec_4_track_list .sec_4_track_list_item .link-container {
+    position: relative;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+
 .sec_4_container .sec_4_track_list .sec_4_track_list_item:before {
     content: counter(item, decimal-leading-zero) " ";
     counter-increment: item;
     font-weight: 700;
     font-size: 14px;
     line-height: 21px;
+    margin-right: 16px;
     color: #FFFFFF50;
 }
 
-
 .sec_4_container .sec_4_track_list .sec_4_track_list_item a {
-    padding-left: 16px;
     color: white;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 100%;
 }
+
+/* animation starts */
 @keyframes scrollText {
     0% {
         transform: translateX(0%);
@@ -524,11 +530,14 @@ h3 {
 }
 
 .sec_4_container .sec_4_track_list .sec_4_track_list_item a.animated {
-    overflow:visible;
+    padding-right: 100px;
+    overflow: visible;
     animation: scrollText 10s linear infinite;
-    animation-play-state:paused;
-    /* animation-play-state: running; */
+    animation-delay: 1s;
+    animation-play-state: running;
 }
+
+/* animation starts === ! active ! */
 
 .sec_4_container .sec_4_track_list .sec_4_track_list_item a.active {
     font-weight: 600;

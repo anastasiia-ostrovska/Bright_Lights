@@ -530,10 +530,11 @@ h3 {
 }
 
 .sec_4_container .sec_4_track_list .sec_4_track_list_item a.animated {
-    padding-right: 100px;
+    padding-right: 75px;
     overflow: visible;
-    animation: scrollText 10s linear infinite;
-    animation-delay: 1s;
+    animation: scrollText linear infinite;
+    /* animation-duration: 10s; */
+    animation-delay: 0.5s;
     animation-play-state: running;
 }
 

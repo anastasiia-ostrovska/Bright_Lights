@@ -130,9 +130,115 @@ h1 > span:last-child {
     -webkit-text-stroke: 1px white;
 }
 
-.sec_1_player {
+
+ /* --- Player start --- */
+.sec_1_player,
+.sec_4_player{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 130px;
 }
+
+.sec_1_player .play_button,
+.sec_4_player .play_button {
+    border: none;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    margin-left: -10px;
+    background:none;
+    outline: none;
+    cursor: pointer;
+}
+
+.sec_1_player .play_icon,
+.sec_4_player .play_icon {
+    font-size: 24px;
+    width: 24px;
+    color: white;
+}
+
+.sec_1_player .play_button,
+.sec_4_player .play_button {
+    cursor: pointer;
+}
+
+.sec_1_player .player_progress_container,
+.sec_4_player .player_progress_container {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    width: 100%;
+    margin: 0 34px 0 22px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+
+.sec_1_player .player_progress,
+.sec_4_player .player_progress  {
+    display: flex;
+    align-items: center;
+    width: inherit;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.sec_1_player .player_progress .player_progress_filled,
+.sec_4_player .player_progress .player_progress_filled {
+    position: relative;
+    display: flex;
+    width: 0%;
+    height: 3px;
+    border-radius: 2px 0 0 2px;
+}
+
+.sec_1_player .player_progress .player_progress_thumb,
+.sec_4_player .player_progress .player_progress_thumb {
+    position: absolute;
+    /* backface-visibility: hidden; */
+    height: 21px;
+    width: 3px;
+    border-radius: 2px;
+    right: 0;
+    top: -9px;
+}
+
+/* .sec_1_player .player_progress .player_progress_thumb,
+.sec_4_player .player_progress .player_progress_thumb {
+    height: 20px;
+    width: 3px;
+    border-radius: 2px;
+} */
+
+.sec_1_player .player_progress .player_progress_filled,
+.sec_1_player .player_progress .player_progress_thumb,
+.sec_4_player .player_progress .player_progress_filled,
+.sec_4_player .player_progress .player_progress_thumb {
+    background: #7A66CC;
+}
+
+
+.sec_1_player .time_info,
+.sec_4_player .time_info  {
+    display: flex;
+    align-items: center;
+}
+
+.sec_1_player .time_info .time,
+.sec_4_player .time_info .time {
+    display: inline-flex;           
+    align-items: center;
+    height: 25px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal; 
+}
+
+/* --- Player end --- */
 
 .sec_1_pictures {
     display: flex;
@@ -245,7 +351,6 @@ div.sec_2_theses_block > div > p {
 }
 
 .sec_2_photos {
-    /*position: relative;*/
     display: flex;
     max-width: 445px;
 }
@@ -328,6 +433,8 @@ div.sec_3_p_container > p:nth-child(2) {
 }
 
 .sec_4_main_img {
+    max-height: 100%;
+    width: auto;
     border-radius: 100%;
     padding: 18px;
     background-color: rgba(122, 102, 204, 0.6);
@@ -337,6 +444,7 @@ div.sec_3_p_container > p:nth-child(2) {
 .sec_4_tracks_container {
     display: flex;
     flex-direction: column;
+    width: 540px;
 }
 
 .sec_4_heading {
@@ -361,8 +469,11 @@ h3 {
     margin-bottom: 50px;
 }
 
+
+/* playlist starts */
 .sec_4_track_list_container {
     margin-bottom: 50px;
+    width: inherit;
 }
 
 .sec_4_track_list {
@@ -381,23 +492,52 @@ h3 {
     width: inherit;
 }
 
+.sec_4_container .sec_4_track_list .sec_4_track_list_item .link-container {
+    position: relative;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+
 .sec_4_container .sec_4_track_list .sec_4_track_list_item:before {
     content: counter(item, decimal-leading-zero) " ";
     counter-increment: item;
     font-weight: 700;
     font-size: 14px;
     line-height: 21px;
+    margin-right: 16px;
     color: #FFFFFF50;
 }
 
 .sec_4_container .sec_4_track_list .sec_4_track_list_item a {
-    padding-left: 16px;
-    overflow: hidden;
     color: white;
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 100%;
 }
+
+/* animation starts */
+@keyframes scrollText {
+    0% {
+        transform: translateX(0%);
+        /* Початкове положення тексту */
+    }
+
+    100% {
+        transform: translateX(-100%);
+        /* Кінцеве положення тексту */
+    }
+}
+
+.sec_4_container .sec_4_track_list .sec_4_track_list_item a.animated {
+    padding-right: 75px;
+    overflow: visible;
+    animation: scrollText linear infinite;
+    animation-delay: 0.5s;
+    animation-play-state: running;
+}
+
+/* animation starts === ! active ! */
 
 .sec_4_container .sec_4_track_list .sec_4_track_list_item a.active {
     font-weight: 600;

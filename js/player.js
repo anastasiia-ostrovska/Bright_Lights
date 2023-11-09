@@ -376,4 +376,3 @@ const activatePlaylist = (playlistId, playerId) => {
 activatePlayer('#sec_1_player');
 activatePlaylist('#sec_4_playlist', '#sec_4_player');
 activatePlayer('#sec_4_player');
-// ...

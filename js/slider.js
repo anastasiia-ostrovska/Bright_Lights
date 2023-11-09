@@ -2,68 +2,42 @@
 // ---- slider functionality ends ----
 
 // ---- adding tickets on page starts ----
-const addTicketsBlocks = (ticketsInfo, sliderId) => {
+const addTicketsOnPage = (ticketsInfo, sliderId) => {
   // query elements:
   const sliderEl = document.querySelector(sliderId)
   const ticketsCount = ticketsInfo.length
 
   // add ticket layouts on the page:
-  const addTicketsLayouts = () => {
     for (let i = 0; i < ticketsCount; i++) {
+      const ticketInfo = ticketsInfo[i];
       const ticketContainer = document.createElement('div')
       ticketContainer.className = 'sec_6_ticket_container'
       ticketContainer.innerHTML = `
                 <div class="sec_6_photo">
                   <img
                     class="img"
-                    src=""
+                    src="${ticketInfo.img.src}"
                     alt="concert photo"
                   />
                 </div>
 
                 <h5 class="sec_6_tittle">
-                  <a href="" class="city"></a>
+                  <a href="${ticketInfo.location.city.mapHref}" 
+                  class="city">${ticketInfo.location.city.name}</a>
                   <br />
-                  <a href="" class="concert-venue"></a>
+                  <a href="${ticketInfo.location.concertVenue.citeHref}" 
+                  class="concert-venue">${ticketInfo.location.concertVenue.name}</a>
                 </h5>
 
                 <div class="sec_6_ticket_bottom">
-                  <time></time>
+                  <time>${ticketInfo.date.month} ${ticketInfo.date.day} ${ticketInfo.date.year}</time>
 
-                  <a class="sec_6_button_link" href="">
+                  <a class="sec_6_button_link" href="${ticketInfo.ticket.href}">
                     <div class="sec_6_button">tickets</div>
                   </a>
                 </div>`
       sliderEl.append(ticketContainer)
     }
-  }
-  // fill ticket layouts with information:
-  const fillTicketsLayoutsWithInfo = () => {
-  const ticketsContainers = sliderEl.querySelectorAll('.sec_6_ticket_container');
-  ticketsContainers.forEach((ticket, index)=> {
-    // query elements:
-    const image = ticket.querySelector('.img');
-    const locationCity = ticket.querySelector('.city');
-    const locationConcertVenue = ticket.querySelector('.concert-venue');
-    const date = ticket.querySelector('time');
-    const ticketBtn = ticket.querySelector('.sec_6_button_link');
-    const ticketInfo = ticketsInfo[index];
-    const ticketInfoDate = ticketInfo.date;
-
-    // add info:
-    image.src = ticketInfo.img.src;
-    locationCity.innerHTML = ticketInfo.location.city.name;
-    locationCity.href = ticketInfo.location.city.mapHref;
-    locationConcertVenue.innerHTML = ticketInfo.location.concertVenue.name;
-    locationConcertVenue.href = ticketInfo.location.concertVenue.citeHref;
-    date.innerHTML = `${ticketInfoDate.month} ${ticketInfoDate.day} ${ticketInfoDate.year}`;
-    ticketBtn.href = ticketInfo.ticket.href;
-
-  })
-  }
-
-  addTicketsLayouts();
-  fillTicketsLayoutsWithInfo();
 }
 // ---- adding tickets on page ends ----
 
@@ -206,4 +180,4 @@ const ticketsInfo = [
 ]
 // ---- tickets info ends ----
 
-addTicketsBlocks(ticketsInfo, '#slider')
+addTicketsOnPage(ticketsInfo, '#slider')

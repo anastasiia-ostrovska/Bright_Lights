@@ -131,9 +131,9 @@ h1 > span:last-child {
 }
 
 
- /* --- Player start --- */
+/* --- Player start --- */
 .sec_1_player,
-.sec_4_player{
+.sec_4_player {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -148,7 +148,7 @@ h1 > span:last-child {
     height: 44px;
     padding: 0;
     margin-left: -10px;
-    background:none;
+    background: none;
     outline: none;
     cursor: pointer;
 }
@@ -178,7 +178,7 @@ h1 > span:last-child {
 
 
 .sec_1_player .player_progress,
-.sec_4_player .player_progress  {
+.sec_4_player .player_progress {
     display: flex;
     align-items: center;
     width: inherit;
@@ -223,19 +223,19 @@ h1 > span:last-child {
 
 
 .sec_1_player .time_info,
-.sec_4_player .time_info  {
+.sec_4_player .time_info {
     display: flex;
     align-items: center;
 }
 
 .sec_1_player .time_info .time,
 .sec_4_player .time_info .time {
-    display: inline-flex;           
+    display: inline-flex;
     align-items: center;
     height: 25px;
     font-size: 18px;
     font-weight: 500;
-    line-height: normal; 
+    line-height: normal;
 }
 
 /* --- Player end --- */
@@ -543,8 +543,8 @@ h3 {
     font-weight: 600;
     color: #7A66CC;
 }
-/* playlist ends */
 
+/* playlist ends */
 
 
 .sec_4_follow {
@@ -660,9 +660,10 @@ div.sec_4_streamings > div:first-child {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    overflow: hidden;
 }
 
-.sec_6_block_container {
+.sec_6_ticket_container {
     display: flex;
     flex-direction: column;
     max-width: 350px;
@@ -681,7 +682,7 @@ div.sec_4_streamings > div:first-child {
 }
 
 h5 {
-    padding-left: 35px;
+    padding-left: 40px;
     padding-top: 30px;
     padding-bottom: 30px;
     font-weight: 500;
@@ -689,7 +690,7 @@ h5 {
     line-height: 27px;
 }
 
-.sec_6_h5_span {
+.sec_6_tittle .city {
     display: inline-flex;
     padding-bottom: 20px;
     font-weight: 700;
@@ -698,7 +699,20 @@ h5 {
     color: #FFFFFF50;
 }
 
-.sec_6_block_bottom {
+.sec_6_tittle .concert-venue {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: white;
+}
+
+.sec_6_tittle .concert-venue,
+.sec_6_tittle .city {
+    cursor: pointer;
+}
+
+.sec_6_ticket_bottom {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -734,9 +748,8 @@ time {
     color: #FFFFFF;
 }
 
-.sec_6_arrow_left {
+.sec_6_arrow_left, .sec_6_arrow_right {
     position: absolute;
-    left: -80px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -746,21 +759,18 @@ time {
     border-radius: 10px 0;
 }
 
+.sec_6_arrow_left {
+    left: -80px;
+}
+
 .sec_6_arrow_right {
-    position: absolute;
     right: -80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 60px;
-    width: 40px;
-    border: 1px solid #FFFFFF50;
-    border-radius: 10px 0;
 }
 
 .fa-arrow-left-long, .fa-arrow-right-long {
     color: #FFFFFF50;
 }
+
 /* section 6 starts*/
 
 .footer_container {

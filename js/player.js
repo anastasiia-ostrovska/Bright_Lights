@@ -42,7 +42,7 @@ const activatePlayer = (playerId) => {
     }
 
     const updateProgress = (currentTime, duration) => {
-        // update progresFillWidth:
+        // update progressFillWidth:
         const percent = ((currentTime * 100) / duration);
         progressFilledEl.style.width = `${percent}%`;
     }
@@ -82,7 +82,7 @@ const activatePlayer = (playerId) => {
         let changedCurrentTime;
         let isCursorOutOfBounds;
 
-        // prevent default ommousedown behavior;
+        // prevent default onmousedown behavior;
         e.preventDefault();
 
         // disable changing progress elements and time on timeupdate:
@@ -117,27 +117,27 @@ const activatePlayer = (playerId) => {
         startThumbMoving(e);
 
         // add listeners on mousemove 
-        document.addEventListener('mousemove', startThumbMoving);
+        document.addEventListener('pointermove', startThumbMoving);
 
         const stopThumbMoving = () => {
             if (isCursorOutOfBounds && playButton.dataset.playing === 'false') {
                 audioElement.currentTime = getCurrentTimeFromLocalStorage();
                 handleChangeProgress();
-            };
+            }
             if (!isCursorOutOfBounds) {
                 audioElement.currentTime = changedCurrentTime;
-            };
+            }
             isCursorOutOfBounds = null;
             // add listener handleChangeProgress;
             audioElement.addEventListener('timeupdate', handleChangeProgress);
 
             // remove listeners on mousemove and mouseup:
-            document.removeEventListener('mousemove', startThumbMoving);
-            document.removeEventListener('mouseup', stopThumbMoving);
+            document.removeEventListener('pointermove', startThumbMoving);
+            document.removeEventListener('pointerup', stopThumbMoving);
         }
 
         // add listeners on mouseup
-        document.addEventListener('mouseup', stopThumbMoving);
+        document.addEventListener('pointerup', stopThumbMoving);
     }
 
     const resetTrack = () => {
@@ -148,10 +148,8 @@ const activatePlayer = (playerId) => {
     }
 
     const initPlayer = () => {
-        // get currentTime:
-        const currentTime = getCurrentTimeFromLocalStorage();
         // set currentTime due to currentTimeState;
-        audioElement.currentTime = currentTime;
+        audioElement.currentTime = getCurrentTimeFromLocalStorage();
 
         // show audio duration + add listener if metadata didn't load:
         if (audioElement.readyState > 0) {
@@ -169,7 +167,7 @@ const activatePlayer = (playerId) => {
         // add listener on timeupdate:
         audioElement.addEventListener('timeupdate', handleChangeProgress);
         audioElement.addEventListener('timeupdate', () => {
-            // save currentime state:
+            // save current time state:
             saveCurrentTimeToLocalStorage();
         });
     }
@@ -202,7 +200,7 @@ const activatePlayer = (playerId) => {
 
     const subscribeOnProgressElMousedown = () => {
         // add listeners for progress element:
-        progressElContainer.addEventListener('mousedown', activateThumbMoving);
+        progressElContainer.addEventListener('pointerdown', activateThumbMoving);
         // prevent default browser behavior on dragstart:
         progressElContainer.ondragstart = () => false;
     }
@@ -267,8 +265,8 @@ const activatePlaylist = (playlistId, playerId) => {
     const getAnimationDuration = (link) => {
         // get element width:
         const width = link.offsetWidth;
-        const animationDuration = width / 50;
-        return animationDuration;
+        // return duration time:
+        return width / 50;
     }
 
     const resetAnimationToCurrentTrack = (link) => {
@@ -285,7 +283,7 @@ const activatePlaylist = (playlistId, playerId) => {
             // add animation-duration:
             const duration = getAnimationDuration(link);
             link.style.animationDuration = `${duration}s`;
-            // dublicate the link:
+            // duplicate the link:
             const clonedLink = link.cloneNode(true);
             // add cloned link after link:
             link.insertAdjacentElement('afterend', clonedLink);

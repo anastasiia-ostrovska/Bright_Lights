@@ -657,10 +657,13 @@ div.sec_4_streamings > div:first-child {
 }
 
 .sec_6_slider_wrapper {
+    overflow: hidden;
+}
+
+.sec_6_slider_wrapper .gallery-list {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    overflow: hidden;
+    transition: margin-left 0.3s;
 }
 
 .sec_6_ticket_container {
@@ -748,15 +751,16 @@ time {
     color: #FFFFFF;
 }
 
-.sec_6_arrow_left, .sec_6_arrow_right {
+#tickets-slider .sec_6_arrow_left, .sec_6_arrow_right {
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 60px;
     width: 40px;
-    border: 1px solid #FFFFFF50;
+    border: 1px solid #ffffff90;
     border-radius: 10px 0;
+    cursor: pointer;
 }
 
 .sec_6_arrow_left {
@@ -768,8 +772,17 @@ time {
 }
 
 .fa-arrow-left-long, .fa-arrow-right-long {
-    color: #FFFFFF50;
+    color: #ffffff90;
 }
+
+#tickets-slider .arrow-container.disabled {
+    border: 1px solid #ffffff36;
+}
+
+#tickets-slider .arrow.disabled {
+    color: #ffffff36;
+}
+
 
 /* section 6 starts*/
 

@@ -1,561 +1,563 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Bright Lights</title>
 
     <link
-      rel="shortcut icon"
-      href="img/icons/favicon.png"
-      type="image/x-icon"
+            rel="shortcut icon"
+            href="img/icons/favicon.png"
+            type="image/x-icon"
     />
 
-    <link rel="stylesheet" href="css/reset.css" />
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="css/media.css" />
+    <link rel="stylesheet" href="css/reset.css"/>
+    <link rel="stylesheet" href="css/styles.css"/>
+    <link rel="stylesheet" href="css/media.css"/>
 
     <script
-      src="https://kit.fontawesome.com/41ae0553f3.js"
-      crossorigin="anonymous"
+            src="https://kit.fontawesome.com/41ae0553f3.js"
+            crossorigin="anonymous"
     ></script>
-  </head>
+</head>
 
-  <body>
-    <div class="wrapper">
-      <header>
+<body>
+<div class="wrapper">
+    <header>
         <div class="header_container">
-          <div class="header_logo">
-            <a href="#">
-              <img
-                class="img"
-                src="img/logo/main_logo_3.png"
-                alt="bright lights logo"
-              />
-            </a>
-          </div>
+            <div class="header_logo">
+                <a href="#">
+                    <img
+                            class="img"
+                            src="img/logo/main_logo_3.png"
+                            alt="bright lights logo"
+                    />
+                </a>
+            </div>
 
-          <div class="header_nav_container">
-            <nav>
-              <menu class="header_navigation">
-                <li><a class="header_nav_link" href="#">About</a></li>
-                <li><a class="header_nav_link" href="#">News</a></li>
-                <li><a class="header_nav_link" href="#">Music</a></li>
-                <li><a class="header_nav_link" href="#">Media</a></li>
-                <li><a class="header_nav_link" href="#">Tours</a></li>
-                <li><a class="header_nav_link" href="#">Contacts</a></li>
-              </menu>
-            </nav>
-          </div>
+            <div class="header_nav_container">
+                <nav>
+                    <menu class="header_navigation">
+                        <li><a class="header_nav_link" href="#">About</a></li>
+                        <li><a class="header_nav_link" href="#">News</a></li>
+                        <li><a class="header_nav_link" href="#">Music</a></li>
+                        <li><a class="header_nav_link" href="#">Media</a></li>
+                        <li><a class="header_nav_link" href="#">Tours</a></li>
+                        <li><a class="header_nav_link" href="#">Contacts</a></li>
+                    </menu>
+                </nav>
+            </div>
         </div>
-      </header>
+    </header>
 
-      <main>
+    <main>
         <div class="main_container">
-          <!--    1 секція основного контенту    -->
-          <section class="sec_1">
-            <h1>
-              <span>New Single</span>
-              <span>War For Love</span>
-            </h1>
+            <!--    1 секція основного контенту    -->
+            <section class="sec_1">
+                <h1>
+                    <span>New Single</span>
+                    <span>War For Love</span>
+                </h1>
 
-            <div id="sec_1_player" class="sec_1_player">
-              <audio
-                controls
-                hidden
-                preload="metadata"
-                class="audio_element"
-                data-playlist="single-track"
-              >
-                <source
-                  src="./audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
-                  type="audio/mpeg"
-                />
-              </audio>
-              <div class="play_button_container">
-                <button
-                  class="play_button"
-                  role="button"
-                  aria-label="Play"
-                  data-playing="false"
-                >
-                  <i class="fa-solid fa-play play_icon"></i>
-                </button>
-              </div>
-
-              <div class="player_progress_container">
-                <div class="player_progress">
-                  <div class="player_progress_filled">
-                    <!-- <div class="player_progress_thumb_container"> -->
-                    <div class="player_progress_thumb"></div>
-                    <!-- </div> -->
-                  </div>
-                </div>
-              </div>
-
-              <div class="time_info">
-                <span class="time current_time">00:00</span>-
-                <span class="time duration">00:00</span>
-              </div>
-            </div>
-
-            <div class="sec_1_pictures">
-              <a href="#">
-                <figure>
-                  <div class="sec_1_img_container">
-                    <img
-                      class="img"
-                      src="img/1_section_picture_1.png"
-                      alt="Working process"
-                    />
-                  </div>
-
-                  <figcaption class="sec_1_figcaption">
-                    Working on my upcoming full-lenth album that`s releasing
-                    later this year.
-                  </figcaption>
-                </figure>
-              </a>
-
-              <a href="#">
-                <figure>
-                  <div class="sec_1_img_container">
-                    <img
-                      class="img"
-                      src="img/1_section_picture_2.png"
-                      alt="Halloween vibes"
-                    />
-                  </div>
-
-                  <figcaption class="sec_1_figcaption">
-                    Halloween vibes. <br />
-                    Listen my new track!
-                  </figcaption>
-                </figure>
-              </a>
-
-              <a href="#">
-                <figure>
-                  <div class="sec_1_img_container">
-                    <img
-                      class="img"
-                      src="img/1_section_picture_3.png"
-                      alt="War For Love stream"
-                    />
-                  </div>
-
-                  <figcaption class="sec_1_figcaption">
-                    WarForLove is OUT NOW!! <br />
-                    Stream it here!
-                  </figcaption>
-                </figure>
-              </a>
-            </div>
-          </section>
-
-          <!--    2 секція основного контенту    -->
-          <section class="sec_2">
-            <article class="sec_2_aside">
-              <div class="sec_2_heading">
-                <div class="img_diagram_container">
-                  <img class="img" src="img/icons/diagram.png" alt="diagram" />
-                </div>
-
-                <h2>Bright Lights</h2>
-              </div>
-
-              <p class="sec_2_paragraph">
-                Bright Lights is a multi-Grammy nominated singer, songwriter, DJ
-                and record producer. She has written for numerous
-                <br />
-                <br />
-                pop stars including Britney Spears, Justin Bieber, Usher and
-                Beyoncé. Her catalog has amassed over 1 billion streams
-                worldwide. More than 100 million of those streams can be
-                attributed to her artist career and include such hits as Porter
-                Robinson's "Language," 3LAU's "How You Love Me" and her own
-                single "Runaway." She was also a featured vocalist on Zedd's #1
-                Clarity album. Her latest music video, "Put It Down," reached 1
-                million streams in the first week, releasing independently.
-                Bright Lights is currently in the studio working on a
-                self-produced album slated for release in 2020.
-              </p>
-
-              <div class="sec_2_theses">
-                <div class="sec_2_theses_block">
-                  <div class="sec_2_block_top">
-                    <div class="sec_2_marker"></div>
-                    <p>Based in: Los Angeles</p>
-                  </div>
-
-                  <div>
-                    <div class="sec_2_marker"></div>
-                    <p>Genre: #DancePop</p>
-                  </div>
-                </div>
-
-                <div class="sec_2_theses_block">
-                  <div class="sec_2_block_top">
-                    <div class="sec_2_marker"></div>
-                    <p>Founded in 2011</p>
-                  </div>
-
-                  <div>
-                    <div class="sec_2_marker"></div>
-                    <p>Label: 333 Recordings</p>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <!--                todo: нормально зробити картинки-->
-            <div class="sec_2_photos">
-              <div class="sec_2_foreground_img">
-                <img
-                  class="img sec_2_img"
-                  src="img/2_section_picture_1_foreground.png"
-                  alt="image"
-                />
-              </div>
-
-              <div class="sec_2_background_img">
-                <img
-                  class="img sec_2_img"
-                  src="img/2_section_picture_2_background.png"
-                  alt="image"
-                />
-              </div>
-            </div>
-          </section>
-
-          <!--    3 секція основного контенту    -->
-          <section class="sec_3_container">
-            <article>
-              <div class="sec_3_p_container">
-                <p>
-                  “In an age where mainstream music is designed to be as easily
-                  consumed as possible, listening to Bright Lights is
-                  refreshing, to say the least. Her sound is perfect for radio
-                  but complex enough to separate her from other pop newcomers.”
-                </p>
-
-                <p>PopULove.net</p>
-
-                <div class="sec_3_quotes">
-                  <img
-                    class="img"
-                    src="img/3_section_picture_1_quotes.png"
-                    alt="quotes"
-                  />
-                </div>
-              </div>
-            </article>
-
-            <div class="sec_3_foreground_img">
-              <img
-                class="img"
-                src="img/3_section_picture_2_main.png"
-                alt="MTV image"
-              />
-            </div>
-          </section>
-
-          <!--    4 секція основного контенту    -->
-          <section class="sec_4_container">
-            <div class="sec_4_main_img_container">
-              <img
-                class="img sec_4_main_img"
-                src="img/4_section_picture_1_main.png"
-                alt="concert photo"
-              />
-            </div>
-
-            <div class="sec_4_tracks_container">
-              <div class="sec_4_heading">
-                <div class="img_diagram_container">
-                  <img class="img" src="img/icons/diagram.png" alt="diagram" />
-                </div>
-
-                <h3>Last tracks</h3>
-              </div>
-
-              <div id="sec_4_player" class="sec_4_player">
-                <audio
-                  controls
-                  hidden
-                  preload="metadata"
-                  class="audio_element"
-                  data-playlist="multiple-tracks"
-                >
-                  <source class="audiosource" src="" type="audio/mpeg" />
-                </audio>
-                <div class="play_button_container">
-                  <button
-                    class="play_button"
-                    role="button"
-                    aria-label="Play"
-                    data-playing="false"
-                  >
-                    <i class="fa-solid fa-play play_icon"></i>
-                  </button>
-                </div>
-
-                <div class="player_progress_container">
-                  <div class="player_progress">
-                    <div class="player_progress_filled">
-                      <!-- <div class="player_progress_thumb_container"> -->
-                      <div class="player_progress_thumb"></div>
-                      <!-- </div> -->
+                <div id="sec_1_player" class="sec_1_player">
+                    <audio
+                            controls
+                            hidden
+                            preload="metadata"
+                            class="audio_element"
+                            data-playlist="single-track"
+                    >
+                        <source
+                                src="./audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
+                                type="audio/mpeg"
+                        />
+                    </audio>
+                    <div class="play_button_container">
+                        <button
+                                class="play_button"
+                                role="button"
+                                aria-label="Play"
+                                data-playing="false"
+                        >
+                            <i class="fa-solid fa-play play_icon"></i>
+                        </button>
                     </div>
-                  </div>
+
+                    <div class="player_progress_container">
+                        <div class="player_progress">
+                            <div class="player_progress_filled">
+                                <!-- <div class="player_progress_thumb_container"> -->
+                                <div class="player_progress_thumb"></div>
+                                <!-- </div> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="time_info">
+                        <span class="time current_time">00:00</span>-
+                        <span class="time duration">00:00</span>
+                    </div>
                 </div>
 
-                <div class="time_info">
-                  <span class="time current_time">00:00</span>-
-                  <span class="time duration">00:00</span>
-                </div>
-              </div>
+                <div class="sec_1_pictures">
+                    <a href="#">
+                        <figure>
+                            <div class="sec_1_img_container">
+                                <img
+                                        class="img"
+                                        src="img/1_section_picture_1.png"
+                                        alt="Working process"
+                                />
+                            </div>
 
-              <div id="sec_4_playlist" class="sec_4_track_list_container">
-                <ol class="sec_4_track_list">
-                  <li class="sec_4_track_list_item">
-                    <div class="link-container">
-                      <a
-                        href="./audio/3LAU feat. Bright Lights - How You Love Me (Radio Edit) [vzvuke.net].mp3"
-                        >3LAU, Bright Lights — How You Love Me</a
-                      >
-                    </div>
-                  </li>
-
-                  <li class="sec_4_track_list_item">
-                    <div class="link-container">
-                      <a
-                        href="./audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
-                        >Bright Lights, Kaleena Zanders, Kandy — War For Love</a
-                      >
-                    </div>
-                  </li>
-
-                  <li class="sec_4_track_list_item">
-                    <div class="link-container">
-                      <a
-                        href="./audio/Benny_Benassi_Pink_Is_Punk_Feat._Bright_Lights_-_Ghost_OST_Call_Of_Duty_Ghosts_(mp3.pm).mp3"
-                        >Pink Is Punk, Benny Benassi, Bright Lights — Ghost</a
-                      >
-                    </div>
-                  </li>
-
-                  <li class="sec_4_track_list_item">
-                    <div class="link-container">
-                      <a
-                        href="./audio/hardwell-dyro-feat-bright-lights-never-say-goodbye-radio-edit-(yagona.net).mp3"
-                        >Hardwell, Dyro, Bright Lights — Never Say Goodbye</a
-                      >
-                    </div>
-                  </li>
-
-                  <li class="sec_4_track_list_item">
-                    <div class="link-container">
-                      <a
-                        href="./audio/zeds_dead_and_dirtyphonics-where_are_you_now_feat_bright_lights.mp3"
-                        >Zeds Dead, Dirtyphonics, Bright Lights — Where Are You
-                        Now
-                      </a>
-                    </div>
-                  </li>
-
-                  <li class="sec_4_track_list_item">
-                    <div class="link-container">
-                      <a
-                        href="./audio/Zedd_-_Follow_You_Down_feat._Bright_Lights_(mp3.pm).mp3"
-                        >Zedd, Bright Lights — Follow You Down</a
-                      >
-                    </div>
-                  </li>
-                </ol>
-              </div>
-
-              <div class="sec_4_follow">
-                <h4>Follow me:</h4>
-
-                <div class="sec_4_streamings">
-                  <div>
-                    <a class="sec_4_spotify_block" href="#">
-                      <i class="fa-brands fa-spotify sec_4_icons"></i>
-                      Spotify
+                            <figcaption class="sec_1_figcaption">
+                                Working on my upcoming full-lenth album that`s releasing
+                                later this year.
+                            </figcaption>
+                        </figure>
                     </a>
-                  </div>
 
-                  <div>
-                    <a class="sec_4_itunes_block" href="#">
-                      <i class="fa-brands fa-apple sec_4_icons"></i>
-                      iTunes
+                    <a href="#">
+                        <figure>
+                            <div class="sec_1_img_container">
+                                <img
+                                        class="img"
+                                        src="img/1_section_picture_2.png"
+                                        alt="Halloween vibes"
+                                />
+                            </div>
+
+                            <figcaption class="sec_1_figcaption">
+                                Halloween vibes. <br/>
+                                Listen my new track!
+                            </figcaption>
+                        </figure>
                     </a>
-                  </div>
+
+                    <a href="#">
+                        <figure>
+                            <div class="sec_1_img_container">
+                                <img
+                                        class="img"
+                                        src="img/1_section_picture_3.png"
+                                        alt="War For Love stream"
+                                />
+                            </div>
+
+                            <figcaption class="sec_1_figcaption">
+                                WarForLove is OUT NOW!! <br/>
+                                Stream it here!
+                            </figcaption>
+                        </figure>
+                    </a>
                 </div>
-              </div>
-            </div>
-          </section>
+            </section>
 
-          <!--    5 секція основного контенту    -->
-          <section class="sec_5_container">
-            <div class="sec_5_left_block sec_5_img_container">
-              <a class="sec_5_img_link" href="#">
-                <img
-                  class="img"
-                  src="img/5_section_picture_1.png"
-                  alt="concert photo"
-                />
-              </a>
-            </div>
+            <!--    2 секція основного контенту    -->
+            <section class="sec_2">
+                <article class="sec_2_aside">
+                    <div class="sec_2_heading">
+                        <div class="img_diagram_container">
+                            <img class="img" src="img/icons/diagram.png" alt="diagram"/>
+                        </div>
 
-            <div class="sec_5_central_block">
-              <div class="sec_5_central_block_top">
-                <div class="sec_5_img_container sec_5_central_left">
-                  <a class="sec_5_img_link" href="#">
+                        <h2>Bright Lights</h2>
+                    </div>
+
+                    <p class="sec_2_paragraph">
+                        Bright Lights is a multi-Grammy nominated singer, songwriter, DJ
+                        and record producer. She has written for numerous
+                        <br/>
+                        <br/>
+                        pop stars including Britney Spears, Justin Bieber, Usher and
+                        Beyoncé. Her catalog has amassed over 1 billion streams
+                        worldwide. More than 100 million of those streams can be
+                        attributed to her artist career and include such hits as Porter
+                        Robinson's "Language," 3LAU's "How You Love Me" and her own
+                        single "Runaway." She was also a featured vocalist on Zedd's #1
+                        Clarity album. Her latest music video, "Put It Down," reached 1
+                        million streams in the first week, releasing independently.
+                        Bright Lights is currently in the studio working on a
+                        self-produced album slated for release in 2020.
+                    </p>
+
+                    <div class="sec_2_theses">
+                        <div class="sec_2_theses_block">
+                            <div class="sec_2_block_top">
+                                <div class="sec_2_marker"></div>
+                                <p>Based in: Los Angeles</p>
+                            </div>
+
+                            <div>
+                                <div class="sec_2_marker"></div>
+                                <p>Genre: #DancePop</p>
+                            </div>
+                        </div>
+
+                        <div class="sec_2_theses_block">
+                            <div class="sec_2_block_top">
+                                <div class="sec_2_marker"></div>
+                                <p>Founded in 2011</p>
+                            </div>
+
+                            <div>
+                                <div class="sec_2_marker"></div>
+                                <p>Label: 333 Recordings</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!--                todo: нормально зробити картинки-->
+                <div class="sec_2_photos">
+                    <div class="sec_2_foreground_img">
+                        <img
+                                class="img sec_2_img"
+                                src="img/2_section_picture_1_foreground.png"
+                                alt="image"
+                        />
+                    </div>
+
+                    <div class="sec_2_background_img">
+                        <img
+                                class="img sec_2_img"
+                                src="img/2_section_picture_2_background.png"
+                                alt="image"
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <!--    3 секція основного контенту    -->
+            <section class="sec_3_container">
+                <article>
+                    <div class="sec_3_p_container">
+                        <p>
+                            “In an age where mainstream music is designed to be as easily
+                            consumed as possible, listening to Bright Lights is
+                            refreshing, to say the least. Her sound is perfect for radio
+                            but complex enough to separate her from other pop newcomers.”
+                        </p>
+
+                        <p>PopULove.net</p>
+
+                        <div class="sec_3_quotes">
+                            <img
+                                    class="img"
+                                    src="img/3_section_picture_1_quotes.png"
+                                    alt="quotes"
+                            />
+                        </div>
+                    </div>
+                </article>
+
+                <div class="sec_3_foreground_img">
                     <img
-                      class="img"
-                      src="img/5_section_picture_2.png"
-                      alt="photo"
+                            class="img"
+                            src="img/3_section_picture_2_main.png"
+                            alt="MTV image"
                     />
-                  </a>
                 </div>
+            </section>
 
-                <div class="sec_5_img_container sec_5_central_right">
-                  <a class="sec_5_img_link" href="#">
+            <!--    4 секція основного контенту    -->
+            <section class="sec_4_container">
+                <div class="sec_4_main_img_container">
                     <img
-                      class="img"
-                      src="img/5_section_picture_3.png"
-                      alt="photo"
+                            class="img sec_4_main_img"
+                            src="img/4_section_picture_1_main.png"
+                            alt="concert photo"
                     />
-                  </a>
-                </div>
-              </div>
-
-              <figure class="sec_5_central_block_bottom">
-                <div class="sec_5_img_container">
-                  <a class="sec_5_img_link" href="#">
-                    <img
-                      class="img"
-                      src="img/5_section_picture_4.png"
-                      alt="photo"
-                    />
-                  </a>
                 </div>
 
-                <figcaption class="sec_5_figcaption">
-                  EDC Las Vegas Mainstage
-                </figcaption>
-              </figure>
-            </div>
+                <div class="sec_4_tracks_container">
+                    <div class="sec_4_heading">
+                        <div class="img_diagram_container">
+                            <img class="img" src="img/icons/diagram.png" alt="diagram"/>
+                        </div>
 
-            <div class="sec_5_right_block">
-              <a class="sec_5_img_link" href="#">
-                <img
-                  class="img"
-                  src="img/5_section_picture_5.png"
-                  alt="photo"
-                />
-              </a>
-            </div>
-          </section>
+                        <h3>Last tracks</h3>
+                    </div>
 
-          <!--    6 секція основного контенту    -->
-          <section class="sec_6_container">
-            <div class="sec_6_arrow_left">
-              <i class="fa-solid fa-arrow-left-long"></i>
-            </div>
+                    <div id="sec_4_player" class="sec_4_player">
+                        <audio
+                                controls
+                                hidden
+                                preload="metadata"
+                                class="audio_element"
+                                data-playlist="multiple-tracks"
+                        >
+                            <source class="audiosource" src="" type="audio/mpeg"/>
+                        </audio>
+                        <div class="play_button_container">
+                            <button
+                                    class="play_button"
+                                    role="button"
+                                    aria-label="Play"
+                                    data-playing="false"
+                            >
+                                <i class="fa-solid fa-play play_icon"></i>
+                            </button>
+                        </div>
 
-            <div id="slider" class="sec_6_slider_wrapper"></div>
+                        <div class="player_progress_container">
+                            <div class="player_progress">
+                                <div class="player_progress_filled">
+                                    <!-- <div class="player_progress_thumb_container"> -->
+                                    <div class="player_progress_thumb"></div>
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+                        </div>
 
-            <div class="sec_6_arrow_right">
-              <i class="fa-solid fa-arrow-right-long"></i>
-            </div>
-          </section>
+                        <div class="time_info">
+                            <span class="time current_time">00:00</span>-
+                            <span class="time duration">00:00</span>
+                        </div>
+                    </div>
+
+                    <div id="sec_4_playlist" class="sec_4_track_list_container">
+                        <ol class="sec_4_track_list">
+                            <li class="sec_4_track_list_item">
+                                <div class="link-container">
+                                    <a
+                                            href="./audio/3LAU feat. Bright Lights - How You Love Me (Radio Edit) [vzvuke.net].mp3"
+                                    >3LAU, Bright Lights — How You Love Me</a
+                                    >
+                                </div>
+                            </li>
+
+                            <li class="sec_4_track_list_item">
+                                <div class="link-container">
+                                    <a
+                                            href="./audio/bright-lights-kaleena-zanders-kandy-war-for-love.mp3"
+                                    >Bright Lights, Kaleena Zanders, Kandy — War For Love</a
+                                    >
+                                </div>
+                            </li>
+
+                            <li class="sec_4_track_list_item">
+                                <div class="link-container">
+                                    <a
+                                            href="./audio/Benny_Benassi_Pink_Is_Punk_Feat._Bright_Lights_-_Ghost_OST_Call_Of_Duty_Ghosts_(mp3.pm).mp3"
+                                    >Pink Is Punk, Benny Benassi, Bright Lights — Ghost</a
+                                    >
+                                </div>
+                            </li>
+
+                            <li class="sec_4_track_list_item">
+                                <div class="link-container">
+                                    <a
+                                            href="./audio/hardwell-dyro-feat-bright-lights-never-say-goodbye-radio-edit-(yagona.net).mp3"
+                                    >Hardwell, Dyro, Bright Lights — Never Say Goodbye</a
+                                    >
+                                </div>
+                            </li>
+
+                            <li class="sec_4_track_list_item">
+                                <div class="link-container">
+                                    <a
+                                            href="./audio/zeds_dead_and_dirtyphonics-where_are_you_now_feat_bright_lights.mp3"
+                                    >Zeds Dead, Dirtyphonics, Bright Lights — Where Are You
+                                        Now
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="sec_4_track_list_item">
+                                <div class="link-container">
+                                    <a
+                                            href="./audio/Zedd_-_Follow_You_Down_feat._Bright_Lights_(mp3.pm).mp3"
+                                    >Zedd, Bright Lights — Follow You Down</a
+                                    >
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="sec_4_follow">
+                        <h4>Follow me:</h4>
+
+                        <div class="sec_4_streamings">
+                            <div>
+                                <a class="sec_4_spotify_block" href="#">
+                                    <i class="fa-brands fa-spotify sec_4_icons"></i>
+                                    Spotify
+                                </a>
+                            </div>
+
+                            <div>
+                                <a class="sec_4_itunes_block" href="#">
+                                    <i class="fa-brands fa-apple sec_4_icons"></i>
+                                    iTunes
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!--    5 секція основного контенту    -->
+            <section class="sec_5_container">
+                <div class="sec_5_left_block sec_5_img_container">
+                    <a class="sec_5_img_link" href="#">
+                        <img
+                                class="img"
+                                src="img/5_section_picture_1.png"
+                                alt="concert photo"
+                        />
+                    </a>
+                </div>
+
+                <div class="sec_5_central_block">
+                    <div class="sec_5_central_block_top">
+                        <div class="sec_5_img_container sec_5_central_left">
+                            <a class="sec_5_img_link" href="#">
+                                <img
+                                        class="img"
+                                        src="img/5_section_picture_2.png"
+                                        alt="photo"
+                                />
+                            </a>
+                        </div>
+
+                        <div class="sec_5_img_container sec_5_central_right">
+                            <a class="sec_5_img_link" href="#">
+                                <img
+                                        class="img"
+                                        src="img/5_section_picture_3.png"
+                                        alt="photo"
+                                />
+                            </a>
+                        </div>
+                    </div>
+
+                    <figure class="sec_5_central_block_bottom">
+                        <div class="sec_5_img_container">
+                            <a class="sec_5_img_link" href="#">
+                                <img
+                                        class="img"
+                                        src="img/5_section_picture_4.png"
+                                        alt="photo"
+                                />
+                            </a>
+                        </div>
+
+                        <figcaption class="sec_5_figcaption">
+                            EDC Las Vegas Mainstage
+                        </figcaption>
+                    </figure>
+                </div>
+
+                <div class="sec_5_right_block">
+                    <a class="sec_5_img_link" href="#">
+                        <img
+                                class="img"
+                                src="img/5_section_picture_5.png"
+                                alt="photo"
+                        />
+                    </a>
+                </div>
+            </section>
+
+            <!--    6 секція основного контенту    -->
+            <section id="tickets-slider" class="sec_6_container">
+                <div class="sec_6_arrow_left arrow-container prev ">
+                    <i class="fa-solid arrow fa-arrow-left-long "></i>
+                </div>
+
+                <div class="sec_6_slider_wrapper gallery-container">
+                    <div class="gallery-list"></div>
+                </div>
+
+                <div class="sec_6_arrow_right arrow-container next">
+                    <i class="fa-solid arrow fa-arrow-right-long"></i>
+                </div>
+            </section>
         </div>
-      </main>
+    </main>
 
-      <footer>
+    <footer>
         <div class="footer_container">
-          <div class="footer_logo">
-            <a href="#">
-              <img
-                class="img"
-                src="img/logo/main_logo_3.png"
-                alt="bright lights logo"
-              />
-            </a>
-          </div>
+            <div class="footer_logo">
+                <a href="#">
+                    <img
+                            class="img"
+                            src="img/logo/main_logo_3.png"
+                            alt="bright lights logo"
+                    />
+                </a>
+            </div>
 
-          <div class="footer_contacts">
-            <div class="footer_contacts_artist">
+            <div class="footer_contacts">
+                <div class="footer_contacts_artist">
               <span class="footer_contacts_bold artist"
-                >Artist Management:</span
+              >Artist Management:</span
               >
-              <span class="footer_contacts_jake">Jake Henny</span>
+                    <span class="footer_contacts_jake">Jake Henny</span>
+                </div>
+
+                <div class="footer_contacts_email">
+                    <span class="footer_contacts_bold email">EMAIL:</span>
+                    <a
+                            class="footer_contacts_email_link"
+                            href="mailto:jake@brightlightsofficial.com"
+                    >
+                        jake@brightlightsofficial.com
+                    </a>
+                </div>
             </div>
 
-            <div class="footer_contacts_email">
-              <span class="footer_contacts_bold email">EMAIL:</span>
-              <a
-                class="footer_contacts_email_link"
-                href="mailto:jake@brightlightsofficial.com"
-              >
-                jake@brightlightsofficial.com
-              </a>
+            <div class="footer_media_icons_container">
+                <a class="footer_media_links" href="#">
+                    <div class="footer_media_icon">
+                        <i class="fa-brands fa-apple footer_icons"></i>
+                    </div>
+                </a>
+
+                <a class="footer_media_links" href="#">
+                    <div class="footer_media_icon">
+                        <i class="fa-brands fa-spotify footer_icons"></i>
+                    </div>
+                </a>
+
+                <a class="footer_media_links" href="#">
+                    <div class="footer_media_icon">
+                        <i class="fa-brands fa-instagram footer_icons"></i>
+                    </div>
+                </a>
+
+                <a class="footer_media_links" href="#">
+                    <div class="footer_media_icon">
+                        <i class="fa-brands fa-youtube footer_icons footer_youtube"></i>
+                    </div>
+                </a>
+
+                <a class="footer_media_links" href="#">
+                    <div class="footer_media_icon">
+                        <i class="fa-brands fa-twitter footer_icons footer_twitter"></i>
+                    </div>
+                </a>
+
+                <a class="footer_media_links" href="#">
+                    <div class="footer_media_icon facebook">
+                        <i class="fa-brands fa-facebook footer_icons"></i>
+                    </div>
+                </a>
             </div>
-          </div>
 
-          <div class="footer_media_icons_container">
-            <a class="footer_media_links" href="#">
-              <div class="footer_media_icon">
-                <i class="fa-brands fa-apple footer_icons"></i>
-              </div>
-            </a>
-
-            <a class="footer_media_links" href="#">
-              <div class="footer_media_icon">
-                <i class="fa-brands fa-spotify footer_icons"></i>
-              </div>
-            </a>
-
-            <a class="footer_media_links" href="#">
-              <div class="footer_media_icon">
-                <i class="fa-brands fa-instagram footer_icons"></i>
-              </div>
-            </a>
-
-            <a class="footer_media_links" href="#">
-              <div class="footer_media_icon">
-                <i class="fa-brands fa-youtube footer_icons footer_youtube"></i>
-              </div>
-            </a>
-
-            <a class="footer_media_links" href="#">
-              <div class="footer_media_icon">
-                <i class="fa-brands fa-twitter footer_icons footer_twitter"></i>
-              </div>
-            </a>
-
-            <a class="footer_media_links" href="#">
-              <div class="footer_media_icon facebook">
-                <i class="fa-brands fa-facebook footer_icons"></i>
-              </div>
-            </a>
-          </div>
-
-          <div class="footer_bottom">
-            <p>© 2020 DJ bright lights.</p>
-          </div>
+            <div class="footer_bottom">
+                <p>© 2020 DJ bright lights.</p>
+            </div>
         </div>
-      </footer>
-    </div>
+    </footer>
+</div>
 
-    <script src="./js/player.js"></script>
-    <script src="./js/slider.js"></script>
-  </body>
+<script src="./js/player.js"></script>
+<script src="./js/slider.js"></script>
+</body>
 </html>

@@ -433,8 +433,8 @@ div.sec_3_p_container > p:nth-child(2) {
 }
 
 .sec_4_main_img {
-    max-height: 100%;
-    width: auto;
+    height: auto;
+    width: 100%;
     border-radius: 100%;
     padding: 18px;
     background-color: rgba(122, 102, 204, 0.6);

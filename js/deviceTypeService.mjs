@@ -20,8 +20,8 @@ const updateDeviceTypeState = () => {
   const userAgent = navigator.userAgent.toLowerCase();
   // console.log('userAgent', userAgent);
 
-  const mobileRegex = /(ipad)|(iphone)|(ipod)|(android)|(webos)/i;
-  const tabletRegex = /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/;
+  const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+  const tabletRegex = /(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i;
 
   if (mobileRegex.test(userAgent) === true) {
     setMobileType();
@@ -30,9 +30,9 @@ const updateDeviceTypeState = () => {
   } else {
     setDesktopType();
   }
-  console.log('getIsMobile(): ', getIsMobile());
-  console.log('getIsDesktop(): ', getIsDesktop());
-  console.log('getIsTablet(): ', getIsTablet());
+  // console.log('getIsMobile(): ', getIsMobile());
+  // console.log('getIsDesktop(): ', getIsDesktop());
+  // console.log('getIsTablet(): ', getIsTablet());
 };
 
 window.onload = () => updateDeviceTypeState();

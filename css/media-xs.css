@@ -1,4 +1,5 @@
-@media screen and (min-width: 320px) and (max-width: 470px) {
+/* X-Small Styles */
+@media screen and (max-width: 600px) {
 
     audio {
         width: 100%;
@@ -6,6 +7,7 @@
 
     .wrapper {
         padding: 0 25px;
+        background-size: auto;
     }
 
     .header_container {

@@ -38,6 +38,7 @@ a {
     background-color: #1c1b21;
     background-image: url('../img/background_picture.png');
     background-repeat: no-repeat;
+    background-size: 100% auto;
     background-position: top;
     font-family: Poppins, sans-serif;
     font-weight: normal;
@@ -191,7 +192,6 @@ h1 > span:last-child {
 .sec_4_player .player_progress .player_progress_filled {
     position: relative;
     display: flex;
-    width: 0%;
     height: 3px;
     border-radius: 2px 0 0 2px;
 }
@@ -206,13 +206,6 @@ h1 > span:last-child {
     right: 0;
     top: -9px;
 }
-
-/* .sec_1_player .player_progress .player_progress_thumb,
-.sec_4_player .player_progress .player_progress_thumb {
-    height: 20px;
-    width: 3px;
-    border-radius: 2px;
-} */
 
 .sec_1_player .player_progress .player_progress_filled,
 .sec_1_player .player_progress .player_progress_thumb,

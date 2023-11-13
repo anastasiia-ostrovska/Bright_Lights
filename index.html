@@ -32,7 +32,7 @@
 <body>
 <div class="wrapper">
     <header>
-        <div class="header_container">
+        <div class="header_container ">
             <div class="header_logo">
                 <a target="_blank" href="#">
                     <img
@@ -41,9 +41,14 @@
                             alt="bright lights logo"
                     />
                 </a>
+
+                <div class="navigation-icon ">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
             </div>
 
-            <div class="header_nav_container">
+
+            <div class="header_nav_container hidden">
                 <nav>
                     <menu class="header_navigation">
                         <li><a target="_blank" class="header_nav_link" href="#">About</a></li>
@@ -102,7 +107,8 @@
                     </div>
 
                     <div class="time_info">
-                        <span class="time current_time">00:00</span>-
+                        <span class="time current_time">00:00</span>
+                        <span class="time time-divider">-</span>
                         <span class="time duration">00:00</span>
                     </div>
                 </div>
@@ -319,7 +325,8 @@
                         </div>
 
                         <div class="time_info">
-                            <span class="time current_time">00:00</span>-
+                            <span class="time current_time">00:00</span>
+                            <span class="time time-divider">-</span>
                             <span class="time duration">00:00</span>
                         </div>
                     </div>
@@ -469,17 +476,25 @@
             </section>
 
             <!--    6 секція основного контенту    -->
-            <section id="tickets-slider" class="sec_6_container">
-                <div class="sec_6_arrow_left arrow-container prev ">
-                    <i class="fa-solid arrow fa-arrow-left-long "></i>
-                </div>
+            <section>
+                <div id="tickets-slider" class="sec_6_container">
+                    <div class="sec_6_arrow_left arrow-container prev ">
+                        <i class="fa-solid arrow fa-arrow-left-long "></i>
+                    </div>
 
-                <div class="sec_6_slider_wrapper gallery-container">
-                    <div class="gallery-list"></div>
-                </div>
+                    <div class="sec_6_slider_wrapper gallery-container">
+                        <div class="gallery-list"></div>
+                    </div>
 
-                <div class="sec_6_arrow_right arrow-container next">
-                    <i class="fa-solid arrow fa-arrow-right-long"></i>
+                    <div class="sec_6_arrow_right arrow-container next">
+                        <i class="fa-solid arrow fa-arrow-right-long"></i>
+                    </div>
+
+                    <div class="slider_carousel_dots">
+                        <span class="carousel_dot active"></span>
+                        <span class="carousel_dot "></span>
+                        <span class="carousel_dot"></span>
+                    </div>
                 </div>
             </section>
         </div>

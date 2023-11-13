@@ -6,36 +6,76 @@
     }
 
     .wrapper {
-        padding: 0 25px;
-        background-size: auto;
+        position: relative;
+        padding: 25px;
+        padding-bottom: 60px;
+        background-image: none;
     }
 
+    /*header starts*/
     .header_container {
+        z-index: 2;
+        position: fixed;
         flex-direction: column;
-        align-items: center;
-        justify-content: stretch;
+        width: 100%;
         height: auto;
-        margin-top: 25px;
-        margin-bottom: 90px;
+        margin: 0;
+        padding: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .header_nav_container {
+        width: 100%;
+        border-radius: 25px 25px 0 0;
+        transition: margin 1s ease;
+    }
+
+    .header_nav_container.hidden {
+        margin-bottom: -468px;
     }
 
     .header_logo {
+        order: 1;
+        justify-content: space-between;
+        height: 60px;
         margin-right: 0;
-        margin-bottom: 30px;
-        width: 60%;
+        border-top: 2px solid #ffffff1f;
+    }
+
+    .header_logo,
+    .header_nav_container {
+        background-color: #2c2b31;
+    }
+
+    .header_logo .navigation-icon {
+        padding: 0 25px;
+    }
+
+
+    .header_nav_container nav {
+        margin: 0 auto;
+    }
+
+    .header_logo img {
+        width: auto;
+        height: 30px;
+        padding: 0 25px;
     }
 
     .header_navigation {
         flex-direction: column;
         align-items: center;
         height: auto;
+        width: 100%;
     }
 
     .header_nav_link {
-        padding: 15px 25px;
+        padding: 25px;
     }
 
-
+    /*header ends*/
+    /*section 1 starts*/
     h1 > span:first-child {
         font-size: 32px;
         line-height: 55px;
@@ -47,11 +87,69 @@
     }
 
     h1 {
-        margin-bottom: 35px;
+        margin-bottom: 175px;
     }
 
     .sec_1 {
         margin-bottom: 130px;
+    }
+
+    .sec_1_player,
+    .sec_4_player {
+        flex-direction: column;
+        margin-bottom: 80px;
+    }
+
+    .sec_1_player .player_progress_container,
+    .sec_4_player .player_progress_container {
+        order: 0;
+        margin: 0;
+    }
+
+    .sec_1_player .time_info,
+    .sec_4_player .time_info {
+        order: 1;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .sec_1_player .play_button_container,
+    .sec_4_player .play_button_container {
+        order: 2;
+    }
+
+    .sec_1_player .play_button,
+    .sec_4_player .play_button {
+        width: 64px;
+        height: 64px;
+        margin: 0;
+    }
+
+    .sec_1_player .play_icon,
+    .sec_4_player .play_icon {
+        font-size: 32px;
+        width: 32px;
+    }
+
+    .sec_1_player .play_icon.fa-play,
+    .sec_4_player .play_icon.fa-play {
+        margin-left: 4px;
+    }
+
+    .sec_1_player .play_button,
+    .sec_4_player .play_button {
+        border-radius: 50%;
+        background-color: #ffffff1a;
+    }
+
+    .sec_1_player .time_info .time-divider,
+    .sec_4_player .time_info .time-divider {
+        display: none;
+    }
+
+    .sec_1_player .time_info .time,
+    .sec_4_player .time_info .time {
+        font-size: 14px;
     }
 
     .sec_1_pictures {
@@ -223,7 +321,10 @@
     }
 
 
+    /*slider starts*/
     .sec_6_container {
+        flex-direction: column;
+        gap: 25px;
         width: 100%;
         overflow: hidden;
         margin-bottom: 130px;
@@ -257,9 +358,31 @@
 
     .sec_6_arrow_right, .sec_6_arrow_left {
         display: none;
+
     }
 
+    #tickets-slider .slider_carousel_dots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+    }
 
+    #tickets-slider .carousel_dot {
+        height: 10px;
+        width: 10px;
+        background-color: #FFFFFF;
+        border-radius: 50%;
+        transition: width 0.5s ease;
+    }
+
+    #tickets-slider .carousel_dot.active {
+        height: 15px;
+        width: 15px;
+        background-color: #7A66CC;
+    }
+
+    /*slider ends*/
     .footer_container {
         max-width: 300px;
         margin: 0 auto 40px;
@@ -273,7 +396,7 @@
     .footer_contacts {
         width: 100%;
         font-size: 16px;
-        margin-bottom: 45px;
+        margin-bottom: 75px;
     }
 
     .footer_contacts_artist {

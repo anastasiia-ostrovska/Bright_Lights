@@ -71,8 +71,7 @@ a {
 }
 
 .header_container .navigation-icon {
-    font-size: 25px;
-    color: #ffffffad;
+    display: none;
 }
 
 .header_text_label {

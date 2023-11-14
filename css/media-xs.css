@@ -28,11 +28,11 @@
     .header_nav_container {
         width: 100%;
         border-radius: 25px 25px 0 0;
-        transition: margin 1s ease;
     }
 
     .header_nav_container.hidden {
         margin-bottom: -468px;
+        transition: margin 1s ease;
     }
 
     .header_logo {
@@ -40,7 +40,6 @@
         justify-content: space-between;
         height: 60px;
         margin-right: 0;
-        border-top: 2px solid #ffffff1f;
     }
 
     .header_logo,
@@ -48,10 +47,12 @@
         background-color: #2c2b31;
     }
 
-    .header_logo .navigation-icon {
+    .header_container .navigation-icon {
+        display: flex;
+        font-size: 25px;
+        color: #ffffffad;
         padding: 0 25px;
     }
-
 
     .header_nav_container nav {
         margin: 0 auto;
@@ -282,7 +283,7 @@
 
     .sec_5_container {
         flex-wrap: wrap;
-        margin-bottom: 130px;
+        margin-bottom: 150px;
     }
 
     .sec_5_left_block {
@@ -326,7 +327,6 @@
         flex-direction: column;
         gap: 25px;
         width: 100%;
-        overflow: hidden;
         margin-bottom: 130px;
     }
 
@@ -337,7 +337,7 @@
     .sec_6_ticket_container {
         max-width: unset;
         max-height: unset;
-        width: 100%;
+        width: 85%;
         margin-right: 25px;
     }
 
@@ -347,13 +347,12 @@
     }
 
     .sec_6_button {
-        width: 45vw;
+        width: 40vw;
     }
 
     time {
         justify-content: center;
         padding-left: 0;
-        width: 45vw;
     }
 
     .sec_6_arrow_right, .sec_6_arrow_left {
@@ -361,10 +360,18 @@
 
     }
 
-    #tickets-slider .slider_carousel_dots {
+    #tickets-slider .slider_carousel_dots_container {
         display: flex;
-        justify-content: center;
         align-items: center;
+        width: 85px;
+        overflow: hidden;
+    }
+
+    #tickets-slider .carousel_dots_list {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        transition: margin-left 0.3s;
         gap: 25px;
     }
 

@@ -49,6 +49,7 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     height: 60px;
     padding-top: 30px;
     margin-bottom: 322px;
@@ -86,8 +87,8 @@ a {
 .header_navigation {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     height: 60px;
+    gap: 56px;
     font-weight: 600;
     font-size: 18px;
     line-height: 28px;
@@ -101,7 +102,6 @@ a {
 
 .header_nav_link {
     color: white;
-    padding: 16px 28px;
 }
 
 .main_container {
@@ -204,7 +204,6 @@ h1 > span:last-child {
 .sec_1_player .player_progress .player_progress_thumb,
 .sec_4_player .player_progress .player_progress_thumb {
     position: absolute;
-    /* backface-visibility: hidden; */
     height: 21px;
     width: 3px;
     border-radius: 2px;
@@ -268,7 +267,8 @@ h1 > span:last-child {
     position: absolute;
     bottom: 0;
     display: inline-flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     width: -webkit-fill-available;
     padding: 21px 20px;
     font-size: 16px;
@@ -289,7 +289,7 @@ h1 > span:last-child {
 .sec_2_aside {
     display: flex;
     flex-direction: column;
-    max-width: 540px;
+    width: 540px;
     margin-right: 5%;
 }
 
@@ -307,12 +307,21 @@ h2 {
     margin-left: 30px;
 }
 
-article.sec_2_aside > p {
+.sec_2_paragraph {
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
     opacity: 0.7;
     margin-bottom: 60px;
+}
+
+.sec_2_aside .read-more {
+    display: none;
+    color: #7A66CC;
+    opacity: 0.7;
+    width: fit-content;
+    font-size: 14px;
+    padding: 2px 0;
 }
 
 .sec_2_theses {
@@ -363,11 +372,6 @@ div.sec_2_theses_block > div > p {
 
 .sec_2_foreground_img {
     z-index: 1;
-    /*margin-right: 95px;*/
-    /*margin-top: 0;*/
-    /*position: absolute;*/
-    /*right: 95px;*/
-    /*bottom: 66px;*/
 }
 
 .sec_2_background_img {

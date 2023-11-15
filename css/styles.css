@@ -361,6 +361,7 @@ div.sec_2_theses_block > div > p {
 }
 
 .sec_2_photos {
+    position: relative;
     display: flex;
     max-width: 445px;
 }
@@ -371,13 +372,16 @@ div.sec_2_theses_block > div > p {
 }
 
 .sec_2_foreground_img {
+    position: absolute;
+    right: 95px;
     z-index: 1;
 }
 
 .sec_2_background_img {
+    position: absolute;
+    right: 100%;
+    top: 127px;
     z-index: 0;
-    margin-left: -255px;
-    margin-top: 66px;
 }
 
 

@@ -187,12 +187,17 @@
         width: 30%;
         padding: 0;
         right: 36px;
-        top: 175px;
-        /*margin-top: -240px;*/
+        top: 36%;
         opacity: 0.2;
     }
 
+    .sec_4_track_list_container {
+        margin-bottom: 50px;
+        width: 50%;
+    }
+
     .sec_4_track_list {
+        width: 100%;
         font-size: 14px;
     }
 
@@ -263,7 +268,7 @@
     .sec_6_tittle .concert-venue,
     time {
         font-size: 12px;
-        line-height: 18px;
+        line-height: 12px;
     }
 
     .arrow-container {

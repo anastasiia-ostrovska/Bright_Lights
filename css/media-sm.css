@@ -59,6 +59,12 @@
         margin-bottom: 35px;
     }
 
+    .sec_1_player .time_info .time,
+    .sec_4_player .time_info .time {
+        height: 14px;
+        font-size: 14px;
+    }
+
     .sec_1_pictures {
         gap: 18px;
     }
@@ -126,6 +132,14 @@
         border-bottom: 2px dashed;
     }
 
+    .sec_2_theses {
+        align-self: center;
+    }
+
+    div.sec_2_theses_block > div > p {
+        font-size: 14px;
+    }
+
     .sec_2_photos {
         display: none
     }
@@ -145,9 +159,223 @@
         display: none;
     }
 
+    /*section 3 ends*/
+    /*section 4 player starts*/
+    .sec_4_container {
+        position: relative;
+        flex-direction: column-reverse;
+        margin-bottom: 130px;
+    }
+
+    .sec_4_tracks_container {
+        width: 100%;
+    }
+
+    .sec_4_heading {
+        margin-bottom: 25px;
+    }
+
+    .sec_4_heading h3 {
+        font-size: 32px;
+        line-height: 40px;
+        margin-left: 18px;
+    }
+
+    .sec_4_main_img_container {
+        position: absolute;
+        justify-content: center;
+        width: 30%;
+        padding: 0;
+        right: 36px;
+        top: 175px;
+        /*margin-top: -240px;*/
+        opacity: 0.2;
+    }
+
+    .sec_4_track_list {
+        font-size: 14px;
+    }
+
+    .sec_4_track_list:before {
+        font-size: 12px;
+    }
+
+    /*section 4 player ends*/
+    /*section 5 starts*/
+    .sec_5_container {
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 130px;
+    }
+
+    .sec_5_central_block_top {
+        margin-bottom: 25px;
+    }
+
+    /*section 5 ends*/
+    /*section 6 starts*/
+    .sec_6_container {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        margin-bottom: 130px;
+    }
+
+    .sec_6_slider_wrapper {
+        width: 100%;
+    }
+
+    .sec_6_ticket_container {
+        width: 30%;
+        margin-right: 5%;
+    }
+
+    .sec_6_button {
+        width: 15vw;
+    }
+
+    .sec_6_tittle {
+        padding: 5px;
+        text-align: center;
+    }
+
+    .sec_6_tittle .city {
+        line-height: 18px;
+        padding-bottom: 0;
+    }
+
+    .sec_6_button {
+        border-radius: 20px 0;
+        font-size: 12px;
+    }
+
+    time {
+        justify-content: center;
+        padding-left: 0;
+        width: 15vw;
+    }
+
+    .sec_6_button, time {
+        height: 40px;
+    }
+
+    .sec_6_tittle .city,
+    .sec_6_tittle .concert-venue,
+    time {
+        font-size: 12px;
+        line-height: 18px;
+    }
 
     .arrow-container {
         display: none;
     }
 
+    #tickets-slider .slider_carousel_dots_container {
+        display: flex;
+        align-items: center;
+        width: 50px;
+        overflow: hidden;
+    }
+
+    #tickets-slider .carousel_dots_list {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        transition: margin-left 0.3s;
+        gap: 15px;
+    }
+
+    #tickets-slider .carousel_dot {
+        height: 5px;
+        width: 5px;
+        background-color: #FFFFFF;
+        border-radius: 50%;
+        transition: width 0.5s ease;
+    }
+
+    #tickets-slider .carousel_dot.active {
+        height: 10px;
+        width: 10px;
+        background-color: #7A66CC;
+    }
+
+    /*section 6 ends*/
+    /*footer starts*/
+    .footer_container {
+        width: 100%;
+        margin: 0 auto 40px;
+    }
+
+    .footer_logo {
+        margin-bottom: 25px;
+    }
+
+    .footer_logo a {
+        display: flex;
+        justify-content: center
+    }
+
+    .footer_logo .img {
+        width: 60%;
+    }
+
+    .footer_contacts {
+        font-size: 12px;
+        line-height: 18px;
+        margin-bottom: 25px;
+    }
+
+
+    .footer_contacts_artist {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .artist {
+        margin-right: 0;
+    }
+
+    .footer_contacts_email {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer_media_icons_container {
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+        margin-bottom: 35px;
+    }
+
+    .footer_bottom p {
+        font-size: 8px;
+    }
+
+    .footer_contacts_bold {
+        margin: 0;
+    }
+
+    .footer_contacts_jake,
+    .footer_contacts_email_link {
+        color: #7A66CC;
+    }
+
+    .footer_media_links {
+        padding: 4px;
+    }
+
+    .footer_media_icon {
+        height: 25px;
+        width: 25px;
+        border: 6px solid #2C2C2C;
+    }
+
+    .footer_icons {
+        font-size: 15px;
+    }
+
+    /*footer ends*/
 }

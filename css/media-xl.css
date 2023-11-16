@@ -1,5 +1,140 @@
 /* Large Styles */
-@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+@media only screen and (min-width: 1200px) and (max-width: 1400px) {
+    .wrapper {
+        padding: 0 160px;
+    }
 
+    /*header starts*/
+    .header_container {
+        margin-bottom: 160px;
+    }
 
+    /*header ends*/
+    /*section 1 starts*/
+    .sec_1_pictures {
+        gap: 25px;
+    }
+
+    .sec_1_figcaption {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 10px;
+        border-radius: 12px 0;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .sec_1_figcaption span.cut {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .sec_1_figcaption span.hidden {
+        display: none;
+    }
+
+    /*section 1 ends*/
+    .sec_2_aside {
+        width: 50%;
+        margin-right: 10%;
+    }
+
+    div.sec_2_theses_block > div > p {
+        font-size: 14px;
+    }
+
+    .sec_2_photos {
+        width: 40%;
+    }
+
+    .sec_2_photos img {
+        width: 100%
+    }
+
+    .sec_2_foreground_img {
+        right: 25%;
+    }
+
+    .sec_2_background_img {
+        right: 0;
+        top: 10%;
+    }
+
+    .sec_2_foreground_img,
+    .sec_2_background_img {
+        width: 75%;
+    }
+
+    /*section 2 ends*/
+    /*section 3 starts*/
+    .sec_3_p_container {
+        width: auto;
+        padding-right: 50%;
+    }
+
+    .sec_4_tracks_container {
+        width: 50%;
+    }
+
+    .sec_4_main_img_container {
+        width: 40%;
+        padding: 0;
+        margin-right: 10%;
+        margin-left: 18px;
+    }
+
+    .sec_4_track_list_container {
+        width: 100%;
+    }
+
+    .sec_4_track_list {
+        width: 100%;
+    }
+
+    /*section 4 ends*/
+    /*section 6 starts*/
+    .sec_6_slider_wrapper {
+        width: 100%;
+    }
+
+    .sec_6_ticket_container {
+        width: 30%;
+        margin-right: 5%;
+    }
+
+    .sec_6_button {
+        width: 12vw;
+    }
+
+    .sec_6_tittle {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .sec_6_button {
+        border-radius: 25px 0;
+        font-size: 16px;
+    }
+
+    time {
+        justify-content: center;
+        padding-left: 0;
+        width: 18vw;
+    }
+
+    .sec_6_button, time {
+        height: 60px;
+    }
+
+    .sec_6_tittle .city {
+        padding-bottom: 10px;
+    }
+
+    .sec_6_tittle .city,
+    .sec_6_tittle .concert-venue,
+    time {
+        font-size: 16px;
+    }
+
+    /*section 6 ends*/
 }

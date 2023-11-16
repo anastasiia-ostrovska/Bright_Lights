@@ -1,10 +1,5 @@
 /* X-Small Styles */
 @media screen and (max-width: 578px) {
-
-    audio {
-        width: 100%;
-    }
-
     .wrapper {
         position: relative;
         padding: 25px;

@@ -1,9 +1,5 @@
 /* Large Styles */
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
-    audio {
-        width: 100%;
-    }
-
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
     .wrapper {
         padding: 120px 80px 40px 80px;
     }
@@ -164,12 +160,6 @@
     }
 
     /*section 2 ends*/
-    #tickets-slider .sec_6_arrow_left, .sec_6_arrow_right,
-    #tickets-slider .sec_6_arrow_right, .sec_6_arrow_right {
-        display: none;
-    }
-
-    /*section 2 ends*/
     /*section 3 starts*/
     .sec_3_container {
         margin-bottom: 300px;
@@ -207,12 +197,10 @@
     }
 
     .sec_4_main_img_container {
-        width: 30%;
+        width: 35%;
         padding: 0;
-        margin-right: 15%;
-        right: 36px;
-        top: 36%;
-        opacity: 0.2;
+        margin-right: 10%;
+        margin-left: 18px;
     }
 
     .sec_4_track_list_container {
@@ -286,7 +274,8 @@
         line-height: 14px;
     }
 
-    .arrow-container {
+    #tickets-slider .sec_6_arrow_left, .sec_6_arrow_right,
+    #tickets-slider .sec_6_arrow_right, .sec_6_arrow_right {
         display: none;
     }
 

@@ -33,7 +33,7 @@ a {
 .wrapper {
     display: flex;
     flex-direction: column;
-    max-width: 1920px;
+    /*max-width: 1920px;*/
     margin: 0 auto;
     background-color: #1c1b21;
     background-image: url('../img/background_picture.png');

@@ -1,9 +1,5 @@
 /* Small Styles */
 @media only screen and (min-width: 578px) and (max-width: 767px) {
-    audio {
-        width: 100%;
-    }
-
     .wrapper {
         padding: 85px 25px 0 25px;
     }
@@ -188,7 +184,6 @@
         padding: 0;
         right: 36px;
         top: 36%;
-        opacity: 0.2;
     }
 
     .sec_4_track_list_container {

@@ -151,7 +151,7 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
     const ticketWidth = ticketEl.offsetWidth;
     const ticketMarginRight = getComputedStyle(ticketEl).marginRight;
     // calc one scroll width:
-    const scrollWidth = ticketWidth + parseInt(ticketMarginRight);
+    const scrollWidth = ticketWidth + parseFloat(ticketMarginRight);
     const scrollsCount = ticketsInfo.length - visibleTicketsCount;
     // set limits:
     const leftLimit = 0;
@@ -173,7 +173,7 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
       }
 
       galleryList.style.marginLeft = `${marginLeft + scrollWidth}px`;
-      marginLeft = parseInt(galleryList.style.marginLeft);
+      marginLeft = parseFloat(galleryList.style.marginLeft);
 
       if (marginLeft === leftLimit) {
         toggleDisabledClass(prevBtn, prevArrow);
@@ -189,7 +189,7 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
       }
 
       galleryList.style.marginLeft = `${marginLeft - scrollWidth}px`;
-      marginLeft = parseInt(galleryList.style.marginLeft);
+      marginLeft = parseFloat(galleryList.style.marginLeft);
 
       if (marginLeft === rightLimit) {
         toggleDisabledClass(nextBtn, nextArrow);

@@ -155,7 +155,7 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
     const scrollsCount = ticketsInfo.length - visibleTicketsCount;
     // set limits:
     const leftLimit = 0;
-    const rightLimit = -(scrollWidth * scrollsCount);
+    const rightLimit = -parseInt(scrollWidth * scrollsCount);
 
     let marginLeft = 0; // початкова позиція каруселі
 
@@ -166,32 +166,32 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
 
     const onPrevBtnCLick = () => {
       // check if no more prev ticket:
-      if (marginLeft === leftLimit) return;
+      if (parseInt(marginLeft) >= leftLimit) return;
 
-      if (marginLeft === rightLimit) {
+      if (parseInt(marginLeft) <= rightLimit) {
         toggleDisabledClass(nextBtn, nextArrow);
       }
 
-      galleryList.style.marginLeft = `${marginLeft + scrollWidth}px`;
-      marginLeft = parseFloat(galleryList.style.marginLeft);
+      ticketEl.style.marginLeft = `${marginLeft + scrollWidth}px`;
+      marginLeft = parseFloat(ticketEl.style.marginLeft);
 
-      if (marginLeft === leftLimit) {
+      if (parseInt(marginLeft) >= leftLimit) {
         toggleDisabledClass(prevBtn, prevArrow);
       }
     };
 
     const onNextBtnCLick = () => {
       // check if no more prev ticket:
-      if (marginLeft === rightLimit) return;
+      if (parseInt(marginLeft) <= rightLimit) return;
 
-      if (marginLeft === leftLimit) {
+      if (parseInt(marginLeft) >= leftLimit) {
         toggleDisabledClass(prevBtn, prevArrow);
       }
 
-      galleryList.style.marginLeft = `${marginLeft - scrollWidth}px`;
-      marginLeft = parseFloat(galleryList.style.marginLeft);
+      ticketEl.style.marginLeft = `${marginLeft - scrollWidth}px`;
+      marginLeft = parseFloat(ticketEl.style.marginLeft);
 
-      if (marginLeft === rightLimit) {
+      if (parseInt(marginLeft) <= rightLimit) {
         toggleDisabledClass(nextBtn, nextArrow);
       }
     };

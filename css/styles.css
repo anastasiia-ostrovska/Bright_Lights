@@ -179,6 +179,7 @@ h1 > span:last-child {
     margin: 0 34px 0 22px;
     padding: 0 10px;
     cursor: pointer;
+    touch-action: none;
 }
 
 
@@ -197,9 +198,9 @@ h1 > span:last-child {
     position: relative;
     display: flex;
     height: 3px;
-    width: 0%;
+    width: 0;
     border-radius: 2px 0 0 2px;
-    touch-action: none;
+    /*touch-action: none;*/
 }
 
 .sec_1_player .player_progress .player_progress_thumb,

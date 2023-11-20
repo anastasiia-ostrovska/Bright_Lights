@@ -78,15 +78,14 @@ const activatePlayer = (playerId) => {
   };
 
   const activateThumbMoving = (e) => {
+    e.preventDefault();
+
     // prevent triggering events on other elements:
     e.currentTarget.setPointerCapture(e.pointerId);
 
     // save changed time after each event:
     let changedCurrentTime;
     let isCursorOutOfBounds;
-
-    // prevent default onmousedown behavior;
-    e.preventDefault();
 
     // disable changing progress elements and time on timeupdate:
     audioElement.removeEventListener('timeupdate', handleChangeProgress);
@@ -117,10 +116,6 @@ const activatePlayer = (playerId) => {
       changedCurrentTime = (percent * audioElement.duration) / 100;
       setCurrentTimeInfo(changedCurrentTime);
     };
-    startThumbMoving(e);
-
-    // add listeners on mousemove
-    document.addEventListener('pointermove', startThumbMoving);
 
     const stopThumbMoving = () => {
       if (isCursorOutOfBounds && playButton.dataset.playing === 'false') {
@@ -139,6 +134,9 @@ const activatePlayer = (playerId) => {
       document.removeEventListener('pointerup', stopThumbMoving);
     };
 
+    startThumbMoving(e);
+    // add listeners on mousemove
+    document.addEventListener('pointermove', startThumbMoving);
     // add listeners on mouseup
     document.addEventListener('pointerup', stopThumbMoving);
   };

@@ -1,18 +1,18 @@
-import deviceTypeService from './deviceTypeService.mjs';
+// import deviceTypeService from './deviceTypeService.mjs';
 
 // console.log('deviceTypeService.getIsMobile(): ', deviceTypeService.getIsMobile());
 // console.log('deviceTypeService.getIsDesktop(): ', deviceTypeService.getIsDesktop());
 // console.log('deviceTypeService.getIsTablet(): ', deviceTypeService.getIsTablet());
 
-const isMobile = deviceTypeService.getIsMobile();
-const isTablet = deviceTypeService.getIsTablet();
-const isDesktop = deviceTypeService.getIsDesktop();
+// const isMobile = deviceTypeService.getIsMobile();
+// const isTablet = deviceTypeService.getIsTablet();
+// const isDesktop = deviceTypeService.getIsDesktop();
 
-let visibleTicketsCount = 3;
-if (isMobile) {
+let visibleTicketsCount = 0;
+if (document.documentElement.clientWidth < 578) {
   visibleTicketsCount = 1;
-} else if (isTablet) {
-  visibleTicketsCount = 2;
+} else {
+  visibleTicketsCount = 3;
 }
 
 // ---- tickets info starts ----
@@ -151,55 +151,127 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
     const ticketWidth = ticketEl.offsetWidth;
     const ticketMarginRight = getComputedStyle(ticketEl).marginRight;
     // calc one scroll width:
-    const scrollWidth = ticketWidth + parseFloat(ticketMarginRight);
-    const scrollsCount = ticketsInfo.length - visibleTicketsCount;
+    const oneSlideScrollWidth = ticketWidth + parseFloat(ticketMarginRight);
+    const totalScrollsCount = ticketsInfo.length - visibleTicketsCount;
     // set limits:
     const leftLimit = 0;
-    const rightLimit = -parseInt(scrollWidth * scrollsCount);
+    const rightLimit = -parseInt(oneSlideScrollWidth * totalScrollsCount);
 
-    let marginLeft = 0; // початкова позиція каруселі
+    let currentMarginLeft = 0; // початкова позиція каруселі
+    let newMarginLeft = 0;
 
-    const toggleDisabledClass = (button, arrow) => {
+    const setMarginLeft = () => {
+      ticketEl.style.marginLeft = `${newMarginLeft}px`;
+      currentMarginLeft = newMarginLeft;
+    };
+
+    const toggleButtonDisabledClass = (button, arrow) => {
       button.classList.toggle('disabled');
       arrow.classList.toggle('disabled');
     };
 
     const onPrevBtnCLick = () => {
       // check if no more prev ticket:
-      if (parseInt(marginLeft) >= leftLimit) return;
+      if (parseInt(currentMarginLeft) >= leftLimit) return;
 
-      if (parseInt(marginLeft) <= rightLimit) {
-        toggleDisabledClass(nextBtn, nextArrow);
+      if (parseInt(currentMarginLeft) <= rightLimit) {
+        toggleButtonDisabledClass(nextBtn, nextArrow);
       }
 
-      ticketEl.style.marginLeft = `${marginLeft + scrollWidth}px`;
-      marginLeft = parseFloat(ticketEl.style.marginLeft);
+      // set new margin:
+      newMarginLeft = currentMarginLeft + oneSlideScrollWidth;
+      setMarginLeft();
 
-      if (parseInt(marginLeft) >= leftLimit) {
-        toggleDisabledClass(prevBtn, prevArrow);
+      if (parseInt(newMarginLeft) >= leftLimit) {
+        toggleButtonDisabledClass(prevBtn, prevArrow);
       }
     };
 
     const onNextBtnCLick = () => {
       // check if no more prev ticket:
-      if (parseInt(marginLeft) <= rightLimit) return;
+      if (parseInt(currentMarginLeft) <= rightLimit) return;
 
-      if (parseInt(marginLeft) >= leftLimit) {
-        toggleDisabledClass(prevBtn, prevArrow);
+      if (parseInt(currentMarginLeft) >= leftLimit) {
+        toggleButtonDisabledClass(prevBtn, prevArrow);
       }
 
-      ticketEl.style.marginLeft = `${marginLeft - scrollWidth}px`;
-      marginLeft = parseFloat(ticketEl.style.marginLeft);
+      // set new margin:
+      newMarginLeft = currentMarginLeft - oneSlideScrollWidth;
+      setMarginLeft();
 
-      if (parseInt(marginLeft) <= rightLimit) {
-        toggleDisabledClass(nextBtn, nextArrow);
+      if (parseInt(newMarginLeft) <= rightLimit) {
+        toggleButtonDisabledClass(nextBtn, nextArrow);
       }
     };
 
+    // ---- swipe slider functionality starts ----
+    // set initial x on pointerdown:
+    const onPointerDown = (e) => {
+      // prevent triggering events on other elements:
+      e.currentTarget.setPointerCapture(e.pointerId);
+
+      // remove transition:
+      const transition = getComputedStyle(ticketEl).transition;
+      ticketEl.style.transition = 'none';
+
+      // get x coordinate:
+      let initialPointerX = e.pageX;
+
+      // set new margin el:
+      let initialMarginLeft = currentMarginLeft;
+      let prevMarginLeft;
+
+      const startSlideMoving = (e) => {
+        e.preventDefault();
+        // save prev marginLeft value before moving:
+        prevMarginLeft = currentMarginLeft;
+
+        // get scroll width:
+        const currentX = e.pageX;
+        const currentScrollWidth = currentX - initialPointerX;
+
+        // set margin left to move slide:
+        newMarginLeft = currentMarginLeft + currentScrollWidth;
+        if (newMarginLeft > leftLimit) newMarginLeft = leftLimit;
+        if (newMarginLeft < rightLimit) newMarginLeft = rightLimit;
+        setMarginLeft();
+
+        // reset initial x:
+        initialPointerX = e.pageX;
+      };
+
+      const endSlideMoving = () => {
+        // return transition value:
+        ticketEl.style.transition = transition;
+
+        // get final count of slides to scroll:
+        const totalScrollWidth = Math.abs(initialMarginLeft - currentMarginLeft);
+        const currentScrollsCount = Math.ceil(totalScrollWidth / oneSlideScrollWidth);
+        const finalScrollWidth = currentScrollsCount * oneSlideScrollWidth - totalScrollWidth;
+
+        if (prevMarginLeft > currentMarginLeft) {
+          newMarginLeft = currentMarginLeft - finalScrollWidth;
+        } else {
+          newMarginLeft = currentMarginLeft + finalScrollWidth;
+        }
+
+        setMarginLeft();
+
+        document.removeEventListener('pointermove', startSlideMoving);
+        document.removeEventListener('pointerup', endSlideMoving);
+      };
+
+      // subscribe on pointermove/pointerup:
+      document.addEventListener('pointermove', startSlideMoving);
+      document.addEventListener('pointerup', endSlideMoving);
+    };
+
+    // ---- swipe slider functionality ends ----
+
     const setInitialSliderState = () => {
       const isPrevBtnDisabled = prevBtn.classList.contains('disabled');
-      if (marginLeft === 0 && !isPrevBtnDisabled) {
-        toggleDisabledClass(prevBtn, prevArrow);
+      if (currentMarginLeft === 0 && !isPrevBtnDisabled) {
+        toggleButtonDisabledClass(prevBtn, prevArrow);
       }
     };
 
@@ -208,8 +280,15 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
       nextBtn.addEventListener('click', onNextBtnCLick);
     };
 
+    const subscribeOnPointerDown = () => {
+      galleryContainer.addEventListener('pointerdown', onPointerDown);
+      // prevent default browser behavior on dragstart:
+      galleryContainer.ondragstart = () => false;
+    };
+
     subscribeOnButtonsClick();
     setInitialSliderState();
+    subscribeOnPointerDown();
   };
 // ---- slider functionality ends ----
 

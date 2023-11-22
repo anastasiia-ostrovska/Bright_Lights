@@ -241,24 +241,36 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
       };
 
       const endSlideMoving = () => {
+        document.removeEventListener('pointermove', startSlideMoving);
+        document.removeEventListener('pointerup', endSlideMoving);
+
         // return transition value:
         ticketEl.style.transition = transition;
 
         // get final count of slides to scroll:
         const totalScrollWidth = Math.abs(initialMarginLeft - currentMarginLeft);
         const currentScrollsCount = Math.ceil(totalScrollWidth / oneSlideScrollWidth);
-        const finalScrollWidth = currentScrollsCount * oneSlideScrollWidth - totalScrollWidth;
+        // const finalScrollWidth = currentScrollsCount * oneSlideScrollWidth - totalScrollWidth;
+        //
+        // if (prevMarginLeft > currentMarginLeft) {
+        //   newMarginLeft = currentMarginLeft - finalScrollWidth;
+        // } else {
+        //   newMarginLeft = currentMarginLeft + finalScrollWidth;
+        // }
+        //
+        // if (newMarginLeft > leftLimit) newMarginLeft = leftLimit;
+        // if (newMarginLeft < rightLimit) newMarginLeft = rightLimit;
 
         if (prevMarginLeft > currentMarginLeft) {
-          newMarginLeft = currentMarginLeft - finalScrollWidth;
+          newMarginLeft = initialMarginLeft - (currentScrollsCount * oneSlideScrollWidth);
         } else {
-          newMarginLeft = currentMarginLeft + finalScrollWidth;
+          newMarginLeft = initialMarginLeft + (currentScrollsCount * oneSlideScrollWidth);
         }
 
-        setMarginLeft();
+        if (newMarginLeft > leftLimit) newMarginLeft = leftLimit;
+        if (newMarginLeft < rightLimit) newMarginLeft = rightLimit;
 
-        document.removeEventListener('pointermove', startSlideMoving);
-        document.removeEventListener('pointerup', endSlideMoving);
+        setMarginLeft();
       };
 
       // subscribe on pointermove/pointerup:

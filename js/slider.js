@@ -145,154 +145,177 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
 // ---- slider functionality starts ----
   const addSliderFunctionality = () => {
 // query elements:
+    // TODO: rename ticket to slide etc:
+    const ticketElements = galleryContainer.querySelectorAll('.ticket-container');
     const ticketEl = galleryContainer.querySelector('.ticket-container');
     const prevArrow = prevBtn.querySelector('.arrow');
     const nextArrow = nextBtn.querySelector('.arrow');
-    const ticketWidth = ticketEl.offsetWidth;
-    const ticketMarginRight = getComputedStyle(ticketEl).marginRight;
-    // calc one scroll width:
-    const oneSlideScrollWidth = ticketWidth + parseFloat(ticketMarginRight);
-    const totalScrollsCount = ticketsInfo.length - visibleTicketsCount;
-    // set limits:
-    const leftLimit = 0;
-    const rightLimit = -parseInt(oneSlideScrollWidth * totalScrollsCount);
-
-    let currentMarginLeft = 0; // початкова позиція каруселі
-    let newMarginLeft = 0;
-
-    const setMarginLeft = () => {
-      ticketEl.style.marginLeft = `${newMarginLeft}px`;
-      currentMarginLeft = newMarginLeft;
+    const ticketWidth = parseInt(ticketEl.offsetWidth);
+    const ticketComputedMarginRight = getComputedStyle(ticketEl).marginRight;
+    const oneSlideScrollWidth = ticketWidth + parseInt(ticketComputedMarginRight);
+    const totalScrollsCount = ticketElements.length - visibleTicketsCount;
+    const slidesToScrollDefaultCount = 1;
+    const leftScrollLimit = 0;
+    const rightScrollLimit = -(oneSlideScrollWidth * totalScrollsCount);
+    const directions = {
+      forward: 'forward',
+      backward: 'backward',
     };
+    let currentScrollWidth = 0;
+    let slidesToScrollCurrentCount = 0;
+    let currentDirection = '';
+    let currentPosition = 0;
+    let currentSlideIndex = 0;
 
     const toggleButtonDisabledClass = (button, arrow) => {
       button.classList.toggle('disabled');
       arrow.classList.toggle('disabled');
     };
-
-    const onPrevBtnCLick = () => {
-      // check if no more prev ticket:
-      if (parseInt(currentMarginLeft) >= leftLimit) return;
-
-      if (parseInt(currentMarginLeft) <= rightLimit) {
-        toggleButtonDisabledClass(nextBtn, nextArrow);
-      }
-
-      // set new margin:
-      newMarginLeft = currentMarginLeft + oneSlideScrollWidth;
-      setMarginLeft();
-
-      if (parseInt(newMarginLeft) >= leftLimit) {
-        toggleButtonDisabledClass(prevBtn, prevArrow);
-      }
-    };
-
-    const onNextBtnCLick = () => {
-      // check if no more prev ticket:
-      if (parseInt(currentMarginLeft) <= rightLimit) return;
-
-      if (parseInt(currentMarginLeft) >= leftLimit) {
-        toggleButtonDisabledClass(prevBtn, prevArrow);
-      }
-
-      // set new margin:
-      newMarginLeft = currentMarginLeft - oneSlideScrollWidth;
-      setMarginLeft();
-
-      if (parseInt(newMarginLeft) <= rightLimit) {
-        toggleButtonDisabledClass(nextBtn, nextArrow);
+    const disableButton = (direction) => {
+      switch (direction) {
+        case 'forward' :
+          const lastSlideIndex = ticketElements.length - visibleTicketsCount;
+          if (prevBtn.classList.contains('disabled')) {
+            toggleButtonDisabledClass(prevBtn, prevArrow);
+          }
+          if (currentPosition === rightScrollLimit
+            && !nextBtn.classList.contains('disabled')) {
+            toggleButtonDisabledClass(nextBtn, nextArrow);
+          }
+          break;
+        case 'backward' :
+          if (nextBtn.classList.contains('disabled')) {
+            toggleButtonDisabledClass(nextBtn, nextArrow);
+          }
+          if (currentPosition === leftScrollLimit
+            && !prevBtn.classList.contains('disabled')) {
+            toggleButtonDisabledClass(prevBtn, prevArrow);
+          }
+          break;
+        default:
+          break;
       }
     };
+    const calculateNewPosition = (direction) => {
+      let x = 0;
 
-    // ---- swipe slider functionality starts ----
-    // set initial x on pointerdown:
+      switch (direction) {
+        case 'forward' :
+          const isOverRightScrollLimit = currentPosition - currentScrollWidth <= rightScrollLimit;
+          x = isOverRightScrollLimit ? rightScrollLimit : currentPosition - currentScrollWidth;
+          break;
+        case 'backward' :
+          const isOverLeftScrollLimit = currentPosition + currentScrollWidth >= leftScrollLimit;
+          x = isOverLeftScrollLimit ? leftScrollLimit : currentPosition + currentScrollWidth;
+          break;
+        default:
+          break;
+      }
+
+      return x;
+    };
+    const setCurrentSlideIndex = (direction) => {
+      switch (direction) {
+        case 'forward' :
+          currentSlideIndex += slidesToScrollCurrentCount;
+          break;
+        case 'backward' :
+          currentSlideIndex -= slidesToScrollCurrentCount;
+          break;
+        default:
+          break;
+      }
+    };
+    const scrollSlider = direction => {
+      const x = calculateNewPosition(direction);
+      galleryList.style.transform = `translateX(${x}px)`;
+      // save x:
+      currentPosition = x;
+    };
+    const onNavigationButtonClick = (direction) => {
+      currentScrollWidth = oneSlideScrollWidth;
+      slidesToScrollCurrentCount = slidesToScrollDefaultCount;
+      // scroll by direction:
+      currentDirection = direction;
+      scrollSlider(currentDirection);
+      // set current index:
+      setCurrentSlideIndex(currentDirection);
+      // disable button if need:
+      disableButton(currentDirection);
+    };
     const onPointerDown = (e) => {
       // prevent triggering events on other elements:
       e.currentTarget.setPointerCapture(e.pointerId);
 
       // remove transition:
-      const transition = getComputedStyle(ticketEl).transition;
-      ticketEl.style.transition = 'none';
+      const transition = getComputedStyle(galleryList).transition;
+      galleryList.style.transition = 'none';
 
       // get x coordinate:
-      let initialPointerX = e.pageX;
-
-      // set new margin el:
-      let initialMarginLeft = currentMarginLeft;
-      let prevMarginLeft;
+      const initialTranslateX = currentPosition;
+      const initialPointerX = e.pageX;
+      let previousPointerX = initialPointerX;
+      let currentPointerX;
 
       const startSlideMoving = (e) => {
+        // prevent from highlighting text:
         e.preventDefault();
-        // save prev marginLeft value before moving:
-        prevMarginLeft = currentMarginLeft;
 
         // get scroll width:
-        const currentX = e.pageX;
-        const currentScrollWidth = currentX - initialPointerX;
+        currentPointerX = e.pageX;
+        currentScrollWidth = Math.abs(currentPointerX - previousPointerX);
 
-        // set margin left to move slide:
-        newMarginLeft = currentMarginLeft + currentScrollWidth;
-        if (newMarginLeft > leftLimit) newMarginLeft = leftLimit;
-        if (newMarginLeft < rightLimit) newMarginLeft = rightLimit;
-        setMarginLeft();
+        // get direction:
+        currentDirection = currentPointerX > previousPointerX ? directions.backward : directions.forward;
+        scrollSlider(currentDirection);
 
-        // reset initial x:
-        initialPointerX = e.pageX;
+        // reset previous x:
+        previousPointerX = currentPointerX;
       };
 
-      const endSlideMoving = () => {
+      const endSlideMoving = (e) => {
         document.removeEventListener('pointermove', startSlideMoving);
         document.removeEventListener('pointerup', endSlideMoving);
 
         // return transition value:
-        ticketEl.style.transition = transition;
+        galleryList.style.transition = transition;
 
-        // get final count of slides to scroll:
-        const totalScrollWidth = Math.abs(initialMarginLeft - currentMarginLeft);
-        const currentScrollsCount = Math.ceil(totalScrollWidth / oneSlideScrollWidth);
-        // const finalScrollWidth = currentScrollsCount * oneSlideScrollWidth - totalScrollWidth;
-        //
-        // if (prevMarginLeft > currentMarginLeft) {
-        //   newMarginLeft = currentMarginLeft - finalScrollWidth;
-        // } else {
-        //   newMarginLeft = currentMarginLeft + finalScrollWidth;
-        // }
-        //
-        // if (newMarginLeft > leftLimit) newMarginLeft = leftLimit;
-        // if (newMarginLeft < rightLimit) newMarginLeft = rightLimit;
-        // comment
-
-        if (prevMarginLeft > currentMarginLeft) {
-          newMarginLeft = initialMarginLeft - (currentScrollsCount * oneSlideScrollWidth);
-        } else {
-          newMarginLeft = initialMarginLeft + (currentScrollsCount * oneSlideScrollWidth);
+        // return if didn't move:
+        currentPointerX = e.pageX;
+        if (currentPointerX === initialPointerX) {
+          console.log('Condition to return. Didn\'t move');
+          return;
         }
 
-        if (newMarginLeft > leftLimit) newMarginLeft = leftLimit;
-        if (newMarginLeft < rightLimit) newMarginLeft = rightLimit;
+        // get final count of slides to scroll and width:
+        const actualScrollWidth = Math.abs(initialPointerX - currentPointerX);
+        slidesToScrollCurrentCount = Math.ceil(actualScrollWidth / oneSlideScrollWidth);
+        currentScrollWidth = (slidesToScrollCurrentCount * oneSlideScrollWidth);
+        // reset currentX to initial (state before scrolling by pointer):
+        currentPosition = initialTranslateX;
 
-        setMarginLeft();
+        currentDirection = currentPointerX > initialPointerX ? directions.backward : directions.forward;
+        scrollSlider(currentDirection);
+        setCurrentSlideIndex(currentDirection);
+        disableButton(currentDirection);
       };
 
       // subscribe on pointermove/pointerup:
       document.addEventListener('pointermove', startSlideMoving);
       document.addEventListener('pointerup', endSlideMoving);
     };
-
-    // ---- swipe slider functionality ends ----
-
     const setInitialSliderState = () => {
       const isPrevBtnDisabled = prevBtn.classList.contains('disabled');
-      if (currentMarginLeft === 0 && !isPrevBtnDisabled) {
+      // if (currentMarginLeft === 0 && !isPrevBtnDisabled) {
+      if (!isPrevBtnDisabled) {
         toggleButtonDisabledClass(prevBtn, prevArrow);
       }
     };
 
     const subscribeOnButtonsClick = () => {
-      prevBtn.addEventListener('click', onPrevBtnCLick);
-      nextBtn.addEventListener('click', onNextBtnCLick);
+      prevBtn.addEventListener('click', () => onNavigationButtonClick(directions.backward));
+      nextBtn.addEventListener('click', () => onNavigationButtonClick(directions.forward));
     };
-
     const subscribeOnPointerDown = () => {
       galleryContainer.addEventListener('pointerdown', onPointerDown);
       // prevent default browser behavior on dragstart:
@@ -300,8 +323,8 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
     };
 
     subscribeOnButtonsClick();
-    setInitialSliderState();
     subscribeOnPointerDown();
+    setInitialSliderState();
   };
 // ---- slider functionality ends ----
 

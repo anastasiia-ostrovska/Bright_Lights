@@ -150,6 +150,7 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
     const ticketEl = galleryContainer.querySelector('.ticket-container');
     const prevArrow = prevBtn.querySelector('.arrow');
     const nextArrow = nextBtn.querySelector('.arrow');
+    // const sliderVisibleWidth =
     const ticketWidth = parseInt(ticketEl.offsetWidth);
     const ticketComputedMarginRight = getComputedStyle(ticketEl).marginRight;
     const oneSlideScrollWidth = ticketWidth + parseInt(ticketComputedMarginRight);
@@ -172,23 +173,24 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
       arrow.classList.toggle('disabled');
     };
     const disableButton = (direction) => {
+      const isPrevBtnDisabled = prevBtn.classList.contains('disabled');
+      const isNextBtnDisabled = nextBtn.classList.contains('disabled');
+
       switch (direction) {
         case 'forward' :
           const lastSlideIndex = ticketElements.length - visibleTicketsCount;
-          if (prevBtn.classList.contains('disabled')) {
+          if (isPrevBtnDisabled) {
             toggleButtonDisabledClass(prevBtn, prevArrow);
           }
-          if (currentPosition === rightScrollLimit
-            && !nextBtn.classList.contains('disabled')) {
+          if (currentPosition === rightScrollLimit && !isNextBtnDisabled) {
             toggleButtonDisabledClass(nextBtn, nextArrow);
           }
           break;
         case 'backward' :
-          if (nextBtn.classList.contains('disabled')) {
+          if (isNextBtnDisabled) {
             toggleButtonDisabledClass(nextBtn, nextArrow);
           }
-          if (currentPosition === leftScrollLimit
-            && !prevBtn.classList.contains('disabled')) {
+          if (currentPosition === leftScrollLimit && !isPrevBtnDisabled) {
             toggleButtonDisabledClass(prevBtn, prevArrow);
           }
           break;
@@ -197,22 +199,14 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
       }
     };
     const calculateNewPosition = (direction) => {
-      let x = 0;
-
       switch (direction) {
         case 'forward' :
-          const isOverRightScrollLimit = currentPosition - currentScrollWidth <= rightScrollLimit;
-          x = isOverRightScrollLimit ? rightScrollLimit : currentPosition - currentScrollWidth;
-          break;
+          return Math.max((currentPosition - currentScrollWidth), rightScrollLimit);
         case 'backward' :
-          const isOverLeftScrollLimit = currentPosition + currentScrollWidth >= leftScrollLimit;
-          x = isOverLeftScrollLimit ? leftScrollLimit : currentPosition + currentScrollWidth;
-          break;
+          return Math.min((currentPosition + currentScrollWidth), leftScrollLimit);
         default:
           break;
       }
-
-      return x;
     };
     const setCurrentSlideIndex = (direction) => {
       switch (direction) {
@@ -226,13 +220,24 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
           break;
       }
     };
-    const scrollSlider = direction => {
+    const scrollSlider = (direction) => {
       const x = calculateNewPosition(direction);
       galleryList.style.transform = `translateX(${x}px)`;
       // save x:
       currentPosition = x;
     };
     const onNavigationButtonClick = (direction) => {
+      switch (direction) {
+        case 'forward' :
+          if (currentPosition === rightScrollLimit) return;
+          break;
+        case 'backward' :
+          if (currentPosition === leftScrollLimit) return;
+          break;
+        default:
+          break;
+      }
+
       currentScrollWidth = oneSlideScrollWidth;
       slidesToScrollCurrentCount = slidesToScrollDefaultCount;
       // scroll by direction:
@@ -282,10 +287,7 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
 
         // return if didn't move:
         currentPointerX = e.pageX;
-        if (currentPointerX === initialPointerX) {
-          console.log('Condition to return. Didn\'t move');
-          return;
-        }
+        if (currentPointerX === initialPointerX) return;
 
         // get final count of slides to scroll and width:
         const actualScrollWidth = Math.abs(initialPointerX - currentPointerX);

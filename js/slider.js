@@ -260,6 +260,7 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
         //
         // if (newMarginLeft > leftLimit) newMarginLeft = leftLimit;
         // if (newMarginLeft < rightLimit) newMarginLeft = rightLimit;
+        // comment
 
         if (prevMarginLeft > currentMarginLeft) {
           newMarginLeft = initialMarginLeft - (currentScrollsCount * oneSlideScrollWidth);

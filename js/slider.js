@@ -270,16 +270,13 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
         // reset previous x:
         previousPointerX = currentPointerX;
       };
-
       const endSlideMoving = (e) => {
-        document.removeEventListener('pointermove', startSlideMoving);
-        document.removeEventListener('pointerup', endSlideMoving);
+        removeListeners();
 
         // return transition value:
         galleryList.style.transition = transition;
 
         // return if didn't move:
-        currentPointerX = e.pageX;
         if (currentPointerX === initialPointerX) return;
 
         // get final count of slides to scroll and width:
@@ -304,10 +301,31 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
         setCurrentSlideIndex();
         disableButton();
       };
+      const onContextMenu = (e) => {
+        e.preventDefault();
+        endSlideMoving();
+      };
 
       // subscribe on pointermove/pointerup:
-      document.addEventListener('pointermove', startSlideMoving);
-      document.addEventListener('pointerup', endSlideMoving);
+
+      const subscribeOnPointerMove = () => {
+        document.addEventListener('pointermove', startSlideMoving);
+      };
+      const subscribeOnPointerUp = () => {
+        document.addEventListener('pointerup', endSlideMoving);
+      };
+      const subscribeOnContextMenu = () => {
+        document.addEventListener('contextmenu', onContextMenu);
+      };
+      const removeListeners = () => {
+        document.removeEventListener('pointermove', startSlideMoving);
+        document.removeEventListener('pointerup', endSlideMoving);
+        document.removeEventListener('contextmenu', onContextMenu);
+      };
+
+      subscribeOnPointerMove();
+      subscribeOnPointerUp();
+      subscribeOnContextMenu();
     };
     const setInitialSliderState = () => {
       const isPrevBtnDisabled = prevBtn.classList.contains('disabled');

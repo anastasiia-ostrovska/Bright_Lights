@@ -8,8 +8,10 @@
 // const isTablet = deviceTypeService.getIsTablet();
 // const isDesktop = deviceTypeService.getIsDesktop();
 
+const isMobile = document.documentElement.clientWidth < 578;
+
 let visibleTicketsCount = 0;
-if (document.documentElement.clientWidth < 578) {
+if (isMobile) {
   visibleTicketsCount = 1;
 } else {
   visibleTicketsCount = 3;
@@ -282,12 +284,22 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
 
         // get final count of slides to scroll and width:
         const actualScrollWidth = Math.abs(initialPointerX - currentPointerX);
-        slidesToScrollCurrentCount = Math.ceil(actualScrollWidth / oneSlideScrollWidth);
-        currentScrollWidth = (slidesToScrollCurrentCount * oneSlideScrollWidth);
+        const slidesToScrollActualCount = actualScrollWidth / oneSlideScrollWidth;
+        const oneSlideScrollThreshold = isMobile ? 0.3 : 0.5;
+        const actualScrollThreshold = Math.floor(slidesToScrollActualCount) + oneSlideScrollThreshold;
+        const isThresholdPassed = actualScrollThreshold <= slidesToScrollActualCount;
+
+        if (isThresholdPassed) {
+          slidesToScrollCurrentCount = Math.ceil(slidesToScrollActualCount);
+        } else {
+          slidesToScrollCurrentCount = Math.floor(slidesToScrollActualCount);
+        }
+        currentScrollWidth = slidesToScrollCurrentCount * oneSlideScrollWidth;
+
         // reset currentX to initial (state before scrolling by pointer):
         currentPosition = initialTranslateX;
-
         currentDirection = currentPointerX > initialPointerX ? directions.backward : directions.forward;
+
         scrollSlider();
         setCurrentSlideIndex();
         disableButton();

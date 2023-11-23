@@ -168,85 +168,76 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
     let currentPosition = 0;
     let currentSlideIndex = 0;
 
+    const directionHandler = ({ onForward, onBackward }) => {
+      switch (currentDirection) {
+        case directions.forward:
+          return onForward();
+        case directions.backward:
+          return onBackward();
+        default:
+          break;
+      }
+    };
     const toggleButtonDisabledClass = (button, arrow) => {
       button.classList.toggle('disabled');
       arrow.classList.toggle('disabled');
     };
-    const disableButton = (direction) => {
+    const disableButton = () => {
       const isPrevBtnDisabled = prevBtn.classList.contains('disabled');
       const isNextBtnDisabled = nextBtn.classList.contains('disabled');
-
-      switch (direction) {
-        case 'forward' :
-          const lastSlideIndex = ticketElements.length - visibleTicketsCount;
+      directionHandler({
+        onForward: () => {
           if (isPrevBtnDisabled) {
             toggleButtonDisabledClass(prevBtn, prevArrow);
           }
           if (currentPosition === rightScrollLimit && !isNextBtnDisabled) {
             toggleButtonDisabledClass(nextBtn, nextArrow);
           }
-          break;
-        case 'backward' :
+        },
+        onBackward: () => {
           if (isNextBtnDisabled) {
             toggleButtonDisabledClass(nextBtn, nextArrow);
           }
           if (currentPosition === leftScrollLimit && !isPrevBtnDisabled) {
             toggleButtonDisabledClass(prevBtn, prevArrow);
           }
-          break;
-        default:
-          break;
-      }
+        }
+      });
     };
-    const calculateNewPosition = (direction) => {
-      switch (direction) {
-        case 'forward' :
-          return Math.max((currentPosition - currentScrollWidth), rightScrollLimit);
-        case 'backward' :
-          return Math.min((currentPosition + currentScrollWidth), leftScrollLimit);
-        default:
-          break;
-      }
+    const calculateNewPosition = () => {
+      return directionHandler({
+        onForward: () => Math.max((currentPosition - currentScrollWidth), rightScrollLimit),
+        onBackward: () => Math.min((currentPosition + currentScrollWidth), leftScrollLimit)
+      });
     };
-    const setCurrentSlideIndex = (direction) => {
-      switch (direction) {
-        case 'forward' :
-          currentSlideIndex += slidesToScrollCurrentCount;
-          break;
-        case 'backward' :
-          currentSlideIndex -= slidesToScrollCurrentCount;
-          break;
-        default:
-          break;
-      }
+    const setCurrentSlideIndex = () => {
+      directionHandler({
+        onForward: () => currentSlideIndex += slidesToScrollCurrentCount,
+        onBackward: () => currentSlideIndex -= slidesToScrollCurrentCount
+      });
     };
-    const scrollSlider = (direction) => {
-      const x = calculateNewPosition(direction);
+    const scrollSlider = () => {
+      const x = calculateNewPosition();
       galleryList.style.transform = `translateX(${x}px)`;
       // save x:
       currentPosition = x;
     };
     const onNavigationButtonClick = (direction) => {
-      switch (direction) {
-        case 'forward' :
-          if (currentPosition === rightScrollLimit) return;
-          break;
-        case 'backward' :
-          if (currentPosition === leftScrollLimit) return;
-          break;
-        default:
-          break;
-      }
+      // prevent scroll if on limit:
+      directionHandler({
+        onForward: () => currentPosition === rightScrollLimit,
+        onBackward: () => currentPosition === leftScrollLimit
+      });
 
       currentScrollWidth = oneSlideScrollWidth;
       slidesToScrollCurrentCount = slidesToScrollDefaultCount;
-      // scroll by direction:
+      // set direction and scroll by direction:
       currentDirection = direction;
-      scrollSlider(currentDirection);
+      scrollSlider();
       // set current index:
-      setCurrentSlideIndex(currentDirection);
+      setCurrentSlideIndex();
       // disable button if need:
-      disableButton(currentDirection);
+      disableButton();
     };
     const onPointerDown = (e) => {
       // prevent triggering events on other elements:
@@ -272,7 +263,7 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
 
         // get direction:
         currentDirection = currentPointerX > previousPointerX ? directions.backward : directions.forward;
-        scrollSlider(currentDirection);
+        scrollSlider();
 
         // reset previous x:
         previousPointerX = currentPointerX;
@@ -297,9 +288,9 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
         currentPosition = initialTranslateX;
 
         currentDirection = currentPointerX > initialPointerX ? directions.backward : directions.forward;
-        scrollSlider(currentDirection);
-        setCurrentSlideIndex(currentDirection);
-        disableButton(currentDirection);
+        scrollSlider();
+        setCurrentSlideIndex();
+        disableButton();
       };
 
       // subscribe on pointermove/pointerup:

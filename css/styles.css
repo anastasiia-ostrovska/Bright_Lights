@@ -668,9 +668,6 @@ div.sec_4_streamings > div:first-child {
 
 .sec_6_slider_wrapper {
     overflow: hidden;
-}
-
-.gallery-container.horizontal-scroll {
     touch-action: pan-y;
 }
 

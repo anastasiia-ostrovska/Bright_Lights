@@ -155,7 +155,7 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
     const slideWidth = parseInt(slide.offsetWidth);
     const slideComputedMarginRight = getComputedStyle(slide).marginRight;
     const oneSlideScrollWidth = slideWidth + parseInt(slideComputedMarginRight);
-    const oneSlideScrollThreshold = isMobile ? 0.3 : 0.5;
+    const oneSlideScrollThreshold = isMobile ? 0.25 : 0.35;
     const totalScrollsCount = slides.length - visibleSlidesCount;
     const slidesToScrollDefaultCount = 1;
     const leftScrollLimit = 0;

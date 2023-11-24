@@ -242,8 +242,12 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
       disableButton();
     };
     const onPointerDown = (e) => {
+      let isDirectionHandled = false;
       // prevent triggering events on other elements:
       e.currentTarget.setPointerCapture(e.pointerId);
+
+      // add touch-action: none to wrapper:
+      // galleryContainer.classList.remove('scroll');
 
       // remove transition:
       const transition = getComputedStyle(galleryList).transition;
@@ -252,6 +256,7 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
       // get x coordinate:
       const initialTranslateX = currentPosition;
       const initialPointerX = e.pageX;
+      const initialPointerY = e.pageY;
       let previousPointerX = initialPointerX;
       let currentPointerX;
 
@@ -259,9 +264,23 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
         // prevent from highlighting text:
         e.preventDefault();
 
+        // galleryContainer.classList.remove('horizontal-scroll');
+
         // get scroll width:
         currentPointerX = e.pageX;
+        const currentPointerY = e.pageY;
         currentScrollWidth = Math.abs(currentPointerX - previousPointerX);
+        const currentScrollWidthY = Math.abs(currentPointerY - initialPointerY);
+
+        const isHorizontalScroll = currentScrollWidth > currentScrollWidthY;
+
+        if (!isDirectionHandled) {
+          if (!isHorizontalScroll) {
+            removeListeners();
+            return;
+          }
+          isDirectionHandled = true;
+        }
 
         // get direction:
         currentDirection = currentPointerX > previousPointerX ? directions.backward : directions.forward;
@@ -272,6 +291,9 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
       };
       const endSlideMoving = (e) => {
         removeListeners();
+
+        // add touch-action: none to wrapper:
+        // galleryContainer.classList.add('horizontal-scroll');
 
         // return transition value:
         galleryList.style.transition = transition;
@@ -344,6 +366,46 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
       // prevent default browser behavior on dragstart:
       galleryContainer.ondragstart = () => false;
     };
+
+    // const onSliderPointerDown = (e) => {
+    //   // get init coords:
+    //   const initialX = e.clientX;
+    //   const initialY = e.clientY;
+    //
+    //   const getIsHorizontalScroll = (e) => {
+    //     const currentX = e.clientX;
+    //     const currentY = e.clientY;
+    //
+    //     const scrollWidthX = Math.abs(currentX - initialX);
+    //     const scrollWidthY = Math.abs(currentY - initialY);
+    //
+    //     const isHorizontalScroll = scrollWidthX > scrollWidthY;
+    //
+    //     if (!isHorizontalScroll) onPointerUp();
+    //
+    //     if (isHorizontalScroll) {
+    //       // remove listener on move:
+    //       onPointerUp();
+    //
+    //     }
+    //   };
+    //
+    //   const onPointerUp = () => {
+    //     document.removeEventListener('pointermove', getIsHorizontalScroll);
+    //     document.removeEventListener('pointerup', onPointerUp);
+    //   };
+    //
+    //   // subscribe on pointer move:
+    //   const subscribeOnPointerMove = () => {
+    //     document.addEventListener('pointermove', getIsHorizontalScroll);
+    //   };
+    //   const subscribeOnPointerUp = () => {
+    //     document.addEventListener('pointerup', onPointerUp);
+    //   };
+    //   subscribeOnPointerMove();
+    //   subscribeOnPointerUp();
+    // };
+    // galleryContainer.addEventListener('pointerdown', onSliderPointerDown);
 
     subscribeOnButtonsClick();
     subscribeOnPointerDown();

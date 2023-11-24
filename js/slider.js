@@ -10,15 +10,15 @@
 
 const isMobile = document.documentElement.clientWidth < 578;
 
-let visibleTicketsCount = 0;
+let visibleSlidesCount = 0;
 if (isMobile) {
-  visibleTicketsCount = 1;
+  visibleSlidesCount = 1;
 } else {
-  visibleTicketsCount = 3;
+  visibleSlidesCount = 3;
 }
 
-// ---- tickets info starts ----
-const ticketsInfo = [
+// ---- slides info starts ----
+const slidesInfo = [
   {
     id: 1, location: {
       city: {
@@ -96,68 +96,67 @@ const ticketsInfo = [
       src: 'img/6_section_picture_3.png'
     }, ticket: { href: '#' }
   }];
-// ---- tickets info ends ----
+// ---- slides info ends ----
 
-const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
+const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
   const sliderEl = document.querySelector(sliderId);
   const galleryContainer = sliderEl.querySelector('.gallery-container');
   const galleryList = sliderEl.querySelector('.gallery-list');
-  const prevBtn = sliderEl.querySelector('.prev');
-  const nextBtn = sliderEl.querySelector('.next');
 
-// ---- adding tickets on page starts ----
-  const renderTickets = () => {
-    // get general count of tickets:
-    const ticketsCount = ticketsInfo.length;
+// ---- adding slides on page starts ----
+  const renderSlides = () => {
+    // get general count of slides:
+    const slidesCount = slidesInfo.length;
 
-    // add ticket layouts on the page:
-    for (let i = 0; i < ticketsCount; i++) {
-      const ticketInfo = ticketsInfo[i];
-      const ticketContainer = document.createElement('div');
-      ticketContainer.classList.add('sec_6_ticket_container', 'ticket-container');
+    // add slide layouts on the page:
+    for (let i = 0; i < slidesCount; i++) {
+      const slideInfo = slidesInfo[i];
+      const slideContainer = document.createElement('div');
+      slideContainer.classList.add('sec_6_ticket_container', 'ticket-container');
       // TODO: remove links city/concertVenue;
-      ticketContainer.innerHTML = `
+      slideContainer.innerHTML = `
                 <div class="sec_6_photo">
                   <img
                     class="img"
-                    src="${ticketInfo.img.src}"
+                    src="${slideInfo.img.src}"
                     alt="concert photo"
                   />
                 </div>
 
                 <h5 class="sec_6_tittle">
-                <a target="_blank" href="${ticketInfo.location.city.mapHref}" class="city">${ticketInfo.location.city.name}</a>
+                <a target="_blank" href="${slideInfo.location.city.mapHref}" class="city">${slideInfo.location.city.name}</a>
                   <br />
-                  <a target="_blank" href="${ticketInfo.location.concertVenue.citeHref}" 
-                  class="concert-venue">${ticketInfo.location.concertVenue.name}</a>
+                  <a target="_blank" href="${slideInfo.location.concertVenue.citeHref}" 
+                  class="concert-venue">${slideInfo.location.concertVenue.name}</a>
                 </h5>
 
                 <div class="sec_6_ticket_bottom">
-                  <time>${ticketInfo.date.month} ${ticketInfo.date.day} ${ticketInfo.date.year}</time>
+                  <time>${slideInfo.date.month} ${slideInfo.date.day} ${slideInfo.date.year}</time>
 
-                  <a target="_blank" class="sec_6_button_link" href="${ticketInfo.ticket.href}">
+                  <a target="_blank" class="sec_6_button_link" href="${slideInfo.ticket.href}">
                     <div class="sec_6_button">tickets</div>
                   </a>
                 </div>`;
-      galleryList.append(ticketContainer);
+      galleryList.append(slideContainer);
     }
   };
-// ---- adding tickets on page ends ----
+// ---- adding slides on page ends ----
 
 // ---- slider functionality starts ----
   const addSliderFunctionality = () => {
-// query elements:
-    // TODO: rename ticket to slide etc:
-    const ticketElements = galleryContainer.querySelectorAll('.ticket-container');
-    const ticketEl = galleryContainer.querySelector('.ticket-container');
+    // query elements:
+    const slides = galleryContainer.querySelectorAll('.ticket-container');
+    const slide = galleryContainer.querySelector('.ticket-container');
+    const prevBtn = sliderEl.querySelector('.prev');
+    const nextBtn = sliderEl.querySelector('.next');
     const prevArrow = prevBtn.querySelector('.arrow');
     const nextArrow = nextBtn.querySelector('.arrow');
-    // const sliderVisibleWidth =
-    const ticketWidth = parseInt(ticketEl.offsetWidth);
-    const ticketComputedMarginRight = getComputedStyle(ticketEl).marginRight;
-    const oneSlideScrollWidth = ticketWidth + parseInt(ticketComputedMarginRight);
+    // get constant parameters:
+    const slideWidth = parseInt(slide.offsetWidth);
+    const slideComputedMarginRight = getComputedStyle(slide).marginRight;
+    const oneSlideScrollWidth = slideWidth + parseInt(slideComputedMarginRight);
     const oneSlideScrollThreshold = isMobile ? 0.3 : 0.5;
-    const totalScrollsCount = ticketElements.length - visibleTicketsCount;
+    const totalScrollsCount = slides.length - visibleSlidesCount;
     const slidesToScrollDefaultCount = 1;
     const leftScrollLimit = 0;
     const rightScrollLimit = -(oneSlideScrollWidth * totalScrollsCount);
@@ -165,6 +164,7 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
       forward: 'forward',
       backward: 'backward',
     };
+    // get variable parameters:
     let currentScrollWidthX = 0;
     let slidesToScrollCurrentCount = 0;
     let currentDirection = '';
@@ -370,11 +370,11 @@ const activateSlider = (sliderId, ticketsInfo, visibleTicketsCount) => {
   };
 // ---- slider functionality ends ----
 
-  renderTickets();
+  renderSlides();
   addSliderFunctionality();
 };
 
-activateSlider('#tickets-slider', ticketsInfo, visibleTicketsCount);
+activateSlider('#tickets-slider', slidesInfo, visibleSlidesCount);
 
 
 

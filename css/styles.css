@@ -659,7 +659,7 @@ div.sec_4_streamings > div:first-child {
 .sec_6_container {
     position: relative;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -667,6 +667,8 @@ div.sec_4_streamings > div:first-child {
 }
 
 .sec_6_slider_wrapper {
+    width: 100%;
+    margin-bottom: 30px;
     overflow: hidden;
     touch-action: pan-y;
 }
@@ -793,6 +795,30 @@ time {
     color: #ffffff36;
 }
 
+#tickets-slider .dots_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#tickets-slider .carousel_dot {
+    height: 10px;
+    width: 10px;
+    background-color: #FFFFFF;
+    opacity: 0.3;
+    border: 17px solid #1c1b21;;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: width 0.2s ease;
+}
+
+#tickets-slider .carousel_dot.active {
+    height: 14px;
+    width: 14px;
+    opacity: 1;
+}
 
 /* section 6 starts*/
 

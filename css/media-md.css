@@ -261,6 +261,7 @@
 
     .sec_6_slider_wrapper {
         width: 100%;
+        margin: 0;
     }
 
     .sec_6_ticket_container {
@@ -308,34 +309,17 @@
         display: none;
     }
 
-    #tickets-slider .slider_carousel_dots_container {
-        display: flex;
-        align-items: center;
-        width: 50px;
-        overflow: hidden;
-    }
-
-    #tickets-slider .carousel_dots_list {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        transition: margin-left 0.3s;
-        gap: 15px;
-    }
-
     #tickets-slider .carousel_dot {
-        height: 5px;
-        width: 5px;
-        background-color: #FFFFFF;
-        border-radius: 50%;
-        transition: width 0.5s ease;
+        height: 6px;
+        width: 6px;
+        border: 20px solid #1c1b21;;
     }
 
     #tickets-slider .carousel_dot.active {
-        height: 10px;
-        width: 10px;
-        background-color: #7A66CC;
+        height: 8px;
+        width: 8px;
     }
+
 
     /*section 6 ends*/
     /*footer starts*/

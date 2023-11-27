@@ -151,6 +151,7 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
     const nextBtn = sliderEl.querySelector('.next');
     const prevArrow = prevBtn.querySelector('.arrow');
     const nextArrow = nextBtn.querySelector('.arrow');
+    const sliderDotsContainer = sliderEl.querySelector('.dots_container');
     // get constant parameters:
     const slideWidth = parseInt(slide.offsetWidth);
     const slideComputedMarginRight = getComputedStyle(slide).marginRight;
@@ -158,6 +159,7 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
     const oneSlideScrollThreshold = isMobile ? 0.25 : 0.35;
     const totalScrollsCount = slides.length - visibleSlidesCount;
     const slidesToScrollDefaultCount = 1;
+    const sliderDotsCount = totalScrollsCount;
     const leftScrollLimit = 0;
     const rightScrollLimit = -(oneSlideScrollWidth * totalScrollsCount);
     const directions = {
@@ -165,6 +167,7 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
       backward: 'backward',
     };
     // get variable parameters:
+    let sliderDots = [];
     let currentScrollWidthX = 0;
     let slidesToScrollCurrentCount = 0;
     let currentDirection = '';
@@ -228,9 +231,19 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
     };
     const setCurrentSlideIndex = () => {
       directionHandler({
-        onForward: () => currentSlideIndex += slidesToScrollCurrentCount,
-        onBackward: () => currentSlideIndex -= slidesToScrollCurrentCount
+        onForward: () => {
+          if (currentSlideIndex < totalScrollsCount) currentSlideIndex += slidesToScrollCurrentCount;
+        },
+        onBackward: () => {
+          if (currentSlideIndex > 0) currentSlideIndex -= slidesToScrollCurrentCount;
+        }
       });
+    };
+    const changeActiveDot = () => {
+      // remove class active from each dot:
+      sliderDots.forEach(dot => dot.classList.remove('active'));
+      // add class active to currentSlideIndex dot:
+      sliderDots[currentSlideIndex].classList.add('active');
     };
     const scrollSlider = () => {
       const x = calculateNewPosition();
@@ -252,6 +265,8 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
       scrollSlider();
       // set current index:
       setCurrentSlideIndex();
+      // change active dot:
+      changeActiveDot();
       // disable button if need:
       disableButton();
     };
@@ -320,6 +335,7 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
 
         scrollSlider();
         setCurrentSlideIndex();
+        changeActiveDot();
         disableButton();
       };
       const preventContextMenuInterruption = (e) => {
@@ -346,7 +362,19 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
       subscribeOnPointerUp();
       subscribeOnContextMenu();
     };
+
+    const renderSliderDots = () => {
+      // append dots into sliderDotsContainer:
+      for (let i = 0; i <= sliderDotsCount; i++) {
+        // create div element with class = 'carousel_dot':
+        const dotElement = document.createElement('div');
+        dotElement.className = 'carousel_dot';
+        sliderDotsContainer.append(dotElement);
+      }
+    };
     const setInitialSliderState = () => {
+      sliderDots = sliderDotsContainer.querySelectorAll('.carousel_dot');
+      sliderDots[0].classList.add('active');
       const isPrevBtnDisabled = prevBtn.classList.contains('disabled');
       // if (currentMarginLeft === 0 && !isPrevBtnDisabled) {
       if (!isPrevBtnDisabled) {
@@ -366,6 +394,7 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
 
     subscribeOnButtonsClick();
     subscribeOnPointerDown();
+    renderSliderDots();
     setInitialSliderState();
   };
 // ---- slider functionality ends ----

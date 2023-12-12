@@ -246,7 +246,6 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
 
         }
       });
-      console.warn(currentSlideIndex);
     };
     const changeActiveDot = () => {
       // remove class active from each dot:
@@ -298,9 +297,6 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
       disableButton();
     };
     const onPointerDown = (e) => {
-
-      console.warn('DOWN');
-
       let isScrollDirectionDefined = false;
       let isVerticalScroll = false;
       // prevent triggering events on other elements:
@@ -320,8 +316,6 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
       let currentPointerY = 0;
 
       const startSlideMoving = (e) => {
-        console.warn('MOVE');
-
         // prevent from highlighting text:
         e.preventDefault();
 
@@ -349,14 +343,12 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
         previousPointerX = currentPointerX;
       };
       const endSlideMoving = () => {
-        console.warn('END');
-
         removeListeners();
         if (!isVerticalScroll) isScrollDirectionDefined = false;
 
         // return transition value:
         galleryList.style.transition = transition;
-        
+
         // return if didn't move or didn't change position:
         if (currentPointerX === initialPointerX || (!currentPointerX && currentPointerX !== 0)) return;
 

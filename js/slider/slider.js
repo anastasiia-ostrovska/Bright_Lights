@@ -148,7 +148,7 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
   const addSliderFunctionality = () => {
     // query elements:
     const slides = galleryContainer.querySelectorAll('.ticket-container');
-    const slide = galleryContainer.querySelector('.ticket-container');
+    const slide = slides[0];
     const prevBtn = sliderEl.querySelector('.prev');
     const nextBtn = sliderEl.querySelector('.next');
     const prevArrow = prevBtn.querySelector('.arrow');
@@ -158,14 +158,16 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
     const slideWidth = parseInt(slide.offsetWidth);
     const slideComputedMarginRight = getComputedStyle(slide).marginRight;
     const oneSlideScrollWidth = slideWidth + parseInt(slideComputedMarginRight);
-    const oneSlideScrollThreshold = isMobile ? 0.25 : 0.35;
-    const totalScrollsCount = slides.length - visibleSlidesCount;
-    const slidesToScrollDefaultCount = 1;
-    const sliderDotsCount = totalScrollsCount;
-    const maxPossibleCurrentSlideIndex = totalScrollsCount;
+    // TODO: isMobile (below) isn't accurately describe the condition;
+    const thresholdCoefficient = isMobile ? 0.25 : 0.35;
+    const totalPossibleScrollsCount = slides.length - visibleSlidesCount;
+    const slidesPerScrollDefaultCount = 1;
+    // get limits:
     const minPossibleCurrentSlideIndex = 0;
-    const leftScrollLimit = 0;
-    const rightScrollLimit = -(oneSlideScrollWidth * totalScrollsCount);
+    const maxPossibleCurrentSlideIndex = totalPossibleScrollsCount;
+    const maxTranslateX = 0;
+    const minTranslateX = -(oneSlideScrollWidth * totalPossibleScrollsCount);
+    // TODO: group variables in objects;
     const directions = {
       forward: 'forward',
       backward: 'backward',
@@ -173,9 +175,7 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
     // get variable parameters:
     let sliderDots = [];
     let currentScrollWidthX = 0;
-    let slidesToScrollCurrentCount = 0;
     let currentDirection = '';
-    let currentPositionX = 0;
     let currentSlideIndex = 0;
 
     const directionHandler = ({ onForward, onBackward }) => {
@@ -188,17 +188,17 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
           break;
       }
     };
-    const getSlidesToScrollCurrentCount = (initialX, currentX) => {
-      // get final count of slides to scroll and width:
-      const actualScrollWidth = Math.abs(initialX - currentX);
-      const slidesToScrollActualCount = actualScrollWidth / oneSlideScrollWidth;
-      const actualScrollThreshold = Math.floor(slidesToScrollActualCount) + oneSlideScrollThreshold;
-      const isThresholdPassed = actualScrollThreshold <= slidesToScrollActualCount;
+    const getScrolledSlidesCurrentCount = (initialX, currentX) => {
+      // get final count of slides to scroll:
+      const totalCurrentScrollWidth = Math.abs(initialX - currentX);
+      const scrolledSlidesActualCount = totalCurrentScrollWidth / oneSlideScrollWidth; // possibly not integer
+      const currentScrollThreshold = Math.floor(scrolledSlidesActualCount) + thresholdCoefficient;
+      const isThresholdPassed = currentScrollThreshold <= scrolledSlidesActualCount;
 
       if (isThresholdPassed) {
-        return Math.ceil(slidesToScrollActualCount);
+        return Math.ceil(scrolledSlidesActualCount);
       } else {
-        return Math.floor(slidesToScrollActualCount);
+        return Math.floor(scrolledSlidesActualCount);
       }
     };
     const toggleButtonDisabledClass = (button, arrow) => {
@@ -207,9 +207,9 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
     };
     const handleButtonDisabled = () => {
       // stop if buttons aren't displayed:
-      const isPrevBtnDisplayed = prevBtn.style.display === 'none';
-      const isNextBtnDisplayed = nextBtn.style.display === 'none';
-      if (isPrevBtnDisplayed && isNextBtnDisplayed) return;
+      const isPrevBtnDisplayed = prevBtn.style.display !== 'none';
+      const isNextBtnDisplayed = nextBtn.style.display !== 'none';
+      if (!isPrevBtnDisplayed || !isNextBtnDisplayed) return;
 
       const isPrevBtnDisabled = prevBtn.classList.contains('disabled');
       const isNextBtnDisabled = nextBtn.classList.contains('disabled');
@@ -218,7 +218,7 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
           if (isPrevBtnDisabled) {
             toggleButtonDisabledClass(prevBtn, prevArrow);
           }
-          if (currentPositionX === rightScrollLimit && !isNextBtnDisabled) {
+          if (currentSlideIndex === maxPossibleCurrentSlideIndex && !isNextBtnDisabled) {
             toggleButtonDisabledClass(nextBtn, nextArrow);
           }
         },
@@ -226,25 +226,38 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
           if (isNextBtnDisabled) {
             toggleButtonDisabledClass(nextBtn, nextArrow);
           }
-          if (currentPositionX === leftScrollLimit && !isPrevBtnDisabled) {
+          if (currentSlideIndex === minPossibleCurrentSlideIndex && !isPrevBtnDisabled) {
             toggleButtonDisabledClass(prevBtn, prevArrow);
           }
         }
       });
     };
-    const calculateNewPosition = () => {
+    const getCurrentTranslateX = (galleryList) => {
+      const slideTransformValue = getComputedStyle(galleryList).transform;
+
+      if (slideTransformValue !== 'none') {
+        const slideMatrixValues = slideTransformValue.match(/(-?[0-9.]+)/g);
+        return parseInt(slideMatrixValues[4]);
+      } else {
+        return 0;
+      }
+    };
+    const calculateNewTranslateX = () => {
+      // get current translate X:
+      const currentTranslateX = getCurrentTranslateX(galleryList);
+
       return directionHandler({
-        onForward: () => Math.max((currentPositionX - currentScrollWidthX), rightScrollLimit),
-        onBackward: () => Math.min((currentPositionX + currentScrollWidthX), leftScrollLimit)
+        onForward: () => Math.max((currentTranslateX - currentScrollWidthX), minTranslateX),
+        onBackward: () => Math.min((currentTranslateX + currentScrollWidthX), maxTranslateX)
       });
     };
-    const setCurrentSlideIndex = () => {
+    const setCurrentSlideIndex = (scrolledSlidesCount = slidesPerScrollDefaultCount) => {
       directionHandler({
         onForward: () => {
-          currentSlideIndex = Math.min((currentSlideIndex + slidesToScrollCurrentCount), maxPossibleCurrentSlideIndex);
+          currentSlideIndex = Math.min((currentSlideIndex + scrolledSlidesCount), maxPossibleCurrentSlideIndex);
         },
         onBackward: () => {
-          currentSlideIndex = Math.max((currentSlideIndex - slidesToScrollCurrentCount), minPossibleCurrentSlideIndex);
+          currentSlideIndex = Math.max((currentSlideIndex - scrolledSlidesCount), minPossibleCurrentSlideIndex);
         }
       });
     };
@@ -257,31 +270,27 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
     const scrollSlider = (e) => {
       let x = 0;
       if (e.type === 'pointermove') {
-        x = calculateNewPosition();
+        x = calculateNewTranslateX();
       } else {
         x = -(currentSlideIndex * oneSlideScrollWidth);
       }
       galleryList.style.transform = `translateX(${x}px)`;
-      // save x:
-      currentPositionX = x;
     };
     const onNavigationButtonClick = (direction, e) => {
-      // prevent scroll if on limit:
-      // TODO: add variables for conditions;
-      if (currentSlideIndex === maxPossibleCurrentSlideIndex && direction === directions.forward) return;
-      if (currentSlideIndex === minPossibleCurrentSlideIndex && direction === directions.backward) return;
+      // prevent scroll on edges:
+      const isOnRightEdge = currentSlideIndex === maxPossibleCurrentSlideIndex;
+      const isOnLeftEdge = currentSlideIndex === minPossibleCurrentSlideIndex;
+      const isForward = direction === directions.forward;
+      const isBackward = direction === directions.backward;
+      if (isOnRightEdge && isForward) return;
+      if (isOnLeftEdge && isBackward) return;
 
       // set direction and scroll by direction:
       currentDirection = direction;
-      // currentScrollWidthX = oneSlideScrollWidth;
-      slidesToScrollCurrentCount = slidesToScrollDefaultCount;
-      // set current index:
+
       setCurrentSlideIndex();
-      // scroll slides:
       scrollSlider(e);
-      // change active dot:
       updateDotActiveClass(currentSlideIndex);
-      // disable button if need:
       handleButtonDisabled();
     };
     const onSliderDotClick = (e) => {
@@ -290,11 +299,10 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
       // stop unless proper dot clicked:
       if (!dot) return;
 
-      // reset currentSlideIndex to index of dot and change active:
+      // get index of targeted dot:
       const index = Array.from(sliderDots).indexOf(dot);
       // set direction and scroll by direction:
       currentDirection = index > currentSlideIndex ? directions.forward : directions.backward;
-      slidesToScrollCurrentCount = Math.abs(index - currentSlideIndex);
       // set current index:
       currentSlideIndex = index;
       // scroll slides:
@@ -314,8 +322,7 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
       const transition = getComputedStyle(galleryList).transition;
       galleryList.style.transition = 'none';
 
-      // get x coordinate:
-      const initialTranslateX = currentPositionX;
+      // get x/y coordinates:
       const initialPointerX = e.pageX;
       const initialPointerY = e.pageY;
       let currentScrollWidthY = 0;
@@ -360,14 +367,10 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
         // return if didn't move or didn't change position:
         if (currentPointerX === initialPointerX || (!currentPointerX && currentPointerX !== 0)) return;
 
-        slidesToScrollCurrentCount = getSlidesToScrollCurrentCount(initialPointerX, currentPointerX);
-        // currentScrollWidthX = slidesToScrollCurrentCount * oneSlideScrollWidth;
-
-        // reset currentX to initial (state before scrolling by pointer):
-        // currentPositionX = initialTranslateX;
         currentDirection = currentPointerX > initialPointerX ? directions.backward : directions.forward;
+        const scrolledSlidesCurrentCount = getScrolledSlidesCurrentCount(initialPointerX, currentPointerX);
 
-        setCurrentSlideIndex();
+        setCurrentSlideIndex(scrolledSlidesCurrentCount);
         scrollSlider(e);
         updateDotActiveClass(currentSlideIndex);
         handleButtonDisabled();
@@ -399,7 +402,7 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
 
     const renderSliderDots = () => {
       // append dots into sliderDotsContainer:
-      for (let i = 0; i <= sliderDotsCount; i++) {
+      for (let i = 0; i <= totalPossibleScrollsCount; i++) {
         // create div element with class = 'carousel_dot':
         const dotElement = document.createElement('div');
         dotElement.className = 'carousel_dot';

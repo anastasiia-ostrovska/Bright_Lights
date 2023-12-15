@@ -154,6 +154,8 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
     const prevArrow = prevBtn.querySelector('.arrow');
     const nextArrow = nextBtn.querySelector('.arrow');
     const sliderDotsContainer = sliderEl.querySelector('.dots_container');
+    // save transition value:
+    const transition = getComputedStyle(galleryList).transition;
     // get constant parameters:
     const slideWidth = parseInt(slide.offsetWidth);
     const slideComputedMarginRight = getComputedStyle(slide).marginRight;
@@ -174,10 +176,10 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
     };
     // get variable parameters:
     let sliderDots = [];
-    let currentScrollWidthX = 0;
-    let currentDirection = '';
     let currentSlideIndex = 0;
+    let currentDirection = '';
 
+    // direction handler function:
     const directionHandler = ({ onForward, onBackward }) => {
       switch (currentDirection) {
         case directions.forward:
@@ -188,18 +190,52 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
           break;
       }
     };
-    const getScrolledSlidesCurrentCount = (initialX, currentX) => {
-      // get final count of slides to scroll:
-      const totalCurrentScrollWidth = Math.abs(initialX - currentX);
-      const scrolledSlidesActualCount = totalCurrentScrollWidth / oneSlideScrollWidth; // possibly not integer
-      const currentScrollThreshold = Math.floor(scrolledSlidesActualCount) + thresholdCoefficient;
-      const isThresholdPassed = currentScrollThreshold <= scrolledSlidesActualCount;
+    // index reset function:
+    const setCurrentSlideIndex = (scrolledSlidesCount = slidesPerScrollDefaultCount) => {
+      directionHandler({
+        onForward: () => {
+          currentSlideIndex = Math.min((currentSlideIndex + scrolledSlidesCount), maxPossibleCurrentSlideIndex);
+        },
+        onBackward: () => {
+          currentSlideIndex = Math.max((currentSlideIndex - scrolledSlidesCount), minPossibleCurrentSlideIndex);
+        }
+      });
+    };
+    // translate X calculations:
+    const getCurrentTranslateX = (galleryList) => {
+      const slideTransformValue = getComputedStyle(galleryList).transform;
 
-      if (isThresholdPassed) {
-        return Math.ceil(scrolledSlidesActualCount);
+      if (slideTransformValue !== 'none') {
+        const slideMatrixValues = slideTransformValue.match(/(-?[0-9.]+)/g);
+        return parseInt(slideMatrixValues[4]);
       } else {
-        return Math.floor(scrolledSlidesActualCount);
+        return 0;
       }
+    };
+    const calculateNewTranslateX = (scrollWidthX) => {
+      // get current translate X:
+      const currentTranslateX = getCurrentTranslateX(galleryList);
+
+      return directionHandler({
+        onForward: () => Math.max((currentTranslateX - scrollWidthX), minTranslateX),
+        onBackward: () => Math.min((currentTranslateX + scrollWidthX), maxTranslateX)
+      });
+    };
+    const scrollSlider = (e, scrollWidthX) => {
+      let x = 0;
+      if (e.type === 'pointermove') {
+        x = calculateNewTranslateX(scrollWidthX);
+      } else {
+        x = -(currentSlideIndex * oneSlideScrollWidth);
+      }
+      galleryList.style.transform = `translateX(${x}px)`;
+    };
+    // handle navigation indicators changes:
+    const updateDotActiveClass = (index) => {
+      // remove class active from each dot:
+      sliderDots.forEach(dot => dot.classList.remove('active'));
+      // add class active to currentSlideIndex dot:
+      sliderDots[index].classList.add('active');
     };
     const toggleButtonDisabledClass = (button, arrow) => {
       button.classList.toggle('disabled');
@@ -232,49 +268,99 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
         }
       });
     };
-    const getCurrentTranslateX = (galleryList) => {
-      const slideTransformValue = getComputedStyle(galleryList).transform;
+    // navigation manipulation functions:
+    const getScrolledSlidesCurrentCount = (initialX, currentX) => {
+      // get final count of slides to scroll:
+      const totalCurrentScrollWidth = Math.abs(initialX - currentX);
+      const scrolledSlidesActualCount = totalCurrentScrollWidth / oneSlideScrollWidth; // possibly not integer
+      const currentScrollThreshold = Math.floor(scrolledSlidesActualCount) + thresholdCoefficient;
+      const isThresholdPassed = currentScrollThreshold <= scrolledSlidesActualCount;
 
-      if (slideTransformValue !== 'none') {
-        const slideMatrixValues = slideTransformValue.match(/(-?[0-9.]+)/g);
-        return parseInt(slideMatrixValues[4]);
+      if (isThresholdPassed) {
+        return Math.ceil(scrolledSlidesActualCount);
       } else {
-        return 0;
+        return Math.floor(scrolledSlidesActualCount);
       }
     };
-    const calculateNewTranslateX = () => {
-      // get current translate X:
-      const currentTranslateX = getCurrentTranslateX(galleryList);
+    const onPointerDown = (e) => {
+      // prevent triggering events on other elements:
+      e.currentTarget.setPointerCapture(e.pointerId);
 
-      return directionHandler({
-        onForward: () => Math.max((currentTranslateX - currentScrollWidthX), minTranslateX),
-        onBackward: () => Math.min((currentTranslateX + currentScrollWidthX), maxTranslateX)
-      });
-    };
-    const setCurrentSlideIndex = (scrolledSlidesCount = slidesPerScrollDefaultCount) => {
-      directionHandler({
-        onForward: () => {
-          currentSlideIndex = Math.min((currentSlideIndex + scrolledSlidesCount), maxPossibleCurrentSlideIndex);
-        },
-        onBackward: () => {
-          currentSlideIndex = Math.max((currentSlideIndex - scrolledSlidesCount), minPossibleCurrentSlideIndex);
+      // get x/y coordinates:
+      const initialPointerX = e.pageX;
+      const initialPointerY = e.pageY;
+      let lastPointerX = initialPointerX;
+      // condition for scroll direction defining:
+      let isScrollDirectionDefined = false;
+
+      const startSlideMoving = (e) => {
+        // prevent from highlighting text:
+        e.preventDefault();
+        // remove transition:
+        galleryList.style.transition = 'none';
+
+        // get scroll widths (X,Y):
+        const currentPointerX = e.pageX;
+        const currentPointerY = e.pageY;
+        const currentScrollWidthX = Math.abs(currentPointerX - lastPointerX);
+        const currentScrollWidthY = Math.abs(currentPointerY - initialPointerY);
+
+        // get is scroll vertical or horizontal only on first move:
+        if (!isScrollDirectionDefined) {
+          isScrollDirectionDefined = true;
+          const isVerticalScroll = currentScrollWidthY > currentScrollWidthX;
+          if (isVerticalScroll) {
+            endSlideMoving(e);
+            return;
+          }
         }
-      });
-    };
-    const updateDotActiveClass = (index) => {
-      // remove class active from each dot:
-      sliderDots.forEach(dot => dot.classList.remove('active'));
-      // add class active to currentSlideIndex dot:
-      sliderDots[index].classList.add('active');
-    };
-    const scrollSlider = (e) => {
-      let x = 0;
-      if (e.type === 'pointermove') {
-        x = calculateNewTranslateX();
-      } else {
-        x = -(currentSlideIndex * oneSlideScrollWidth);
-      }
-      galleryList.style.transform = `translateX(${x}px)`;
+
+        // get horizontal direction:
+        currentDirection = currentPointerX > lastPointerX ? directions.backward : directions.forward;
+        scrollSlider(e, currentScrollWidthX);
+
+        // reset previous x:
+        lastPointerX = currentPointerX;
+      };
+      const endSlideMoving = (e) => {
+        removeListeners();
+        // return transition value:
+        galleryList.style.transition = transition;
+
+        // return if didn't move or didn't change position:
+        if (lastPointerX === initialPointerX) return;
+
+        currentDirection = lastPointerX > initialPointerX ? directions.backward : directions.forward;
+        const scrolledSlidesCurrentCount = getScrolledSlidesCurrentCount(initialPointerX, lastPointerX);
+
+        setCurrentSlideIndex(scrolledSlidesCurrentCount);
+        scrollSlider(e);
+        updateDotActiveClass(currentSlideIndex);
+        handleButtonDisabled();
+      };
+      const preventContextMenuInterruption = (e) => {
+        e.preventDefault();
+        endSlideMoving();
+      };
+      // subscribe on events:
+      const subscribeOnPointerMove = () => {
+        document.addEventListener('pointermove', startSlideMoving);
+      };
+      const subscribeOnPointerUp = () => {
+        document.addEventListener('pointerup', endSlideMoving);
+      };
+      const subscribeOnContextMenu = () => {
+        document.addEventListener('contextmenu', preventContextMenuInterruption);
+      };
+      const removeListeners = () => {
+        document.removeEventListener('pointermove', startSlideMoving);
+        document.removeEventListener('pointerup', endSlideMoving);
+        document.removeEventListener('contextmenu', preventContextMenuInterruption);
+      };
+
+      subscribeOnPointerMove();
+      subscribeOnPointerUp();
+      subscribeOnContextMenu();
     };
     const onNavigationButtonClick = (direction, e) => {
       // prevent scroll on edges:
@@ -311,93 +397,6 @@ const activateSlider = (sliderId, slidesInfo, visibleSlidesCount) => {
       updateDotActiveClass(currentSlideIndex);
       // disable button if need:
       handleButtonDisabled();
-    };
-    const onPointerDown = (e) => {
-      let isScrollDirectionDefined = false;
-      let isVerticalScroll = false;
-      // prevent triggering events on other elements:
-      e.currentTarget.setPointerCapture(e.pointerId);
-
-      // remove transition:
-      const transition = getComputedStyle(galleryList).transition;
-      galleryList.style.transition = 'none';
-
-      // get x/y coordinates:
-      const initialPointerX = e.pageX;
-      const initialPointerY = e.pageY;
-      let currentScrollWidthY = 0;
-      let previousPointerX = initialPointerX;
-      let currentPointerX = 0;
-      let currentPointerY = 0;
-
-      const startSlideMoving = (e) => {
-        // prevent from highlighting text:
-        e.preventDefault();
-
-        // get scroll widths (X,Y):
-        currentPointerX = e.pageX;
-        currentPointerY = e.pageY;
-        currentScrollWidthX = Math.abs(currentPointerX - previousPointerX);
-        currentScrollWidthY = Math.abs(currentPointerY - initialPointerY);
-
-        // get is scroll vertical or horizontal only on first move:
-        if (!isScrollDirectionDefined) {
-          isScrollDirectionDefined = true;
-          isVerticalScroll = currentScrollWidthY > currentScrollWidthX;
-          if (isVerticalScroll) {
-            endSlideMoving(e);
-            return;
-          }
-        }
-
-        // get horizontal direction:
-        currentDirection = currentPointerX > previousPointerX ? directions.backward : directions.forward;
-        scrollSlider(e);
-
-        // reset previous x:
-        previousPointerX = currentPointerX;
-      };
-      const endSlideMoving = (e) => {
-        removeListeners();
-        if (!isVerticalScroll) isScrollDirectionDefined = false;
-
-        // return transition value:
-        galleryList.style.transition = transition;
-
-        // return if didn't move or didn't change position:
-        if (currentPointerX === initialPointerX || (!currentPointerX && currentPointerX !== 0)) return;
-
-        currentDirection = currentPointerX > initialPointerX ? directions.backward : directions.forward;
-        const scrolledSlidesCurrentCount = getScrolledSlidesCurrentCount(initialPointerX, currentPointerX);
-
-        setCurrentSlideIndex(scrolledSlidesCurrentCount);
-        scrollSlider(e);
-        updateDotActiveClass(currentSlideIndex);
-        handleButtonDisabled();
-      };
-      const preventContextMenuInterruption = (e) => {
-        e.preventDefault();
-        endSlideMoving();
-      };
-      // subscribe on events:
-      const subscribeOnPointerMove = () => {
-        document.addEventListener('pointermove', startSlideMoving);
-      };
-      const subscribeOnPointerUp = () => {
-        document.addEventListener('pointerup', endSlideMoving);
-      };
-      const subscribeOnContextMenu = () => {
-        document.addEventListener('contextmenu', preventContextMenuInterruption);
-      };
-      const removeListeners = () => {
-        document.removeEventListener('pointermove', startSlideMoving);
-        document.removeEventListener('pointerup', endSlideMoving);
-        document.removeEventListener('contextmenu', preventContextMenuInterruption);
-      };
-
-      subscribeOnPointerMove();
-      subscribeOnPointerUp();
-      subscribeOnContextMenu();
     };
 
     const renderSliderDots = () => {

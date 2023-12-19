@@ -180,6 +180,7 @@ const activateSlider = (sliderId, slidesInfo) => {
     // TODO:
     //  1. updateDirection;
     //  2. localStorage?
+    //  3. navigationItems ={}
 
     // DUE TO WIDTH OF ELEMENTS AND ORIENTATION:
     // constant parameters:
@@ -198,8 +199,22 @@ const activateSlider = (sliderId, slidesInfo) => {
     let sliderDots = [];
     // variable parameters:
     let currentSlideIndex = 0;
-    let currentDirection = '';
+    let currentDirection = directions.unchanged;
 
+    const updateDirection = ({ start, end, direction }) => {
+      if (direction) {
+        currentDirection = direction;
+        return;
+      }
+
+      if (start > end) {
+        currentDirection = directions.backward;
+      } else if (start < end) {
+        currentDirection = directions.forward;
+      } else {
+        currentDirection = directions.unchanged;
+      }
+    };
     // direction handler function:
     const directionHandler = ({ onForward, onBackward }) => {
       switch (currentDirection) {
@@ -351,7 +366,7 @@ const activateSlider = (sliderId, slidesInfo) => {
         }
 
         // get horizontal direction:
-        currentDirection = currentX > endX ? directions.backward : directions.forward;
+        updateDirection({ start: -endX, end: -currentX });
         setSliderTranslateX(event, currentScrollWidthX);
 
         // reset previous x:
@@ -365,12 +380,13 @@ const activateSlider = (sliderId, slidesInfo) => {
         // return if didn't move or didn't change position:
         if (endX === startX) return;
 
-        const scrolledSlidesCurrentCount = getScrolledSlidesCurrentCount(startX, endX);
-        if (scrolledSlidesCurrentCount === 0) {
-          currentDirection = directions.unchanged;
+        updateDirection({ start: -startX, end: -endX });
+        // TODO: getIsDirectionUnchanged:
+        if (currentDirection === directions.unchanged) {
           setSliderTranslateX(event);
         } else {
-          currentDirection = endX > startX ? directions.backward : directions.forward;
+          const scrolledSlidesCurrentCount = getScrolledSlidesCurrentCount(startX, endX);
+
           setCurrentSlideIndex(scrolledSlidesCurrentCount);
           setSliderTranslateX(event);
           updateDotActiveClass(currentSlideIndex);
@@ -403,16 +419,17 @@ const activateSlider = (sliderId, slidesInfo) => {
     };
     // ----
     const onNavigationButtonClick = (direction, event) => {
+      updateDirection({ direction });
+
       // prevent scroll on edges:
+      // TODO: additional functions getIs...
+      //  2. getIsAllowedToScroll
       const isOnRightEdge = currentSlideIndex === limits.possibleCurrentSlideIndex.max;
       const isOnLeftEdge = currentSlideIndex === limits.possibleCurrentSlideIndex.min;
       const isForward = direction === directions.forward;
       const isBackward = direction === directions.backward;
       if (isOnRightEdge && isForward) return;
       if (isOnLeftEdge && isBackward) return;
-
-      // set direction and scroll by direction:
-      currentDirection = direction;
 
       setCurrentSlideIndex();
       setSliderTranslateX(event);
@@ -429,7 +446,8 @@ const activateSlider = (sliderId, slidesInfo) => {
       // get index of targeted dot:
       const index = Array.from(sliderDots).indexOf(dot);
       // set direction and scroll by direction:
-      currentDirection = index > currentSlideIndex ? directions.forward : directions.backward;
+      updateDirection({ start: currentSlideIndex, end: index });
+
       // set current index:
       currentSlideIndex = index;
       // scroll slides:

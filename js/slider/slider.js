@@ -169,13 +169,17 @@ const activateSlider = (sliderId, slidesInfo) => {
     const sliderDotsContainer = sliderEl.querySelector('.dots_container');
     const transition = getComputedStyle(galleryList).transition; // save transition value
     // constant parameters:
-    const slidesPerScrollDefaultCount = 1;
+    const scrolledSlidesDefaultCount = 1;
     const thresholdCoefficient = 0.35; // constant threshold
     const directions = {
       forward: 'forward',
       backward: 'backward',
       unchanged: 'unchanged',
     };
+
+    // TODO:
+    //  1. updateDirection;
+    //  2. localStorage?
 
     // DUE TO WIDTH OF ELEMENTS AND ORIENTATION:
     // constant parameters:
@@ -207,8 +211,18 @@ const activateSlider = (sliderId, slidesInfo) => {
           break;
       }
     };
+    // ----
+    const transitionHandler = (isRemove) => {
+      if (isRemove) {
+        galleryList.style.transition = 'none';
+      } else {
+        galleryList.style.transition = transition;
+
+      }
+    };
+    // ----
     // index reset function:
-    const setCurrentSlideIndex = (scrolledSlidesCount = slidesPerScrollDefaultCount) => {
+    const setCurrentSlideIndex = (scrolledSlidesCount = scrolledSlidesDefaultCount) => {
       directionHandler({
         onForward: () => {
           currentSlideIndex = Math.min((currentSlideIndex + scrolledSlidesCount), limits.possibleCurrentSlideIndex.max);
@@ -218,6 +232,7 @@ const activateSlider = (sliderId, slidesInfo) => {
         }
       });
     };
+    // ----
     // translate X calculations:
     const getCurrentTranslateX = (galleryList) => {
       const transformValue = getComputedStyle(galleryList).transform;
@@ -241,6 +256,7 @@ const activateSlider = (sliderId, slidesInfo) => {
       }
       galleryList.style.transform = `translateX(${x}px)`;
     };
+    // ----
     // handle navigation indicators changes:
     const updateDotActiveClass = (index) => {
       // remove class active from each dot:
@@ -248,10 +264,12 @@ const activateSlider = (sliderId, slidesInfo) => {
       // add class active to currentSlideIndex dot:
       sliderDots[index].classList.add('active');
     };
+
     const toggleButtonDisabledClass = (button, arrow) => {
       button.classList.toggle('disabled');
       arrow.classList.toggle('disabled');
     };
+
     const handleButtonDisabledOnLimits = (isPrevBtnDisabled, isNextBtnDisabled) => {
       if (currentSlideIndex === limits.possibleCurrentSlideIndex.max && !isNextBtnDisabled) {
         toggleButtonDisabledClass(nextBtn, nextArrow);
@@ -284,6 +302,7 @@ const activateSlider = (sliderId, slidesInfo) => {
         }
       });
     };
+    // ----
     // navigation manipulation functions:
     const getScrolledSlidesCurrentCount = (initialX, currentX) => {
       // get final count of slides to scroll:
@@ -313,7 +332,7 @@ const activateSlider = (sliderId, slidesInfo) => {
         // prevent from highlighting text:
         event.preventDefault();
         // remove transition:
-        galleryList.style.transition = 'none';
+        transitionHandler(true);
 
         // get scroll widths (X,Y):
         const currentX = event.pageX;
@@ -341,7 +360,7 @@ const activateSlider = (sliderId, slidesInfo) => {
       const endSlideMoving = (event) => {
         removeListeners();
         // return transition value:
-        galleryList.style.transition = transition;
+        transitionHandler(false);
 
         // return if didn't move or didn't change position:
         if (endX === startX) return;
@@ -382,6 +401,7 @@ const activateSlider = (sliderId, slidesInfo) => {
       subscribeOnPointerUp();
       subscribeOnContextMenu();
     };
+    // ----
     const onNavigationButtonClick = (direction, event) => {
       // prevent scroll on edges:
       const isOnRightEdge = currentSlideIndex === limits.possibleCurrentSlideIndex.max;
@@ -399,6 +419,7 @@ const activateSlider = (sliderId, slidesInfo) => {
       updateDotActiveClass(currentSlideIndex);
       handleButtonDisabled();
     };
+    // ----
     const onSliderDotClick = (event) => {
       // get targeted dot element:
       const dot = event.target.closest('div.carousel_dot');
@@ -418,7 +439,7 @@ const activateSlider = (sliderId, slidesInfo) => {
       // disable button if need:
       handleButtonDisabled();
     };
-
+    // ----
     const renderSliderDots = (totalPossibleScrollsCount) => {
       // if there are dots - remove them:
       sliderDots = sliderDotsContainer.querySelectorAll('.carousel_dot');
@@ -438,19 +459,29 @@ const activateSlider = (sliderId, slidesInfo) => {
         sliderDots.push(dotElement);
       }
     };
+
     const setParameters = (slideElement, slidesArray) => {
       // set parameters:
       oneSlideScrollWidth = getOneSlideScrollWidth(slideElement);
       totalPossibleScrollsCount = getTotalPossibleScrollsCount(slidesArray);
       limits = getLimits({ limits, oneSlideScrollWidth, totalPossibleScrollsCount });
     };
+
+    const updateIndexOnResize = (currentIndex) => {
+      currentSlideIndex = Math.min(currentIndex, limits.possibleCurrentSlideIndex.max);
+    };
+
     const updateState = (event) => {
+      transitionHandler(true);
       setParameters(slideElement, slidesArray);
+      updateIndexOnResize(currentSlideIndex);
       setSliderTranslateX(event);
       renderSliderDots(totalPossibleScrollsCount);
       updateDotActiveClass(currentSlideIndex);
       handleButtonDisabled();
+      transitionHandler(false);
     };
+
     const setInitialSliderState = () => {
       updateState();
     };
@@ -468,11 +499,13 @@ const activateSlider = (sliderId, slidesInfo) => {
       galleryContainer.ondragstart = () => false;
     };
     const subscribeOnWindowResize = () => {
-      // TODO: resize optimizations:
-      window.addEventListener('resize', updateState);
+      const delay = 250;
+      let timerId = null;
+
       window.addEventListener('resize', () => {
-        // Ваш код для реагування на зміну розміру вікна чи орієнтації
-        console.log('Розмір вікна або орієнтація змінилися');
+        // clear timeout if there is:
+        clearTimeout(timerId);
+        timerId = setTimeout(updateState, delay);
       });
     };
 

@@ -215,6 +215,10 @@ const activateSlider = (sliderId, slidesInfo) => {
         currentDirection = directions.unchanged;
       }
     };
+
+    const getIsDirectionUnchanged = (direction) => {
+      return direction === directions.unchanged;
+    };
     // direction handler function:
     const directionHandler = ({ onForward, onBackward }) => {
       switch (currentDirection) {
@@ -381,8 +385,8 @@ const activateSlider = (sliderId, slidesInfo) => {
         if (endX === startX) return;
 
         updateDirection({ start: -startX, end: -endX });
-        // TODO: getIsDirectionUnchanged:
-        if (currentDirection === directions.unchanged) {
+
+        if (getIsDirectionUnchanged(currentDirection)) {
           setSliderTranslateX(event);
         } else {
           const scrolledSlidesCurrentCount = getScrolledSlidesCurrentCount(startX, endX);
@@ -418,18 +422,21 @@ const activateSlider = (sliderId, slidesInfo) => {
       subscribeOnContextMenu();
     };
     // ----
+    const getIsOnEdge = () => {
+      const isOnRightEdge = currentSlideIndex === limits.possibleCurrentSlideIndex.max;
+      const isOnLeftEdge = currentSlideIndex === limits.possibleCurrentSlideIndex.min;
+
+      return directionHandler({
+        onForward: () => isOnRightEdge,
+        onBackward: () => isOnLeftEdge
+      });
+
+    };
     const onNavigationButtonClick = (direction, event) => {
       updateDirection({ direction });
 
       // prevent scroll on edges:
-      // TODO: additional functions getIs...
-      //  2. getIsAllowedToScroll
-      const isOnRightEdge = currentSlideIndex === limits.possibleCurrentSlideIndex.max;
-      const isOnLeftEdge = currentSlideIndex === limits.possibleCurrentSlideIndex.min;
-      const isForward = direction === directions.forward;
-      const isBackward = direction === directions.backward;
-      if (isOnRightEdge && isForward) return;
-      if (isOnLeftEdge && isBackward) return;
+      if (getIsOnEdge()) return;
 
       setCurrentSlideIndex();
       setSliderTranslateX(event);

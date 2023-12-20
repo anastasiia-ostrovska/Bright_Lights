@@ -205,12 +205,15 @@ const activateSlider = (sliderId, slidesInfo) => {
     // query elements and values:
     const slidesArray = galleryContainer.querySelectorAll('.ticket-container');
     const slideElement = slidesArray[0];
-    const prevBtn = sliderEl.querySelector('.prev');
-    const nextBtn = sliderEl.querySelector('.next');
-    const prevArrow = prevBtn.querySelector('.arrow');
-    const nextArrow = nextBtn.querySelector('.arrow');
     const sliderDotsContainer = sliderEl.querySelector('.dots_container');
     const transition = getComputedStyle(galleryList).transition; // save transition value
+    const navigationItems = {
+      buttons: {
+        prev: sliderEl.querySelector('.prev'),
+        next: sliderEl.querySelector('.next'),
+      },
+      dots: [],
+    };
     // constant parameters:
     const scrolledSlidesDefaultCount = 1;
     const thresholdCoefficient = 0.35; // constant threshold
@@ -222,7 +225,6 @@ const activateSlider = (sliderId, slidesInfo) => {
 
     // TODO:
     //  2. localStorage?
-    //  3. navigationItems ={}
 
     // DUE TO WIDTH OF ELEMENTS AND ORIENTATION:
     // constant parameters:
@@ -238,7 +240,6 @@ const activateSlider = (sliderId, slidesInfo) => {
         min: -(oneSlideScrollWidth * totalPossibleScrollsCount),
       }
     };
-    let sliderDots = [];
     // variable parameters:
     let currentSlideIndex = 0;
     let currentDirection = directions.unchanged;
@@ -293,8 +294,8 @@ const activateSlider = (sliderId, slidesInfo) => {
         }
       });
     };
-    // ----
     // translate X calculations:
+    // ----
     const getCurrentTranslateX = (galleryList) => {
       const transformValue = getComputedStyle(galleryList).transform;
       return transformValue === 'none' ? 0 : parseInt(transformValue.split(',')[4]);
@@ -304,8 +305,12 @@ const activateSlider = (sliderId, slidesInfo) => {
       const currentTranslateX = getCurrentTranslateX(galleryList);
 
       return directionHandler({
-        onForward: () => Math.max((currentTranslateX - scrollWidthX), limits.possibleTranslateX.min),
-        onBackward: () => Math.min((currentTranslateX + scrollWidthX), limits.possibleTranslateX.max)
+        onForward: () => {
+          return Math.max((currentTranslateX - scrollWidthX), limits.possibleTranslateX.min);
+        },
+        onBackward: () => {
+          return Math.min((currentTranslateX + scrollWidthX), limits.possibleTranslateX.max);
+        }
       });
     };
     const setSliderTranslateX = (event, scrollWidthX) => {
@@ -321,44 +326,43 @@ const activateSlider = (sliderId, slidesInfo) => {
     // handle navigation indicators changes:
     const updateDotActiveClass = (index) => {
       // remove class active from each dot:
-      sliderDots.forEach(dot => dot.classList.remove('active'));
+      navigationItems.dots.forEach(dot => dot.classList.remove('active'));
       // add class active to currentSlideIndex dot:
-      sliderDots[index].classList.add('active');
+      navigationItems.dots[index].classList.add('active');
     };
 
-    const toggleButtonDisabledClass = (button, arrow) => {
+    const toggleButtonDisabledClass = (button) => {
       button.classList.toggle('disabled');
-      arrow.classList.toggle('disabled');
     };
 
     const handleButtonDisabledOnLimits = (isPrevBtnDisabled, isNextBtnDisabled) => {
       if (currentSlideIndex === limits.possibleCurrentSlideIndex.max && !isNextBtnDisabled) {
-        toggleButtonDisabledClass(nextBtn, nextArrow);
+        toggleButtonDisabledClass(navigationItems.buttons.next);
       }
       if (currentSlideIndex === limits.possibleCurrentSlideIndex.min && !isPrevBtnDisabled) {
-        toggleButtonDisabledClass(prevBtn, prevArrow);
+        toggleButtonDisabledClass(navigationItems.buttons.prev);
       }
     };
     const handleButtonDisabled = () => {
       // stop if buttons aren't displayed:
-      const isPrevBtnDisplayed = getComputedStyle(prevBtn).display !== 'none';
-      const isNextBtnDisplayed = getComputedStyle(nextBtn).display !== 'none';
+      const isPrevBtnDisplayed = getComputedStyle(navigationItems.buttons.prev).display !== 'none';
+      const isNextBtnDisplayed = getComputedStyle(navigationItems.buttons.next).display !== 'none';
       if (!isPrevBtnDisplayed || !isNextBtnDisplayed) return;
 
-      const isPrevBtnDisabled = prevBtn.classList.contains('disabled');
-      const isNextBtnDisabled = nextBtn.classList.contains('disabled');
+      const isPrevBtnDisabled = navigationItems.buttons.prev.classList.contains('disabled');
+      const isNextBtnDisabled = navigationItems.buttons.next.classList.contains('disabled');
 
       handleButtonDisabledOnLimits(isPrevBtnDisabled, isNextBtnDisabled);
 
       directionHandler({
         onForward: () => {
           if (isPrevBtnDisabled) {
-            toggleButtonDisabledClass(prevBtn, prevArrow);
+            toggleButtonDisabledClass(navigationItems.buttons.prev);
           }
         },
         onBackward: () => {
           if (isNextBtnDisabled) {
-            toggleButtonDisabledClass(nextBtn, nextArrow);
+            toggleButtonDisabledClass(navigationItems.buttons.next);
           }
         }
       });
@@ -493,7 +497,7 @@ const activateSlider = (sliderId, slidesInfo) => {
       if (!dot) return;
 
       // get index of targeted dot:
-      const index = Array.from(sliderDots).indexOf(dot);
+      const index = [...navigationItems.dots].indexOf(dot);
       // set direction and scroll by direction:
       updateDirection({ start: currentSlideIndex, end: index });
 
@@ -509,12 +513,10 @@ const activateSlider = (sliderId, slidesInfo) => {
     // ----
     const renderSliderDots = (totalPossibleScrollsCount) => {
       // if there are dots - remove them:
-      sliderDots = sliderDotsContainer.querySelectorAll('.carousel_dot');
-      // if (sliderDots) {
-      for (let i = sliderDots.length - 1; i >= 0; i--) {
-        sliderDots[i].remove();
+      for (let i = navigationItems.dots.length - 1; i >= 0; i--) {
+        navigationItems.dots[i].remove();
+        navigationItems.dots.pop();
       }
-      sliderDots = [];
       // append dots into sliderDotsContainer:
       for (let i = 0; i <= totalPossibleScrollsCount; i++) {
         // create div element with class = 'carousel_dot':
@@ -523,7 +525,7 @@ const activateSlider = (sliderId, slidesInfo) => {
         // add into DOM:
         sliderDotsContainer.append(dotElement);
         // add into sliderDots array:
-        sliderDots.push(dotElement);
+        navigationItems.dots.push(dotElement);
       }
     };
 
@@ -531,7 +533,11 @@ const activateSlider = (sliderId, slidesInfo) => {
       // set parameters:
       oneSlideScrollWidth = getOneSlideScrollWidth(slideElement);
       totalPossibleScrollsCount = getTotalPossibleScrollsCount(slidesArray);
-      limits = getLimits({ limits, oneSlideScrollWidth, totalPossibleScrollsCount });
+      limits = getLimits({
+        limits,
+        oneSlideScrollWidth,
+        totalPossibleScrollsCount
+      });
     };
 
     const updateIndexOnResize = (currentIndex) => {
@@ -554,8 +560,12 @@ const activateSlider = (sliderId, slidesInfo) => {
     };
 
     const subscribeOnButtonsClick = () => {
-      prevBtn.addEventListener('click', (e) => onNavigationButtonClick(directions.backward, e));
-      nextBtn.addEventListener('click', (e) => onNavigationButtonClick(directions.forward, e));
+      navigationItems.buttons.prev.addEventListener('click', (e) => {
+        onNavigationButtonClick(directions.backward, e);
+      });
+      navigationItems.buttons.next.addEventListener('click', (e) => {
+        onNavigationButtonClick(directions.forward, e);
+      });
     };
     const subscribeOnSliderDotCLick = () => {
       sliderDotsContainer.addEventListener('click', onSliderDotClick);

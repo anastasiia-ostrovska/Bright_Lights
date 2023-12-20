@@ -783,11 +783,7 @@ time {
 }
 
 #tickets-slider .arrow-container.disabled {
-    border: 1px solid #ffffff36;
-}
-
-#tickets-slider .arrow.disabled {
-    color: #ffffff36;
+    opacity: 0.4;
 }
 
 #tickets-slider .dots_container {

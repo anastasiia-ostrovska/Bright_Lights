@@ -11,81 +11,126 @@
 // ---- slides info starts ----
 const slidesInfo = [
   {
-    id: 1, location: {
+    id: 1,
+    location: {
       city: {
-        name: 'Chandler, AZ', mapHref: 'https://maps.app.goo.gl/6KZL1sy2qDj96oMi6'
+        name: 'Chandler, AZ',
       },
       concertVenue: {
         name: 'The Park at Wild Horse Pass',
-        // citeHref: 'https://playatgila.com/entertainment/'
       },
-    }, date: {
-      year: '2021', month: 'APR', day: '02'
-    }, img: {
-      src: 'img/6_section_picture_1.png'
-    }, ticket: { href: '#' }
-  }, {
-    id: 2, location: {
+    },
+    date: {
+      year: '2021',
+      month: 'APR',
+      day: '02',
+    },
+    img: {
+      src: 'img/6_section_picture_1.png',
+    },
+    ticket: {
+      href: '#',
+    }
+  },
+  {
+    id: 2,
+    location: {
       city: {
-        name: 'Ibiza, IBZ', mapHref: 'https://maps.app.goo.gl/spuQZuCgTyokweUd8'
-      }, concertVenue: {
-        name: 'Swag Ibiza Club', citeHref: 'https://swagibizaoficial.com/',
+        name: 'Ibiza, IBZ',
+      },
+      concertVenue: {
+        name: 'Swag Ibiza Club',
       }
-    }, date: {
-      year: '2021', month: 'JUL', day: '08'
-    }, img: {
-      src: 'img/6_section_picture_2.png'
-    }, ticket: { href: '#' }
-
-  }, {
-    id: 3, location: {
+    },
+    date: {
+      year: '2021',
+      month: 'JUL',
+      day: '08',
+    },
+    img: {
+      src: 'img/6_section_picture_2.png',
+    },
+    ticket: { href: '#' }
+  },
+  {
+    id: 3,
+    location: {
       city: {
-        name: 'Ibiza, IBZ', mapHref: 'https://maps.app.goo.gl/QGYEFdgxuovkVcpc6'
-      }, concertVenue: {
-        name: 'El Swing Ibiza', citeHref: 'https://swing-ibiza.negocio.site/',
+        name: 'Ibiza, IBZ',
       },
-    }, date: {
-      year: '2021', month: 'APR', day: '02'
-    }, img: {
-      src: 'img/6_section_picture_3.png'
-    }, ticket: { href: '#' }
-
-  }, {
-    id: 4, location: {
-      city: {
-        name: 'Chandler, AZ', mapHref: 'https://maps.app.goo.gl/6KZL1sy2qDj96oMi6'
-      }, concertVenue: {
-        name: 'The Park at Wild Horse Pass', citeHref: 'https://playatgila.com/entertainment/',
+      concertVenue: {
+        name: 'El Swing Ibiza',
       },
-    }, date: {
-      year: '2022', month: 'OCT', day: '12'
-    }, img: {
-      src: 'img/6_section_picture_1.png'
-    }, ticket: { href: '#' }
-  }, {
-    id: 5, location: {
+    },
+    date: {
+      year: '2021',
+      month: 'APR',
+      day: '02',
+    },
+    img: {
+      src: 'img/6_section_picture_3.png',
+    },
+    ticket: { href: '#' }
+  },
+  {
+    id: 4,
+    location: {
       city: {
-        name: 'Ibiza, IBZ', mapHref: 'https://maps.app.goo.gl/spuQZuCgTyokweUd8'
-      }, concertVenue: {
-        name: 'Swag Ibiza Club', citeHref: 'https://swagibizaoficial.com/',
+        name: 'Chandler, AZ',
+      },
+      concertVenue: {
+        name: 'The Park at Wild Horse Pass',
+      },
+    },
+    date: {
+      year: '2022',
+      month: 'OCT',
+      day: '12',
+    },
+    img: {
+      src: 'img/6_section_picture_1.png',
+    },
+    ticket: { href: '#' }
+  },
+  {
+    id: 5,
+    location: {
+      city: {
+        name: 'Ibiza, IBZ',
+      },
+      concertVenue: {
+        name: 'Swag Ibiza Club',
       }
-    }, date: {
-      year: '2022', month: 'APR', day: '25'
-    }, img: {
+    },
+    date: {
+      year: '2022',
+      month: 'APR',
+      day: '25',
+    },
+    img: {
       src: 'img/6_section_picture_2.png'
-    }, ticket: { href: '#' }
-  }, {
-    id: 6, location: {
+    },
+    ticket: { href: '#' }
+  },
+  {
+    id: 6,
+    location: {
       city: {
-        name: 'Ibiza, IBZ', mapHref: 'https://maps.app.goo.gl/QGYEFdgxuovkVcpc6'
-      }, concertVenue: {
-        name: 'El Swing Ibiza', citeHref: 'https://swing-ibiza.negocio.site/',
+        name: 'Ibiza, IBZ',
       },
-    }, date: {
-      year: '2022', month: 'MAY', day: '09'
-    }, img: {
+      concertVenue: {
+        name: 'El Swing Ibiza',
+      },
+    },
+    date: {
+      year: '2022',
+      month: 'MAY',
+      day: '09',
+    },
+    img: {
       src: 'img/6_section_picture_3.png'
-    }, ticket: { href: '#' }
+    },
+    ticket: { href: '#' }
   }];
 // ---- slides info ends ----
 
@@ -104,7 +149,6 @@ const activateSlider = (sliderId, slidesInfo) => {
       const slideInfo = slidesInfo[i];
       const slideContainer = document.createElement('div');
       slideContainer.classList.add('sec_6_ticket_container', 'ticket-container');
-      // TODO: remove links city/concertVenue;
       slideContainer.innerHTML = `
                 <div class="sec_6_photo">
                   <img
@@ -115,10 +159,9 @@ const activateSlider = (sliderId, slidesInfo) => {
                 </div>
 
                 <h5 class="sec_6_tittle">
-                <a target="_blank" href="${slideInfo.location.city.mapHref}" class="city">${slideInfo.location.city.name}</a>
+                <p class="city">${slideInfo.location.city.name}</p>
                   <br />
-                  <a target="_blank" href="${slideInfo.location.concertVenue.citeHref}" 
-                  class="concert-venue">${slideInfo.location.concertVenue.name}</a>
+                  <p class="concert-venue">${slideInfo.location.concertVenue.name}</p>
                 </h5>
 
                 <div class="sec_6_ticket_bottom">
@@ -178,7 +221,6 @@ const activateSlider = (sliderId, slidesInfo) => {
     };
 
     // TODO:
-    //  1. updateDirection;
     //  2. localStorage?
     //  3. navigationItems ={}
 

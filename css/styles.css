@@ -723,11 +723,6 @@ h5 {
     color: white;
 }
 
-.sec_6_tittle .concert-venue,
-.sec_6_tittle .city {
-    cursor: pointer;
-}
-
 .sec_6_ticket_bottom {
     display: flex;
     flex-direction: row;

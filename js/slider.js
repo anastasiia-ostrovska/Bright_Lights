@@ -1,13 +1,3 @@
-// import deviceTypeService from './deviceTypeService.mjs';
-
-// console.log('deviceTypeService.getIsMobile(): ', deviceTypeService.getIsMobile());
-// console.log('deviceTypeService.getIsDesktop(): ', deviceTypeService.getIsDesktop());
-// console.log('deviceTypeService.getIsTablet(): ', deviceTypeService.getIsTablet());
-
-// const isMobile = deviceTypeService.getIsMobile();
-// const isTablet = deviceTypeService.getIsTablet();
-// const isDesktop = deviceTypeService.getIsDesktop();
-
 // ---- slides info starts ----
 const slidesInfo = [
   {
@@ -198,8 +188,7 @@ const activateSlider = (sliderId, slidesInfo) => {
 
     return limits;
   };
-// TODO: check isOnEdge? mb other cases
-//   TODO: state obj 
+
 // ---- slider functionality starts ----
   const addSliderFunctionality = () => {
     // GENERAL:
@@ -223,9 +212,6 @@ const activateSlider = (sliderId, slidesInfo) => {
       backward: 'backward',
       unchanged: 'unchanged',
     };
-
-    // TODO:
-    //  2. localStorage?
 
     // DUE TO WIDTH OF ELEMENTS AND ORIENTATION:
     // constant parameters:

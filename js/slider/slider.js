@@ -199,6 +199,7 @@ const activateSlider = (sliderId, slidesInfo) => {
     return limits;
   };
 // TODO: check isOnEdge? mb other cases
+//   TODO: state obj 
 // ---- slider functionality starts ----
   const addSliderFunctionality = () => {
     // GENERAL:

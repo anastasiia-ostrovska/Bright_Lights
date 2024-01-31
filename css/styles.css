@@ -756,6 +756,7 @@ time {
     line-height: 24px;
     text-transform: uppercase;
     color: #FFFFFF;
+    cursor: pointer;
 }
 
 #tickets-slider .sec_6_arrow_left, .sec_6_arrow_right {
@@ -897,6 +898,22 @@ time {
     color: #FFFFFF50;
 }
 
+/* Modal window for tickets reservation */
+.modal_tickets {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*gap: 50px;*/
+    height: 50vh;
+    width: 50vw;
+    border: 2px solid black;
+    border-radius: 25px;
+}
 
+dialog::backdrop {
+    background-color: #7A66CC;
+    opacity: 0.5;
+}
 
 

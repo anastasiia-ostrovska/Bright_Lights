@@ -158,7 +158,7 @@ const activateSlider = (sliderId, slidesInfo) => {
                   <time>${slideInfo.date.month} ${slideInfo.date.day} ${slideInfo.date.year}</time>
 
                   <a target="_blank" class="sec_6_button_link" href="${slideInfo.ticket.href}">
-                    <div class="sec_6_button">tickets</div>
+                    <button class="sec_6_button show_modal_btn">tickets</button>
                   </a>
                 </div>`;
       galleryList.append(slideContainer);
@@ -246,8 +246,11 @@ const activateSlider = (sliderId, slidesInfo) => {
       }
     };
 
-    const getIsDirectionUnchanged = (direction) => {
-      return direction === directions.unchanged;
+    const getIsPositionUnchanged = (direction, scrolledSlidesCount) => {
+      const isDirectionUnchanged = direction === directions.unchanged;
+      const isSlideScrolled = scrolledSlidesCount !== 0;
+
+      return isDirectionUnchanged || !isSlideScrolled;
     };
     // direction handler function:
     const directionHandler = ({ onForward, onBackward }) => {
@@ -419,11 +422,11 @@ const activateSlider = (sliderId, slidesInfo) => {
 
         updateDirection({ start: -startX, end: -endX });
 
-        if (getIsDirectionUnchanged(currentDirection)) {
+        const scrolledSlidesCurrentCount = getScrolledSlidesCurrentCount(startX, endX);
+
+        if (getIsPositionUnchanged(currentDirection, scrolledSlidesCurrentCount)) {
           setSliderTranslateX(event);
         } else {
-          const scrolledSlidesCurrentCount = getScrolledSlidesCurrentCount(startX, endX);
-
           setCurrentSlideIndex(scrolledSlidesCurrentCount);
           setSliderTranslateX(event);
           updateDotActiveClass(currentSlideIndex);

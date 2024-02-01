@@ -264,8 +264,8 @@ const activateSlider = (sliderId, slidesInfo) => {
       }
     };
     // ----
-    const transitionHandler = (isRemove) => {
-      if (isRemove) {
+    const transitionHandler = (removeTransition) => {
+      if (removeTransition) {
         galleryList.style.transition = 'none';
       } else {
         galleryList.style.transition = transition;
@@ -373,21 +373,16 @@ const activateSlider = (sliderId, slidesInfo) => {
       }
     };
     const onPointerDown = (event) => {
-      // prevent triggering events on other elements:
-      event.currentTarget.setPointerCapture(event.pointerId);
-
       // get x/y coordinates:
       const startX = event.pageX;
       const startY = event.pageY;
       let endX = startX;
-      // condition for scroll direction defining:
-      let isScrollDirectionDefined = false;
+      // condition for handling the first move:
+      let isFirstMoveHandled = false;
 
       const startSlideMoving = (event) => {
         // prevent from highlighting text:
         event.preventDefault();
-        // remove transition:
-        transitionHandler(true);
 
         // get scroll widths (X,Y):
         const currentX = event.pageX;
@@ -395,13 +390,18 @@ const activateSlider = (sliderId, slidesInfo) => {
         const currentScrollWidthX = Math.abs(currentX - endX);
         const currentScrollWidthY = Math.abs(currentY - startY);
 
-        // get is scroll vertical or horizontal only on first move:
-        if (!isScrollDirectionDefined) {
-          isScrollDirectionDefined = true;
+        // handle first move:
+        if (!isFirstMoveHandled) {
+          isFirstMoveHandled = true;
           const isVerticalScroll = currentScrollWidthY > currentScrollWidthX;
+
           if (isVerticalScroll) {
-            endSlideMoving(event);
+            removeListeners();
             return;
+          } else {
+            // remove transition:
+            transitionHandler(true);
+            document.addEventListener('pointerup', endSlideMoving);
           }
         }
 
@@ -413,13 +413,8 @@ const activateSlider = (sliderId, slidesInfo) => {
         endX = currentX;
       };
       const endSlideMoving = (event) => {
-        removeListeners();
         // return transition value:
         transitionHandler(false);
-
-        // return if didn't move or didn't change position:
-        if (endX === startX) return;
-
         updateDirection({ start: -startX, end: -endX });
 
         const scrolledSlidesCurrentCount = getScrolledSlidesCurrentCount(startX, endX);
@@ -432,30 +427,33 @@ const activateSlider = (sliderId, slidesInfo) => {
           updateDotActiveClass(currentSlideIndex);
           handleButtonDisabled();
         }
+
+        document.removeEventListener('pointerup', endSlideMoving);
+      };
+      const removeListeners = () => {
+        document.removeEventListener('pointermove', startSlideMoving);
+        document.removeEventListener('contextmenu', preventContextMenuInterruption);
+        document.removeEventListener('pointerup', removeListeners);
       };
       const preventContextMenuInterruption = (event) => {
         event.preventDefault();
         endSlideMoving();
       };
+
       // subscribe on events:
       const subscribeOnPointerMove = () => {
         document.addEventListener('pointermove', startSlideMoving);
       };
-      const subscribeOnPointerUp = () => {
-        document.addEventListener('pointerup', endSlideMoving);
-      };
       const subscribeOnContextMenu = () => {
         document.addEventListener('contextmenu', preventContextMenuInterruption);
       };
-      const removeListeners = () => {
-        document.removeEventListener('pointermove', startSlideMoving);
-        document.removeEventListener('pointerup', endSlideMoving);
-        document.removeEventListener('contextmenu', preventContextMenuInterruption);
+      const subscribeOnPointerUp = () => {
+        document.addEventListener('pointerup', removeListeners);
       };
 
       subscribeOnPointerMove();
-      subscribeOnPointerUp();
       subscribeOnContextMenu();
+      subscribeOnPointerUp();
     };
     // ----
     const getIsOnEdge = () => {

@@ -156,10 +156,7 @@ const activateSlider = (sliderId, slidesInfo) => {
 
                 <div class="sec_6_ticket_bottom">
                   <time>${slideInfo.date.month} ${slideInfo.date.day} ${slideInfo.date.year}</time>
-
-                  <a target="_blank" class="sec_6_button_link" href="${slideInfo.ticket.href}">
-                    <button class="sec_6_button show_modal_btn">tickets</button>
-                  </a>
+                  <button class="sec_6_button show_modal_btn">tickets</button>
                 </div>`;
       galleryList.append(slideContainer);
     }

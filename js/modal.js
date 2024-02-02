@@ -48,6 +48,6 @@ class Modal {
 
 const ticketModal = new Modal({
   modalElSelector: '#modal_dialog_container',
-  openBtnSelector: '.show_modal_btn',
-  closeBtnSelector: '.modal_show_btn'
+  openBtnSelector: '.modal_show_btn',
+  closeBtnSelector: '.modal_close_btn'
 });

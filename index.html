@@ -584,7 +584,6 @@
 <dialog id="modal_dialog_container">
     <div class="modal_content_container">
         <div class="modal_header">
-            <button class="modal_close_btn" aria-label="Close">Close</button>
             <div class="modal_indicators_container">
                 <div class="indicator_round step_one">1</div>
                 <div class="indicator_line step_one"></div>
@@ -592,11 +591,42 @@
                 <div class="indicator_line step_two"></div>
                 <div class="indicator_round step_three">3</div>
             </div>
+            <button class="modal_close_btn" aria-label="Close">Close</button>
         </div>
 
-        <form action=""></form>
+        <form action="" class="modal_form">
+            <section class="form_step_one">
+                <h2 class="heading">Select Tickets</h2>
+                <section class="zone_selection_container">
+                    <fieldset class="zone_selection">
+                        <legend>1.Select zone (zones)</legend>
+                        <div class="zones_container">
+                            <div class="zone_fan_2">
+                                <input type="checkbox" id="fan-2" name="fan-2" value="fan-2"/>
+                                <label for="fan-2">
+                                    <span>FAN2</span>
+                                    <span>35$</span>
+                                </label>
+                            </div>
+                            <div class="zone_fan_1">
+                                <input type="checkbox" id="fan-1" name="fan-1" value="fan-1"/>
+                                <label for="fan-1">
+                                    <span>FAN1</span>
+                                    <span>50$</span>
+                                </label>
+                            </div>
+                            <div class="zone_stage">STAGE</div>
+                        </div>
 
-        <p>Modal window for tickets reservation</p>
+                    </fieldset>
+                    <div class="location_info_container">
+                        <span>Bright Lights</span>
+                        <a href="#" target="_blank">The Park at Wild Horse Pass</a>
+                    </div>
+                </section>
+            </section>
+        </form>
+
     </div>
 </dialog>
 

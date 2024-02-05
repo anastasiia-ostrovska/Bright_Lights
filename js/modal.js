@@ -8,23 +8,19 @@ class Modal {
     this.addCloseEventListener();
   }
 
-  handlePageScrolling = (event) => {
-    if (event.type === 'close') {
-      document.body.style.overflow = 'auto';
-    } else {
+  handlePageScrolling = (modal) => {
+    if (modal.open) {
       document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
     }
-  };
-
-  open = (event) => {
-    this.modalElement.showModal();
-    this.handlePageScrolling(event);
   };
 
   addOpenEventListener = () => {
     this.openBtnList.forEach(btn => {
       btn.addEventListener('click', (event) => {
-        this.open(event);
+        this.modalElement.showModal();
+        this.handlePageScrolling(this.modalElement);
       });
     });
   };
@@ -43,7 +39,7 @@ class Modal {
     });
     // return scrolling on close:
     this.modalElement.addEventListener('close', (event) => {
-      this.handlePageScrolling(event);
+      this.handlePageScrolling(this.modalElement);
     });
   };
 }

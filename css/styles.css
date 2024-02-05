@@ -901,7 +901,6 @@ time {
 
 /* --- Modal window for tickets reservation start --- */
 #modal_dialog_container {
-    /*position: relative;*/
     border: none;
     padding: 0;
     /*box-shadow: 0 0 5px 5px #1c1b21;*/
@@ -914,18 +913,19 @@ time {
 
 #modal_dialog_container,
 #modal_dialog_container .modal_close_btn {
-    background-color: #474444;
+    background-color: #1c1b21;
 }
 
 #modal_dialog_container .modal_content_container {
     display: flex;
-    height: 50vh;
-    width: 50vw;
+    overflow: hidden;
+    /*height: 50vh;*/
+    /*width: 50vw;*/
     padding: 0 25px;
 }
 
 dialog::backdrop {
-    background-color: #1c1b21;
+    background-color: #474444;
     opacity: 0.9;
 }
 
@@ -941,20 +941,14 @@ dialog::backdrop {
     display: flex;
     flex-direction: row;
     height: 25px;
-    /*margin-top: -50px;*/
 }
 
 #modal_dialog_container .modal_close_btn {
-    /*position: absolute;*/
-    /*right: 0;*/
-    /*top: 0;*/
     align-self: end;
     height: 44px;
-    /*width: 88px;*/
     padding: 0;
     font-size: 16px;
     font-weight: bold;
-    /*color: ;*/
     border: none;
     cursor: pointer;
 }

@@ -8,25 +8,23 @@ class Modal {
     this.addCloseEventListener();
   }
 
-  handlePageScrolling = (preventPageScrolling = true) => {
-    if (preventPageScrolling) {
-      document.body.style.overflow = 'hidden';
-    } else {
+  handlePageScrolling = (event) => {
+    if (event.type === 'close') {
       document.body.style.overflow = 'auto';
+    } else {
+      document.body.style.overflow = 'hidden';
     }
   };
-  onOpen = () => {
+
+  open = (event) => {
     this.modalElement.showModal();
-    this.handlePageScrolling();
+    this.handlePageScrolling(event);
   };
-  onCLose = () => {
-    this.modalElement.close();
-    this.handlePageScrolling(false);
-  };
+
   addOpenEventListener = () => {
     this.openBtnList.forEach(btn => {
-      btn.addEventListener('click', () => {
-        this.onOpen();
+      btn.addEventListener('click', (event) => {
+        this.open(event);
       });
     });
   };
@@ -34,14 +32,18 @@ class Modal {
     // close on closeBtn click:
     this.closeBtnList.forEach(btn => {
       btn.addEventListener('click', () => {
-        this.onCLose();
+        this.modalElement.close();
       });
     });
     // close on click outside the modal content;
     this.modalElement.addEventListener('pointerdown', (event) => {
       if (event.target === this.modalElement) {
-        this.onCLose();
+        this.modalElement.close();
       }
+    });
+    // return scrolling on close:
+    this.modalElement.addEventListener('close', (event) => {
+      this.handlePageScrolling(event);
     });
   };
 }

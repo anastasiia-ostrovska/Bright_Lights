@@ -585,8 +585,8 @@
     <div class="modal_content_container">
         <div class="modal_header">
             <div class="modal_indicators_container">
-                <div class="indicator_round step_one">1</div>
-                <div class="indicator_line step_one"></div>
+                <div class="indicator_round step_one active">1</div>
+                <div class="indicator_line step_one active"></div>
                 <div class="indicator_round step_two">2</div>
                 <div class="indicator_line step_two"></div>
                 <div class="indicator_round step_three">3</div>
@@ -621,10 +621,6 @@
                         </div>
 
                     </fieldset>
-                    <div class="location_info_container">
-                        <span>Bright Lights</span>
-                        <a href="#" target="_blank">The Park at Wild Horse Pass</a>
-                    </div>
                 </section>
                 <section class="quantity_selection_container">
                     <fieldset class="quantity_selection">
@@ -659,11 +655,12 @@
                 </section>
             </section>
 
-            <section class="form_step_two"></section>
+            <section class="form_step_two" style="display: none"></section>
 
             <button type="submit" class="submit_btn">Reserve</button>
         </form>
-        <section class="success_message_container"></section>
+
+        <section class="success_message_container" style="display:none" "></section>
     </div>
 </dialog>
 

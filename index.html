@@ -586,7 +586,7 @@
         <div class="modal_header">
             <div class="modal_indicators_container">
                 <div class="indicator_round step_one active">1</div>
-                <div class="indicator_line step_one active"></div>
+                <div class="indicator_line step_one"></div>
                 <div class="indicator_round step_two">2</div>
                 <div class="indicator_line step_two"></div>
                 <div class="indicator_round step_three">3</div>
@@ -595,27 +595,27 @@
         </div>
 
         <form action="" class="modal_form">
-            <section class="form_step_one">
+            <section class="form_step">
                 <h2 class="heading">Select Tickets</h2>
                 <section class="zone_selection_container">
                     <fieldset class="zone_selection">
-                        <legend>1.Select zone (zones)</legend>
+                        <legend>1. Select zone (zones)</legend>
                         <div class="zones_container">
-                            <div class="zone_fan_2">
+                            <div class="zone fan_2 selected">
                                 <input type="checkbox" id="fan-2" name="fan-2" value="fan-2"/>
                                 <label for="fan-2">
                                     <span>FAN2</span>
                                     <span>35$</span>
                                 </label>
                             </div>
-                            <div class="zone_fan_1">
+                            <div class="zone fan_1">
                                 <input type="checkbox" id="fan-1" name="fan-1" value="fan-1"/>
                                 <label for="fan-1">
                                     <span>FAN1</span>
                                     <span>50$</span>
                                 </label>
                             </div>
-                            <div class="zone_stage">
+                            <div class="zone stage">
                                 <span>STAGE</span>
                             </div>
                         </div>
@@ -624,15 +624,16 @@
                 </section>
                 <section class="quantity_selection_container">
                     <fieldset class="quantity_selection">
-                        <legend>2.Select ticket quantity:</legend>
+                        <legend>2. Select ticket quantity:</legend>
                         <div class="selected_ticket_container">
                             <div class="ticket_info">
                                 <span class="zone_name">FAN1</span>
-                                <span class="total_zone_price">100$</span>
+                                <span class="total_zone_price">50$</span>
                             </div>
                             <div class="counter-container">
                                 <button class="minus_btn"><i class="fa-solid fa-minus"></i></button>
-                                <span class="count">1</span>
+                                <label for="quantity1"></label>
+                                <input type="text" name="quantity1" id="quantity1" value="1" class="counter" disabled>
                                 <button class="plus_btn"><i class="fa-solid fa-plus"></i></button>
                             </div>
                         </div>
@@ -643,7 +644,8 @@
                             </div>
                             <div class="counter-container">
                                 <button class="minus_btn"><i class="fa-solid fa-minus"></i></button>
-                                <span class="count">1</span>
+                                <label for="quantity1"></label>
+                                <input type="text" name="quantity2" id="quantity2" value="1" class="counter" disabled>
                                 <button class="plus_btn"><i class="fa-solid fa-plus"></i></button>
                             </div>
                         </div>
@@ -655,12 +657,12 @@
                 </section>
             </section>
 
-            <section class="form_step_two" style="display: none"></section>
+            <section class="form_step" style="display: none"></section>
 
             <button type="submit" class="submit_btn">Reserve</button>
         </form>
 
-        <section class="success_message_container" style="display:none" "></section>
+        <section class="success_message_container" style="display:none"></section>
     </div>
 </dialog>
 

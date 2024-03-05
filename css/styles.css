@@ -901,7 +901,7 @@ time {
     color: #FFFFFF50;
 }
 
-/* --- Modal window for tickets reservation start --- */
+/* --- ModalController window for tickets reservation start --- */
 /* Fonts start*/
 #modal_dialog_container,
 #modal_dialog_container .modal_close_btn,
@@ -984,7 +984,7 @@ dialog::backdrop {
 /* Main modal containers end*/
 
 
-/* --- Modal header start --- */
+/* --- ModalController header start --- */
 #modal_dialog_container .modal_header {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
@@ -1026,9 +1026,9 @@ dialog::backdrop {
     background-color: #7A66CC;
 }
 
-/* --- Modal header end --- */
+/* --- ModalController header end --- */
 
-/* --- Modal main start --- */
+/* --- ModalController main start --- */
 #modal_dialog_container .modal_form,
 #modal_dialog_container .modal_form .form_step {
     column-gap: 10%;
@@ -1229,9 +1229,9 @@ dialog::backdrop {
 
 /* Buttons end*/
 
-/* --- Modal main end --- */
+/* --- ModalController main end --- */
 
-/* --- Modal window for tickets reservation end --- */
+/* --- ModalController window for tickets reservation end --- */
 
 
 

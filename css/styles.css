@@ -906,23 +906,26 @@ time {
 #modal_dialog_container,
 #modal_dialog_container .modal_close_btn,
 #modal_dialog_container .modal_form .submit_btn,
+#modal_dialog_container .buttons_container .prev_btn,
 #modal_dialog_container .counter-container .counter {
     font-weight: bold;
 
 }
 
-#modal_dialog_container .modal_form .submit_btn,
+
 #modal_dialog_container .form_step .heading,
 #modal_dialog_container .zones_container label > span:nth-child(2) {
-    font-size: 18px;
+    font-size: 22px;
 }
 
+#modal_dialog_container .modal_form .submit_btn,
 #modal_dialog_container .modal_close_btn,
 #modal_dialog_container legend,
 #modal_dialog_container .quantity_selection_container .total_selected,
 #modal_dialog_container .selected_ticket_container .ticket_info > span:nth-child(2),
-#modal_dialog_container .counter-container .counter {
-    font-size: 14px;
+#modal_dialog_container .counter-container .counter,
+#modal_dialog_container .buttons_container .prev_btn {
+    font-size: 18px;
 }
 
 
@@ -930,7 +933,7 @@ time {
 #modal_dialog_container .zones_container label > span:first-child,
 #modal_dialog_container .zones_container .stage,
 #modal_dialog_container .selected_ticket_container .ticket_info > span:first-child {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 #modal_dialog_container .modal_close_btn,
@@ -969,8 +972,8 @@ time {
 #modal_dialog_container .modal_content_container {
     display: grid;
     grid-template-rows: 60px auto;
-    height: 420px;
-    width: 760px;
+    height: 480px;
+    width: 900px;
 }
 
 dialog::backdrop {
@@ -1049,13 +1052,13 @@ dialog::backdrop {
 #modal_dialog_container .form_step .heading {
     grid-column: 1 / 3;
     margin: 0 auto;
-    align-self: end;
 }
 
+/* STEP 1 start*/
 /* Zone selection start*/
 #modal_dialog_container .zone_selection_container,
 #modal_dialog_container .quantity_selection_container {
-    padding-bottom: 5px;
+    padding: 10px 0;
 }
 
 #modal_dialog_container legend {
@@ -1140,7 +1143,7 @@ dialog::backdrop {
 #modal_dialog_container .selected_ticket_container {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     border: 2px solid #8d8d8d;
     border-radius: 5px 23px 23px 5px;
     box-shadow: 0 5px 5px #7a66cc26;
@@ -1183,19 +1186,48 @@ dialog::backdrop {
 
 }
 
-/* Zone quantity end*/
+/* Zone quantity end */
+/* STEP 1 end */
 
-/*Submit btn start*/
-#modal_dialog_container .modal_form .submit_btn {
-    grid-column: 2 / 3;
+/* STEP 2 start */
+#modal_dialog_container .modal_form .form_step.step-2 {
+    background-color: darkslategray;
+}
+
+/* STEP 2 end */
+
+
+/* Buttons  start */
+#modal_dialog_container .buttons_container {
+    display: grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap: inherit;
+    grid-column: 1 / 3;
     grid-row: 5 / 6;
+}
+
+#modal_dialog_container .buttons_container .prev_btn {
+    grid-column: 1 / 2;
+    align-self: end;
+    justify-self: end;
+    height: 60px;
+    width: 50%;
     padding: 0;
-    margin-top: 10px;
+    border: none;
+    border-radius: 30px;
+    background-color: #3a3a3d;
+}
+
+#modal_dialog_container .buttons_container .submit_btn {
+    grid-column: 2 / 3;
+    align-self: end;
+    height: 60px;
+    padding: 0;
     border: none;
     border-radius: 30px;
 }
 
-/*Submit btn end*/
+/* Buttons end*/
 
 /* --- Modal main end --- */
 

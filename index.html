@@ -595,20 +595,20 @@
         </div>
 
         <form action="" class="modal_form">
-            <section class="form_step">
+            <section class="form_step step-1">
                 <h2 class="heading">Select Tickets</h2>
                 <section class="zone_selection_container">
                     <fieldset class="zone_selection">
                         <legend>1. Select zone (zones)</legend>
                         <div class="zones_container">
-                            <div class="zone fan_2 selected">
+                            <div class="zone fan_2 ">
                                 <input type="checkbox" id="fan-2" name="fan-2" value="fan-2"/>
                                 <label for="fan-2">
                                     <span>FAN2</span>
                                     <span>35$</span>
                                 </label>
                             </div>
-                            <div class="zone fan_1">
+                            <div class="zone fan_1 selected">
                                 <input type="checkbox" id="fan-1" name="fan-1" value="fan-1"/>
                                 <label for="fan-1">
                                     <span>FAN1</span>
@@ -657,9 +657,20 @@
                 </section>
             </section>
 
-            <section class="form_step" style="display: none"></section>
+            <section class="form_step step-2" style="display: none">
+                <h2 class="heading">Fill the Form</h2>
+                <section class="personal_information_container">
+                </section>
+                <section class="reservation_information_container">
+                </section>
 
-            <button type="submit" class="submit_btn">Reserve</button>
+
+            </section>
+
+            <div class="buttons_container">
+                <button class="prev_btn" style="display: none">Previous</button>
+                <button type="submit" class="submit_btn">Reserve</button>
+            </div>
         </form>
 
         <section class="success_message_container" style="display:none"></section>
@@ -669,5 +680,6 @@
 <script src="./js/player.js"></script>
 <script src="js/slider.js"></script>
 <script src="js/modal.js"></script>
+<script src="js/multiple-step-form.js"></script>
 </body>
 </html>

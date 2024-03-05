@@ -1,6 +1,8 @@
-class ModalController {
-  constructor ({ modalInterface, openBtnList, closeBtnList, handlePageScrolling }) {
-    this.modalInterface = modalInterface;
+import ModalInterface from './modalInterface.js';
+
+class ModalController extends ModalInterface {
+  constructor ({ modalElement, openBtnList, closeBtnList, handlePageScrolling }) {
+    super(modalElement);
     this.openBtnList = openBtnList;
     this.closeBtnList = closeBtnList;
     this.handlePageScrolling = handlePageScrolling;
@@ -9,21 +11,21 @@ class ModalController {
   addOpenEventListener = () => {
     this.openBtnList.forEach(btn => {
       btn.addEventListener('click', (event) => {
-        this.modalInterface.openModal(this.handlePageScrolling);
+        this.openModal(this.handlePageScrolling);
       });
     });
   };
   addCloseEventListener = (callback) => {
     // close on closeBtn click:
     this.closeBtnList.forEach(btn => {
-      btn.addEventListener('click', () => {
-        this.modalInterface.closeModal(this.handlePageScrolling);
+      btn.addEventListener('click', (event) => {
+        this.closeModal(this.handlePageScrolling);
       });
     });
     // close on click outside the modal content;
-    this.modalInterface.modalElement.addEventListener('pointerdown', (event) => {
-      if (event.target === this.modalInterface.modalElement) {
-        this.modalInterface.closeModal(this.handlePageScrolling);
+    this.modalElement.addEventListener('pointerdown', (event) => {
+      if (event.target === this.modalElement) {
+        this.closeModal(this.handlePageScrolling);
       }
     });
   };

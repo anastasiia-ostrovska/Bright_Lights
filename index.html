@@ -594,7 +594,7 @@
             <button class="modal_close_btn" aria-label="Close">Close</button>
         </div>
 
-        <form action="" class="modal_form">
+        <form action="" id="multi_step_form" class="modal_form">
             <section class="form_step step-1">
                 <h2 class="heading">Select Tickets</h2>
                 <section class="zone_selection_container">
@@ -667,9 +667,11 @@
 
             </section>
 
+            <section class="form_step success_message_container" style="display:none"></section>
+            2q
             <div class="buttons_container">
-                <button class="prev_btn" style="display: none">Previous</button>
-                <button type="submit" class="submit_btn">Reserve</button>
+                <button type="button" class="prev_btn" style="display: none">Previous</button>
+                <button type="submit" class="submit_btn next_btn">Reserve</button>
             </div>
         </form>
 

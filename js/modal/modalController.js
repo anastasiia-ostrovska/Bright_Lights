@@ -15,7 +15,7 @@ class ModalController extends ModalInterface {
       });
     });
   };
-  addCloseEventListener = (callback) => {
+  addCloseEventListener = () => {
     // close on closeBtn click:
     this.closeBtnList.forEach(btn => {
       btn.addEventListener('click', (event) => {

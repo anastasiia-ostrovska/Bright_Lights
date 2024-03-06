@@ -947,7 +947,8 @@ time {
 
 /* Cursor pointer start*/
 #modal_dialog_container .modal_close_btn,
-#modal_dialog_container .modal_form .submit_btn {
+#modal_dialog_container .modal_form .submit_btn,
+#modal_dialog_container .prev_btn {
     cursor: pointer;
 }
 

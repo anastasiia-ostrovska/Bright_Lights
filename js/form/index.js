@@ -1,22 +1,28 @@
-import FormPagesBtnController from './formPagesBtnController.js';
+import FormStepsBtnController from './formStepsBtnController.js';
 
 const form = document.querySelector('#multi_step_form');
-const formPagesList = form.querySelectorAll('.form_step');
+const formStepsElementList = form.querySelectorAll('.form_step');
 const prevBtn = form.querySelector('.prev_btn');
 const nextBtn = form.querySelector('.next_btn');
+const hiddenClassName = 'hidden';
 
-const formPagesBtnController = new FormPagesBtnController({ formPagesList, prevBtn, nextBtn });
-formPagesBtnController.init();
+const formStepsBtnController = new FormStepsBtnController({
+  formStepsList: formStepsElementList,
+  prevBtn,
+  nextBtn,
+  hiddenClassName
+});
+formStepsBtnController.init();
 
-formPagesBtnController.prevBtn.addEventListener('click', (event) => {
-  if (formPagesBtnController.pageIndex === 0) {
+formStepsBtnController.prevBtn.addEventListener('click', (event) => {
+  if (formStepsBtnController.stepIndex === 0) {
     event.currentTarget.style.display = 'none';
   }
 });
 
-formPagesBtnController.nextBtn.addEventListener('click', (event) => {
-  if (--formPagesBtnController.pageIndex === 0) {
-    formPagesBtnController.prevBtn.style.display = 'block';
+formStepsBtnController.nextBtn.addEventListener('click', (event) => {
+  if (--formStepsBtnController.stepIndex === 0) {
+    formStepsBtnController.prevBtn.style.display = 'block';
   }
 });
 

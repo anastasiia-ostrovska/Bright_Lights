@@ -228,7 +228,6 @@
                     </div>
                 </article>
 
-                <!--                todo: нормально зробити картинки-->
                 <div class="sec_2_photos">
                     <div class="sec_2_foreground_img">
                         <img
@@ -602,14 +601,14 @@
                         <legend>1. Select zone (zones)</legend>
                         <div class="zones_container">
                             <div class="zone fan_2 ">
-                                <input type="checkbox" id="fan-2" name="fan-2" value="fan-2"/>
+                                <input class="hidden" type="checkbox" id="fan-2" name="fan-2" value="fan-2"/>
                                 <label for="fan-2">
                                     <span>FAN2</span>
                                     <span>35$</span>
                                 </label>
                             </div>
-                            <div class="zone fan_1 selected">
-                                <input type="checkbox" id="fan-1" name="fan-1" value="fan-1"/>
+                            <div class="zone fan_1">
+                                <input class="hidden" type="checkbox" id="fan-1" name="fan-1" value="fan-1"/>
                                 <label for="fan-1">
                                     <span>FAN1</span>
                                     <span>50$</span>
@@ -657,7 +656,7 @@
                 </section>
             </section>
 
-            <section class="form_step step-2" style="display: none">
+            <section class="form_step step-2 hidden">
                 <h2 class="heading">Fill the Form</h2>
                 <section class="personal_information_container">
                 </section>
@@ -667,15 +666,13 @@
 
             </section>
 
-            <section class="form_step success_message_container" style="display:none"></section>
+            <section class="form_step success_message_container hidden"></section>
 
             <div class="buttons_container">
-                <button type="button" class="prev_btn" style="display: none">Previous</button>
-                <button type="submit" class="submit_btn next_btn">Reserve</button>
+                <button type="button" class="form-button prev_btn hidden">Previous</button>
+                <button type="submit" class="form-button submit_btn next_btn">Reserve</button>
             </div>
         </form>
-
-        <section class="success_message_container" style="display:none"></section>
     </div>
 </dialog>
 

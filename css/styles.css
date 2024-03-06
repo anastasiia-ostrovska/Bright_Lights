@@ -1108,10 +1108,6 @@ dialog::backdrop {
     justify-content: center;
 }
 
-#modal_dialog_container .zone_selection_container .zones_container input {
-    display: none;
-}
-
 #modal_dialog_container .zone_selection_container .zones_container label {
     display: flex;
     flex-direction: column;
@@ -1197,6 +1193,13 @@ dialog::backdrop {
 
 /* STEP 2 end */
 
+/* STEP 3 start */
+#modal_dialog_container .modal_form .form_step.success_message_container {
+    background-color: greenyellow;
+}
+
+/* STEP 3 end */
+
 
 /* Buttons  start */
 #modal_dialog_container .buttons_container {
@@ -1231,6 +1234,10 @@ dialog::backdrop {
 /* Buttons end*/
 
 /* --- ModalController main end --- */
+#multi_step_form .form_step.hidden,
+#multi_step_form .form-button.hidden {
+    display: none;
+}
 
 /* --- ModalController window for tickets reservation end --- */
 

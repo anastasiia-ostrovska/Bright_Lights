@@ -1235,7 +1235,7 @@ dialog::backdrop {
 
 /* --- ModalController main end --- */
 #multi_step_form .form_step.hidden,
-#multi_step_form .form-button.hidden {
+#multi_step_form .form_button.hidden {
     display: none;
 }
 

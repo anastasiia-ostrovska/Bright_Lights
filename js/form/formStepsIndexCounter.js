@@ -1,19 +1,23 @@
 class FormStepsIndexCounter {
   constructor (formStepsList) {
     this.formStepsList = formStepsList;
-    this.stepIndex = 0;
+    this._stepIndex = 0;
+  }
+
+  get stepIndex () {
+    return this._stepIndex;
   }
 
   increaseIndex = () => {
     const stepsCount = this.formStepsList.length;
-    if (this.stepIndex < stepsCount - 1) {
-      this.stepIndex++;
+    if (this._stepIndex < stepsCount - 1) {
+      this._stepIndex++;
     }
   };
 
   decreaseIndex = () => {
-    if (this.stepIndex > 0) {
-      this.stepIndex--;
+    if (this._stepIndex > 0) {
+      this._stepIndex--;
     }
   };
 }

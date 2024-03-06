@@ -8,7 +8,7 @@ class FormStepsBtnController extends FormStepsInterface {
   }
 
   onPrevBtnClick = () => {
-    this.decreaseIndex();
+    this.decreaseIndex(this.stepIndex);
     this.showStep(this.stepIndex);
   };
 
@@ -26,7 +26,6 @@ class FormStepsBtnController extends FormStepsInterface {
       event.preventDefault();
       this.onNextBtnClick();
     });
-    console.log(this.stepIndex);
   };
 }
 

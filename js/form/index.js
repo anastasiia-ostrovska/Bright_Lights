@@ -1,4 +1,5 @@
 import FormStepsBtnController from './formStepsBtnController.js';
+import { toggleClassName } from '../utils/stylesUtils.js';
 
 const form = document.querySelector('#multi_step_form');
 const formStepsElementList = form.querySelectorAll('.form_step');
@@ -15,25 +16,21 @@ const formStepsBtnController = new FormStepsBtnController({
 });
 formStepsBtnController.init();
 
-// handle prev button visibility on click:
-const toggleBtnVisibility = (button, hiddenClassName) => {
-  button.classList.toggle(hiddenClassName);
-};
 const handlePrevBtnVisibility = (formStepsBtnController, hiddenClassName) => {
   const isFirstStep = formStepsBtnController.stepIndex === 0;
   const isSecondStep = (formStepsBtnController.stepIndex - 1) === 0;
   const isPrevBtnHidden = formStepsBtnController.prevBtn.classList.contains(hiddenClassName);
 
   if (isFirstStep && !isPrevBtnHidden) {
-    toggleBtnVisibility(formStepsBtnController.prevBtn, hiddenClassName);
+    toggleClassName(formStepsBtnController.prevBtn, hiddenClassName);
   }
 
   if (isSecondStep && isPrevBtnHidden) {
-    toggleBtnVisibility(formStepsBtnController.prevBtn, hiddenClassName);
+    toggleClassName(formStepsBtnController.prevBtn, hiddenClassName);
   }
 };
 
-const formNavBtnList = [prevBtn, nextBtn];
+const formNavBtnList = [formStepsBtnController.prevBtn, formStepsBtnController.nextBtn];
 formNavBtnList.forEach(btn => btn.addEventListener('click', (event) => {
   handlePrevBtnVisibility(formStepsBtnController, hiddenClassName);
 }));

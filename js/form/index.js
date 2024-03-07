@@ -35,4 +35,10 @@ formNavBtnList.forEach(btn => btn.addEventListener('click', (event) => {
   handlePrevBtnVisibility(formStepsBtnController, hiddenClassName);
 }));
 
+// slidesArray.forEach(slide => slide.addEventListener('click', (event) => {
+//
+// }));
+//
+// const openBtnList = document.querySelectorAll('.modal_show_btn');
+
 

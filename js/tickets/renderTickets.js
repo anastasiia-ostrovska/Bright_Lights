@@ -1,4 +1,4 @@
-export const renderSlides = (slidesInfo, galleryList) => {
+export const renderTickets = (slidesInfo, galleryList) => {
   // get general count of slides:
   const slidesCount = slidesInfo.length;
 

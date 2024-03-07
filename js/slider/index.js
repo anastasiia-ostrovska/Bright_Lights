@@ -1,11 +1,7 @@
-import { ticketsInfo } from './ticketsInfo.js';
-import { renderSlides } from './renderSlides.js';
+import { galleryList } from '../tickets/index.js';
 import { addSliderController } from './sliderController.js';
 
-const sliderEl = document.querySelector('#tickets-slider');
-const galleryList = sliderEl.querySelector('.gallery-list');
-
-renderSlides(ticketsInfo, galleryList);
+export const sliderEl = document.querySelector('#tickets-slider');
 export const slidesArray = sliderEl.querySelectorAll('.ticket-container');
 
 const galleryContainer = sliderEl.querySelector('.gallery-container');

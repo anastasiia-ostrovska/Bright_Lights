@@ -1,10 +1,11 @@
 import { ticketsInfo } from '../tickets/ticketsInfo.js';
 import { slidesArray } from '../slider/index.js';
+import { openBtnList } from '../modal/index.js';
 import { modalElement } from '../modal/index.js';
-
 import { toggleClassName } from '../utils/stylesUtils.js';
+import FormStepsBtnController from './formStepsBtnController.js';
 
-export const renderPricesOnModalOpen = ({ ticketBtnSelector, priceFan1El, priceFan2El }) => {
+export const renderPricesOnOpen = ({ ticketBtnSelector, priceFan1El, priceFan2El }) => {
   slidesArray.forEach((slide, index) => slide.addEventListener('click', (event) => {
     const isButton = event.target.tagName === 'BUTTON';
     const isContainTicketBtnSelector = event.target.classList.contains(ticketBtnSelector);
@@ -16,7 +17,25 @@ export const renderPricesOnModalOpen = ({ ticketBtnSelector, priceFan1El, priceF
   }));
 };
 
-export const handlePrevBtnVisibilityOnClick = ({ formStepsBtnController, formNavBtnList, hiddenClassName }) => {
+let formStepsBtnController = null;
+export const createFormStepControllerOnOpen = ({
+  formStepsList,
+  prevBtn,
+  nextBtn,
+  hiddenClassName
+}) => {
+  openBtnList.forEach(btn => btn.addEventListener('click', (event) => {
+    formStepsBtnController = new FormStepsBtnController({
+      formStepsList,
+      prevBtn,
+      nextBtn,
+      hiddenClassName
+    });
+    formStepsBtnController.init();
+  }));
+};
+
+export const handlePrevBtnVisibilityOnClick = (formNavBtnList, hiddenClassName) => {
   formNavBtnList.forEach(btn => btn.addEventListener('click', (event) => {
     const isFirstStep = formStepsBtnController.stepIndex === 0;
     const isSecondStep = (formStepsBtnController.stepIndex - 1) === 0;
@@ -32,9 +51,15 @@ export const handlePrevBtnVisibilityOnClick = ({ formStepsBtnController, formNav
   }));
 };
 
-export const resetTicketsQuantityOnModalClose = (quantityCounterList) => {
+export const resetTicketsQuantityOnClose = (quantityCounterList) => {
   modalElement.addEventListener('close', (event) => {
     quantityCounterList.forEach(counter => counter.value = 0);
+  });
+};
+
+export const removeFormStepControllerOnCLose = () => {
+  modalElement.addEventListener('close', (event) => {
+    formStepsBtnController = null;
   });
 };
 

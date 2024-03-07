@@ -10,7 +10,7 @@ const handlePageScrolling = (modal) => {
 
 // query modal element and open/close buttons:
 export const modalElement = document.querySelector('#modal_dialog_container');
-const openBtnList = document.querySelectorAll('.modal_show_btn');
+export const openBtnList = document.querySelectorAll('.modal_show_btn');
 const closeBtnList = document.querySelectorAll('.modal_close_btn');
 
 const formModalController = new ModalController({

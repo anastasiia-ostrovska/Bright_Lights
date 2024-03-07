@@ -1087,13 +1087,22 @@ dialog::backdrop {
     padding: 5px;
 }
 
-#modal_dialog_container .zone_selection_container .zone.fan_1:hover,
-#modal_dialog_container .zone_selection_container .zone.fan_2:hover {
-    background-color: #69618d;
+#modal_dialog_container .zone_selection_container .zone.fan_1.selected:hover,
+#modal_dialog_container .zone_selection_container .zone.fan_2.selected:hover {
+    background-color: #8d8d8daa;
+
 }
 
-#modal_dialog_container .zone_selection_container .zone.selected {
-    background-color: #998fc4;
+
+#modal_dialog_container .zone_selection_container .zone.fan_1:hover,
+#modal_dialog_container .zone_selection_container .zone.fan_2:hover {
+    background-color: #7a66cc63;
+
+}
+
+#modal_dialog_container .zone_selection_container .fan_1.selected,
+#modal_dialog_container .zone_selection_container .fan_2.selected {
+    background-color: #7a66ccbd;
 }
 
 #modal_dialog_container .zone_selection_container .zone.fan_1 {

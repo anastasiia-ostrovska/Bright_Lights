@@ -1,7 +1,7 @@
 import FormStepsInterface from './formStepsInterface.js';
 
 class FormStepsBtnController extends FormStepsInterface {
-  constructor ({ formStepsList: formStepsList, prevBtn, nextBtn, hiddenClassName }) {
+  constructor ({ formStepsList, prevBtn, nextBtn, hiddenClassName }) {
     super(formStepsList, hiddenClassName);
     this.prevBtn = prevBtn;
     this.nextBtn = nextBtn;
@@ -18,6 +18,7 @@ class FormStepsBtnController extends FormStepsInterface {
   };
 
   init = () => {
+    this.showStep(this.stepIndex);
     this.prevBtn.addEventListener('click', (event) => {
       event.preventDefault();
       this.onPrevBtnClick();

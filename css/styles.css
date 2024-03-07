@@ -938,7 +938,9 @@ time {
 
 #modal_dialog_container .modal_close_btn,
 #modal_dialog_container .zones_container .stage > span,
-#modal_dialog_container .quantity_selection_container .total_selected > span,
+#modal_dialog_container .total_selected .total_quantity-container,
+#modal_dialog_container .total_selected .total_quantity,
+#modal_dialog_container .total_selected .total_price,
 #modal_dialog_container .selected_ticket_container .ticket_info > span {
     color: #8d8d8d;
 }

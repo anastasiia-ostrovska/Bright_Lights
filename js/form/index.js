@@ -1,13 +1,20 @@
 import FormStepsBtnController from './formStepsBtnController.js';
-import { toggleClassName } from '../utils/stylesUtils.js';
+import { renderPricesOnModalOpen } from './subscribeOnEvents.js';
+import { handlePrevBtnVisibilityOnClick } from './subscribeOnEvents.js';
+import { resetTicketsQuantityOnModalClose } from './subscribeOnEvents.js';
 
 const form = document.querySelector('#multi_step_form');
+const priceFan1El = form.querySelector('.price.fan-1');
+const priceFan2El = form.querySelector('.price.fan-2');
+const ticketBtnSelector = 'modal_show_btn';
+
+renderPricesOnModalOpen({ ticketBtnSelector, priceFan1El, priceFan2El });
+
 const formStepsElementList = form.querySelectorAll('.form_step');
 const prevBtn = form.querySelector('.prev_btn');
 const nextBtn = form.querySelector('.next_btn');
 const hiddenClassName = 'hidden';
 
-// activate button controller:
 const formStepsBtnController = new FormStepsBtnController({
   formStepsList: formStepsElementList,
   prevBtn,
@@ -16,29 +23,20 @@ const formStepsBtnController = new FormStepsBtnController({
 });
 formStepsBtnController.init();
 
-const handlePrevBtnVisibility = (formStepsBtnController, hiddenClassName) => {
-  const isFirstStep = formStepsBtnController.stepIndex === 0;
-  const isSecondStep = (formStepsBtnController.stepIndex - 1) === 0;
-  const isPrevBtnHidden = formStepsBtnController.prevBtn.classList.contains(hiddenClassName);
+const formNavBtnList = [prevBtn, nextBtn];
 
-  if (isFirstStep && !isPrevBtnHidden) {
-    toggleClassName(formStepsBtnController.prevBtn, hiddenClassName);
-  }
+handlePrevBtnVisibilityOnClick({
+  formStepsBtnController,
+  formNavBtnList,
+  hiddenClassName,
+});
 
-  if (isSecondStep && isPrevBtnHidden) {
-    toggleClassName(formStepsBtnController.prevBtn, hiddenClassName);
-  }
-};
+// reset quantity on close:
+const quantityCounterList = form.querySelectorAll('.counter');
 
-const formNavBtnList = [formStepsBtnController.prevBtn, formStepsBtnController.nextBtn];
-formNavBtnList.forEach(btn => btn.addEventListener('click', (event) => {
-  handlePrevBtnVisibility(formStepsBtnController, hiddenClassName);
-}));
+resetTicketsQuantityOnModalClose(quantityCounterList);
 
-// slidesArray.forEach(slide => slide.addEventListener('click', (event) => {
-//
-// }));
-//
-// const openBtnList = document.querySelectorAll('.modal_show_btn');
+
+
 
 

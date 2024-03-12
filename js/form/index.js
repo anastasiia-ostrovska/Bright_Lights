@@ -1,6 +1,6 @@
 import { renderPricesOnOpen } from './subscribeOnEvents.js';
 import { createFormStepControllerOnOpen } from './subscribeOnEvents.js';
-import { handlePrevBtnVisibilityOnClick } from './subscribeOnEvents.js';
+import { handlePrevBtnVisibilityOnBtnClick } from './subscribeOnEvents.js';
 import { resetTicketsQuantityOnClose } from './subscribeOnEvents.js';
 import { removeFormStepControllerOnCLose } from './subscribeOnEvents.js';
 
@@ -23,8 +23,7 @@ createFormStepControllerOnOpen({
   hiddenClassName
 });
 
-const formNavBtnList = [prevBtn, nextBtn];
-handlePrevBtnVisibilityOnClick(formNavBtnList, hiddenClassName);
+handlePrevBtnVisibilityOnBtnClick({ prevBtn, nextBtn, hiddenClassName });
 
 // on close:
 const quantityCounterList = form.querySelectorAll('.counter');

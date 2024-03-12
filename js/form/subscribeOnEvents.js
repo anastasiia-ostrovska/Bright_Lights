@@ -3,6 +3,7 @@ import { slidesArray } from '../slider/index.js';
 import { openBtnList } from '../modal/index.js';
 import { modalElement } from '../modal/index.js';
 import { toggleClassName } from '../utils/stylesUtils.js';
+import { getIsXIndex } from '../utils/indexUtils.js';
 import FormStepsBtnController from './formStepsBtnController.js';
 
 export const renderPricesOnOpen = ({ ticketBtnSelector, priceFan1El, priceFan2El }) => {
@@ -35,20 +36,24 @@ export const createFormStepControllerOnOpen = ({
   }));
 };
 
-export const handlePrevBtnVisibilityOnClick = (formNavBtnList, hiddenClassName) => {
-  formNavBtnList.forEach(btn => btn.addEventListener('click', (event) => {
-    const isFirstStep = formStepsBtnController.stepIndex === 0;
-    const isSecondStep = (formStepsBtnController.stepIndex - 1) === 0;
+export const handlePrevBtnVisibilityOnBtnClick = ({ prevBtn, nextBtn, hiddenClassName }) => {
+  nextBtn.addEventListener('click', (event) => {
+    const isFirstStep = getIsXIndex(formStepsBtnController.stepIndex, 0);
     const isPrevBtnHidden = formStepsBtnController.prevBtn.classList.contains(hiddenClassName);
 
-    if (isFirstStep && !isPrevBtnHidden) {
+    if (isFirstStep && isPrevBtnHidden) {
       toggleClassName(formStepsBtnController.prevBtn, hiddenClassName);
     }
+  });
 
-    if (isSecondStep && isPrevBtnHidden) {
+  prevBtn.addEventListener('click', (event) => {
+    const isSecondStep = getIsXIndex(formStepsBtnController.stepIndex, 1);
+    const isPrevBtnHidden = prevBtn.classList.contains(hiddenClassName);
+
+    if (isSecondStep && !isPrevBtnHidden) {
       toggleClassName(formStepsBtnController.prevBtn, hiddenClassName);
     }
-  }));
+  });
 };
 
 export const resetTicketsQuantityOnClose = (quantityCounterList) => {

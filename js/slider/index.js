@@ -2,8 +2,8 @@ import { galleryList } from '../tickets/index.js';
 import { addSliderController } from './sliderController.js';
 
 export const sliderEl = document.querySelector('#tickets-slider');
-export const slidesArray = sliderEl.querySelectorAll('.ticket-container');
 
+const slidesArray = sliderEl.querySelectorAll('.ticket-container');
 const galleryContainer = sliderEl.querySelector('.gallery-container');
 const sliderDotsContainer = sliderEl.querySelector('.dots_container');
 const prevBtn = sliderEl.querySelector('.prev');
